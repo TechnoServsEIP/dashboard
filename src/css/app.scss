@@ -1,0 +1,29 @@
+@import "quasar.variables";
+html, body {
+  height: 100%;
+}
+.q-expansion-item__content {
+  .q-hoverable:hover {
+    color: $secondary;
+  }
+}
+
+.authentication-svg-background {
+  background-color: $primary-2;
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.q-checkbox__inner {
+  padding-left: 0 !important;
+}
+
+.bg-light {
+  background-color: $light;
+  color: black;
+}

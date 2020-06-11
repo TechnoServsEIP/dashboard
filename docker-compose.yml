@@ -1,0 +1,35 @@
+# Docker Compose file for local development
+version: '3.5'
+
+services:
+  web:
+    build:
+      context: .
+      target: development-stage
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/usr/src/app
+    environment:
+      NODE_ENV: development
+    command: yarn run dev
+    networks:
+      - technoservs-net
+
+  test:
+    build:
+      context: .
+      target: development-stage
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/usr/src/app
+    environment:
+      NODE_ENV: test
+    command: yarn run test:unit:ui
+    networks:
+      - technoservs-net
+
+networks:
+  technoservs-net:
+    external: true
