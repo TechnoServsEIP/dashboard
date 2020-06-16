@@ -23,12 +23,12 @@ export default function ({store}) {
   })
 
   Router.beforeEach((to, from, next) => {
-    if (to.name == 'Apps' && store.getters['token'] == null) next({ name: 'Login' })
-    else next()
+    // if (to.name == 'Apps' && store.getters['token'] == null) next({ name: 'Login' })
+    // else next()
 
-    if ((to.name == 'Login' || to.name == 'Register') && store.getters['token'] != null) next({name: 'Apps'})
-    else next()
-
+    // if ((to.name == 'Login' || to.name == 'Register') && store.getters['token'] != null) next({name: 'Apps'})
+    // else next()
+    next()
   })
 
   return Router

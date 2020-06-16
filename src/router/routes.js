@@ -17,6 +17,32 @@ const routes = [
     ],
   },
   {
+    path: '/admin/',
+    component: () => import('pages/Admin/AdminRouter.vue'),
+    children: [
+      {
+        path: '/',
+        component: () => import('pages/Admin/AdminLayout.vue'),
+        children: [
+          {
+            path: '/',
+            component: () => import('pages/Admin/AdminIndex.vue'),
+          },
+          {
+            path: 'users',
+            name: 'UserList',
+            component: () => import('pages/Admin/Users/UserList.vue'),
+          },
+          {
+            path: 'roles',
+            name: 'RoleList',
+            component: () => import('pages/Admin/Users/RoleList.vue'),
+          },
+        ],
+      },
+    ],
+  },
+  {
     path: '/apps/',
     component: () => import('pages/Index.vue'),
     children: [
@@ -28,7 +54,6 @@ const routes = [
       {
         path: 'server/:id',
         component: () => import('pages/Servers/ServerLayout.vue'),
-        name: 'ServerDashboard',
         children: [
           {
             path: '/',
