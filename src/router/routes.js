@@ -43,6 +43,16 @@ const routes = [
             name: 'RoleList',
             component: () => import('pages/Admin/Users/RoleList.vue'),
           },
+          {
+            path: 'servers',
+            name: 'ServersList',
+            component: () => import('pages/Admin/Servers/ServersList.vue'),
+          },
+          {
+            path: 'offers',
+            name: 'OffersList',
+            component: () => import('pages/Admin/Offers/OffersList.vue'),
+          },
         ],
       },
     ],

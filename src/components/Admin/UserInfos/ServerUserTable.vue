@@ -66,7 +66,7 @@
 
 <script>
 export default {
-  name: 'ServerListTable',
+  name: 'ServerUserTable',
   props: {
     data: Array,
   },

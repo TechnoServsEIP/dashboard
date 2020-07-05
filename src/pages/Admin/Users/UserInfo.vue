@@ -30,11 +30,11 @@
       </q-tab-panel>
 
       <q-tab-panel name="servers">
-        <server-list-table :data="servers" />
+        <server-user-table :data="servers" />
       </q-tab-panel>
 
       <q-tab-panel name="billing">
-        <billing-list-table :data="billings"/>
+        <billing-list-table :data="billings" />
       </q-tab-panel>
     </q-tab-panels>
   </div>
@@ -43,13 +43,13 @@
 <script>
 import UserGeneralInfo from '../../../components/Admin/UserInfos/UserGeneralInfo'
 import BillingListTable from '../../../components/Admin/UserInfos/BillingListTable'
-import ServerListTable from '../../../components/Admin/Servers/ServerListTable'
+import ServerUserTable from '../../../components/Admin/UserInfos/ServerUserTable'
 
 export default {
   name: 'UserInfo',
   components: {
     UserGeneralInfo,
-    ServerListTable,
+    ServerUserTable,
     BillingListTable,
   },
   data() {

@@ -4,7 +4,7 @@
       color="primary"
       card-class="bg-light"
       flat
-      title="List of Roles"
+      title="Roles"
       :data="data"
       :columns="columns"
       :rows-per-page="10"
