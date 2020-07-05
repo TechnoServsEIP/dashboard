@@ -99,6 +99,9 @@ export default {
 .sublink {
   margin: 1%;
   color: $primary;
+  display: block;
+  text-decoration: underline;
+  cursor: pointer;
 }
 .link {
   background: none;

@@ -84,7 +84,16 @@ export default {
         },
       ],
       servers: [],
-      billings: [],
+      billings: [
+        {
+          id: '1',
+          date: '2020-06-13T10:24:16.630113Z',
+          server_name: 'my_server',
+          game: 'minecraft',
+          total: 100,
+          status: 'payed',
+        },
+      ],
       currentUser: null,
     }
   },

@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <q-table
@@ -29,19 +28,26 @@
 
       <template v-slot:body="props">
         <q-tr :props="props">
-          <q-td auto-width>
-            <q-checkbox dense v-model="props.selected" />
+          <q-td key="date" :props="props">
+            {{ props.row.date }}
           </q-td>
           <q-td key="id" :props="props">
             {{ props.row.id }}
           </q-td>
+          <q-td key="server_name" :props="props">
+            {{ props.row.server_name }}
+          </q-td>
+          <q-td key="game" :props="props">
+            {{ props.row.game }}
+          </q-td>
+          <q-td key="total" :props="props">
+            {{ props.row.total.toFixed(2) }} $
+          </q-td>
+          <q-td key="status" :props="props">
+            {{ props.row.status }}
+          </q-td>
           <q-td key="edit" :props="props">
-            <q-btn
-              flat
-              color="black"
-              round
-              icon="info"
-            />
+            <q-btn flat color="black" round icon="info" />
           </q-td>
         </q-tr>
         <!-- <q-tr :props="props">
@@ -73,24 +79,59 @@ export default {
   },
   data() {
     return {
-      selected: [],
       columns: [
         {
-          name: 'id',
+          name: 'date',
           required: true,
-          label: 'ID',
+          label: 'Date',
           align: 'left',
           sortable: true,
-          field: (row) => row.ID,
+          field: (row) => row.date,
           format: (val) => `${val}`,
         },
         {
-          name: 'label',
+          name: 'id',
           required: true,
-          label: 'Label',
+          label: 'Server ID',
           align: 'left',
           sortable: true,
-          field: (row) => row.label,
+          field: (row) => row.id,
+          format: (val) => `${val}`,
+        },
+        {
+          name: 'server_name',
+          required: true,
+          label: 'Server Name',
+          align: 'left',
+          sortable: true,
+          field: (row) => row.server_name,
+          format: (val) => `${val}`,
+        },
+        {
+          name: 'game',
+          required: true,
+          label: 'Game',
+          align: 'left',
+          sortable: true,
+          field: (row) => row.game,
+          format: (val) => `${val}`,
+        },
+        {
+          name: 'total',
+          required: true,
+          label: 'Total',
+          align: 'left',
+          sortable: true,
+          field: (row) => row.total,
+          format: (val) => `${val}`,
+        },
+        {
+          name: 'status',
+          required: true,
+          label: 'Status',
+          align: 'left',
+          sortable: true,
+          field: (row) => row.status,
           format: (val) => `${val}`,
         },
       ],
