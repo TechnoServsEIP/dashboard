@@ -42,11 +42,12 @@ module.exports = function(ctx) {
       directives: [],
 
       // Quasar plugins
-      plugins: ['Notify'],
+      plugins: ['Notify', 'Loading'],
       config: {
         notify: {
           /* look at QUASARCONFOPTIONS from the API card (bottom of page) */
         },
+        loading: { /* look at QUASARCONFOPTIONS from the API card (bottom of page) */ }
       },
     },
 

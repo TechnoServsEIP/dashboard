@@ -18,9 +18,10 @@
               </q-item-label>
             </q-item-section>
           </q-item>
+
           <q-expansion-item
             icon="group"
-            label="Users"
+            label="Users management"
             header-class="ts-header-item"
             expand-icon-class="ts-header-item"
             :default-opened="true"
@@ -28,7 +29,7 @@
             <q-item clickable :to="{ name: 'UserList' }">
               <q-item-section>
                 <q-item-label>
-                  List of Users
+                  Users
                 </q-item-label>
               </q-item-section>
             </q-item>
@@ -44,87 +45,28 @@
 
           <q-separator></q-separator>
 
-          <q-expansion-item
-            icon="dns"
-            :default-opened="true"
-            header-class="ts-header-item"
-            expand-icon-class="ts-header-item"
-            label="Servers"
-          >
-            <q-item clickable v-close-popup>
-              <q-item-section>
-                <q-item-label style="padding-left: 0px">
-                  Metrics
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item clickable v-close-popup>
-              <q-item-section>
-                <q-item-label>
-                  Logs
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item clickable v-close-popup>
-              <q-item-section>
-                <q-item-label>
-                  Timeline
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item clickable v-close-popup>
-              <q-item-section>
-                <q-item-label>
-                  Notifications
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-expansion-item>
+          <q-item clickable v-close-popup>
+            <q-item-section avatar>
+              <q-icon name="dns" color="primary" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label style="padding-left: 0px">
+                Servers
+              </q-item-label>
+            </q-item-section>
+          </q-item>
 
           <q-separator></q-separator>
-
-          <q-expansion-item
-            icon="local_offer"
-            label="Offers"
-            header-class="ts-header-item"
-            expand-icon-class="ts-header-item"
-            :default-opened="true"
-          >
-            <q-item clickable v-close-popup>
-              <q-item-section>
-                <q-item-label style="padding-left: 0px">
-                  Domain/SSL
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item clickable v-close-popup>
-              <q-item-section>
-                <q-item-label>
-                  Collaborators
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item clickable v-close-popup>
-              <q-item-section>
-                <q-item-label>
-                  Settings
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item clickable v-close-popup @click.native="deleteServer">
-              <q-item-section>
-                <q-item-label>
-                  Delete Server
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-expansion-item>
+          <q-item clickable v-close-popup>
+            <q-item-section avatar>
+              <q-icon name="local_offer" color="primary"/>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label style="padding-left: 0px">
+                Offers
+              </q-item-label>
+            </q-item-section>
+          </q-item>
         </q-list>
       </q-scroll-area>
     </q-drawer>
@@ -145,58 +87,6 @@ export default {
   data() {
     return {
       deleteLoader: false,
-      columns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Name',
-          align: 'left',
-          sortable: true,
-          field: (row) => row.name,
-          format: (val) => `${val}`,
-        },
-        {
-          name: 'ip',
-          required: true,
-          label: 'IP',
-          align: 'left',
-          sortable: true,
-          field: 'ip',
-        },
-        {
-          name: 'email',
-          required: true,
-          label: 'Email',
-          align: 'left',
-          sortable: true,
-          field: 'email',
-        },
-        {
-          name: 'last_connection',
-          required: true,
-          label: 'Last Connection',
-          align: 'left',
-          sortable: true,
-          field: 'last_connection',
-        },
-        {
-          name: 'account_created',
-          required: true,
-          label: 'Account created',
-          align: 'left',
-          sortable: true,
-          field: 'account_created',
-        },
-      ],
-      data: [
-        {
-          name: 'Tchoinpi',
-          ip: '198.0.0.1',
-          email: 'john@doe.com',
-          last_connection: '20 minutes ago',
-          account_created: '2015-04-12 11:04:44 UTC',
-        },
-      ],
       serverInformation: null,
       serversStatus: '',
       buttonLoading: false,

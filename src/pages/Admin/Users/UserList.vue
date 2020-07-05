@@ -4,6 +4,7 @@
       <q-breadcrumbs>
         <q-breadcrumbs-el icon="home" to="/apps/" />
         <q-breadcrumbs-el label="Admin" icon="widgets" to="/admin" />
+        <q-breadcrumbs-el label="Users" icon="group" to="/admin/users" />
       </q-breadcrumbs>
     </div>
 
@@ -92,6 +93,13 @@ export default {
           sortable: true,
           field: (row) => row.Activate,
           format: (val) => `${val}`,
+        },
+        {
+          name: 'edit',
+          required: false,
+          label: 'Edit',
+          align: 'left',
+          sortable: false,
         },
       ],
       users: [

@@ -34,6 +34,11 @@ const routes = [
             component: () => import('pages/Admin/Users/UserList.vue'),
           },
           {
+            path: 'users/:id',
+            name: 'UserInfo',
+            component: () => import('pages/Admin/Users/UserInfo.vue'),
+          },
+          {
             path: 'roles',
             name: 'RoleList',
             component: () => import('pages/Admin/Users/RoleList.vue'),
