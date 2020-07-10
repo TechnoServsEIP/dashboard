@@ -77,7 +77,10 @@
               round
               icon="info"
               @click="
-                $router.push({ name: 'UserInfo', params: { id: props.row.ID } })
+                $router.push({
+                  name: 'UserInfo',
+                  params: { id: props.row.ID, user: props.row },
+                })
               "
             />
           </q-td>
@@ -143,7 +146,7 @@ export default {
       //   Password: password,
       // }
       //TODO: Send API Create account
-      this.data.push({
+      const object = {
         ID: this.data.length,
         CreatedAt: '2020-06-13T10:24:16.630113Z',
         UpdatedAt: '2020-06-13T10:24:16.630113Z',
@@ -154,7 +157,8 @@ export default {
         token: '',
         Verified: false,
         Activate: false,
-      })
+      }
+      this.$emit('addUser', object)
     },
     deleteUsers() {
       //TODO: Add call API

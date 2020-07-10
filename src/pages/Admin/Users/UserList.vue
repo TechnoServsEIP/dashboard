@@ -13,6 +13,7 @@
         class="ts-player-table"
         :data="users"
         :columns="columns"
+        @addUser="addUser"
       ></user-list-table>
     </div>
   </div>
@@ -38,7 +39,7 @@ export default {
           align: 'left',
           sortable: true,
           field: (row) => row.ID,
-          format: (val) => `${val}`,
+          format: (val) => `${val.toString()}`,
         },
         {
           name: 'email',
@@ -142,6 +143,10 @@ export default {
   },
   methods: {
     getUser() {},
+    addUser(newUser) {
+      console.log(newUser)
+      this.users.push(newUser)
+    }
   },
 }
 </script>

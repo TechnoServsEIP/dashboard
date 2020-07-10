@@ -55,34 +55,7 @@ export default {
   data() {
     return {
       tab: 'infos',
-      users: [
-        {
-          ID: '0',
-          CreatedAt: '2020-06-13T10:24:16.630113Z',
-          UpdatedAt: '2020-06-13T10:24:16.630113Z',
-          DeletedAt: null,
-          Role: 'admin',
-          email: 'jeremie.bruhwiler@epitech.eu',
-          password:
-            '$2a$10$0Bo6v/UjnfzdMPqdnMUiM.tGulroMFO6BlCXGuerDFiN4yUhmqsAG',
-          token: '',
-          Verified: true,
-          Activate: true,
-        },
-        {
-          ID: '1',
-          CreatedAt: '2020-06-13T10:24:16.630113Z',
-          UpdatedAt: '2020-06-13T10:24:16.630113Z',
-          DeletedAt: null,
-          Role: 'user',
-          email: 'jeremie.bruhwiler@gmail.com',
-          password:
-            '$2a$10$0Bo6v/UjnfzdMPqdnMUiM.tGulroMFO6BlCXGuerDFiN4yUhmqsAG',
-          token: '',
-          Verified: true,
-          Activate: true,
-        },
-      ],
+      users: [],
       servers: [],
       billings: [
         {
@@ -94,28 +67,17 @@ export default {
           status: 'payed',
         },
       ],
-      currentUser: null,
+      currentUser: this.$route.params.user,
     }
   },
   created() {
     this.$q.loading.show()
     this.getUsers()
-    this.getCurrentUser()
+    // TODO: Get all users and get the current one with id
     this.$q.loading.hide()
   },
   methods: {
     getUsers() {},
-    getCurrentUser() {
-      for (const user in this.users) {
-        if (this.users.hasOwnProperty(user)) {
-          const element = this.users[user]
-          if (element.ID === this.$route.params.id) {
-            this.currentUser = element
-            break
-          }
-        }
-      }
-    },
   },
 }
 </script>

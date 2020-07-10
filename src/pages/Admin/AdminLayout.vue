@@ -57,7 +57,7 @@
           </q-item>
 
           <q-separator></q-separator>
-          <q-item clickable v-close-popup :to="{ name: 'OffersList' }">
+          <q-item clickable v-close-popup :to="{ name: 'GamesOfferList' }">
             <q-item-section avatar>
               <q-icon name="local_offer" color="primary" />
             </q-item-section>
