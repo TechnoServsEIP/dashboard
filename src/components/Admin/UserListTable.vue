@@ -131,13 +131,14 @@ export default {
     }
   },
   methods: {
+    // eslint-disable-next-line no-unused-vars
     saved(val, initialValue, id) {
       // {{url}}/user/update
       console.log(`original value = ${initialValue}, new value = ${val}`)
-      const toSend = {
-        Id: id,
-        role: val,
-      }
+      // const toSend = {
+      //   Id: id,
+      //   role: val,
+      // }
       // TODO: send to route
     },
     addUser(email, password, role) {

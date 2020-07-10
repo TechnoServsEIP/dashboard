@@ -16,9 +16,6 @@
         />
       </q-breadcrumbs>
     </div>
-
-    
-
   </div>
 </template>
 

@@ -146,7 +146,7 @@ export default {
     addUser(newUser) {
       console.log(newUser)
       this.users.push(newUser)
-    }
+    },
   },
 }
 </script>
