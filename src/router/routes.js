@@ -30,13 +30,19 @@ const routes = [
           },
           {
             path: 'users',
-            name: 'UserList',
-            component: () => import('pages/Admin/Users/UserList.vue'),
-          },
-          {
-            path: 'users/:id',
-            name: 'UserInfo',
-            component: () => import('pages/Admin/Users/UserInfo.vue'),
+            component: () => import('pages/Admin/Users/UserRouter.vue'),
+            children: [
+              {
+                name: 'UserList',
+                path: '/',
+                component: () => import('pages/Admin/Users/UserList.vue'),
+              },
+              {
+                path: ':id',
+                name: 'UserInfo',
+                component: () => import('pages/Admin/Users/UserInfo.vue'),
+              },
+            ],
           },
           {
             path: 'roles',
@@ -50,8 +56,20 @@ const routes = [
           },
           {
             path: 'offers',
-            name: 'OffersList',
-            component: () => import('pages/Admin/Offers/OffersList.vue'),
+            component: () => import('pages/Admin/Offers/OffersRouter.vue'),
+            children: [
+              {
+                name: 'GamesOfferList',
+                component: () =>
+                  import('pages/Admin/Offers/GamesOfferList.vue'),
+                path: '/',
+              },
+              {
+                path: ':id',
+                name: 'OfferList',
+                component: () => import('pages/Admin/Offers/OfferList.vue'),
+              },
+            ],
           },
         ],
       },

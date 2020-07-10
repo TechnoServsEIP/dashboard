@@ -9,13 +9,26 @@
           icon="local_offer"
           to="/admin/offers"
         />
+        <q-breadcrumbs-el
+          :label="$route.params.game.name"
+          icon="sports_esports"
+          to="/admin/users/:id"
+        />
       </q-breadcrumbs>
     </div>
+
+    
+
   </div>
 </template>
 
 <script>
 export default {
-  name: 'OffersList',
+  name: 'OfferList',
+  data() {
+    return {}
+  },
 }
 </script>
+
+<style lang="scss"></style>
