@@ -13,5 +13,3 @@ Vue.use(Zendesk, {
     },
   },
 })
-
-console.log(Zendesk)
