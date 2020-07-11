@@ -13,17 +13,14 @@
 <script>
 export default {
   name: 'App',
-  components: {
-  },
+  components: {},
   data() {
     return {
-      drawer: false
+      drawer: false,
     }
   },
-  created() {
-  }
+  created() {},
 }
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

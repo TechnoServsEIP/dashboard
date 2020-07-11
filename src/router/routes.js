@@ -1,10 +1,8 @@
-const routes = [
-  {
+const routes = [{
     path: '/auth',
     name: 'Auth',
     component: () => import('layouts/Authentication.vue'),
-    children: [
-      {
+    children: [{
         path: 'login',
         name: 'Login',
         component: () => import('pages/Auth/AuthLogin.vue'),
@@ -19,8 +17,7 @@ const routes = [
   {
     path: '/apps/',
     component: () => import('pages/Index.vue'),
-    children: [
-      {
+    children: [{
         path: '/',
         name: 'Apps',
         component: () => import('pages/Servers/Applications.vue'),
@@ -29,8 +26,7 @@ const routes = [
         path: 'server/:id',
         component: () => import('pages/Servers/ServerLayout.vue'),
         name: 'ServerDashboard',
-        children: [
-          {
+        children: [{
             path: '/',
             component: () => import('pages/Servers/ServerIndex.vue'),
           },
