@@ -4,6 +4,7 @@
       <q-breadcrumbs>
         <q-breadcrumbs-el icon="home" to="/apps/" />
         <q-breadcrumbs-el label="Admin" icon="widgets" to="/admin" />
+        <q-breadcrumbs-el label="Role" icon="group" to="/admin/roles" />
       </q-breadcrumbs>
     </div>
 

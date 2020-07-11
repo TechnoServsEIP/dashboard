@@ -69,7 +69,10 @@
 
       <div class="textParam">Offers management</div>
       <router-link class="sublink" tag="li" to="/admin/offers">
-        Offers table
+        Offers
+      </router-link>
+      <router-link tag="li" class="sublink" to="/admin/users">
+        Minecraft
       </router-link>
     </div>
   </div>

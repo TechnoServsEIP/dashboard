@@ -12,7 +12,6 @@
       <user-list-table
         class="ts-player-table"
         :data="users"
-        :columns="columns"
         @addUser="addUser"
       ></user-list-table>
     </div>
@@ -31,78 +30,6 @@ export default {
   data() {
     return {
       deleteLoader: false,
-      columns: [
-        {
-          name: 'id',
-          required: true,
-          label: 'ID',
-          align: 'left',
-          sortable: true,
-          field: (row) => row.ID,
-          format: (val) => `${val.toString()}`,
-        },
-        {
-          name: 'email',
-          required: true,
-          label: 'Email',
-          align: 'left',
-          sortable: true,
-          field: (row) => row.email,
-          format: (val) => `${val}`,
-        },
-        {
-          name: 'connected',
-          required: true,
-          label: 'Connected',
-          align: 'left',
-          sortable: true,
-          field: (row) => row.token,
-          format: (val) => (val ? 'true' : 'false'),
-        },
-        {
-          name: 'account_created',
-          required: true,
-          label: 'Account created',
-          align: 'left',
-          sortable: true,
-          field: (row) => row.CreatedAt,
-          format: (val) => `${val}`,
-        },
-        {
-          name: 'role',
-          required: true,
-          label: 'Role',
-          align: 'left',
-          sortable: true,
-          field: (row) => row.Role,
-          format: (val) => `${val}`,
-        },
-        {
-          name: 'verified',
-          required: true,
-          label: 'Verified',
-          align: 'left',
-          sortable: true,
-          field: (row) => row.Verified,
-          format: (val) => `${val}`,
-        },
-        {
-          name: 'activate',
-          required: true,
-          label: 'Activate',
-          align: 'left',
-          sortable: true,
-          field: (row) => row.Activate,
-          format: (val) => `${val}`,
-        },
-        {
-          name: 'edit',
-          required: false,
-          label: 'Edit',
-          align: 'left',
-          sortable: false,
-        },
-      ],
       users: [
         {
           ID: '0',

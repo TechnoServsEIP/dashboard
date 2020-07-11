@@ -90,15 +90,20 @@
     <div style="padding: 3%">
       <q-checkbox left-label v-model="activation" label="Activate" />
     </div>
-    <div>
-      <q-btn
-        class="q-mt-md"
-        type="delete"
-        color="red"
-        label="Delete User"
-        @click="deleteUser"
-      />
-    </div>
+    <q-btn
+      class="q-mt-md"
+      type="delete"
+      color="primary"
+      label="Update activation"
+    />
+    <q-separator color="secondary" class="sep" inset />
+    <q-btn
+      class="q-mt-md"
+      type="delete"
+      color="red"
+      label="Delete User"
+      @click="deleteUser"
+    />
   </div>
 </template>
 
@@ -111,6 +116,17 @@ export default {
   created() {
     this.roleSelect = this.currentUser.Role
     this.activation = this.currentUser.Activate
+  },
+  methods: {
+    deleteUser() {
+
+    },
+    changePassword() {
+
+    },
+    changeEmail() {
+      
+    },
   },
   data() {
     return {

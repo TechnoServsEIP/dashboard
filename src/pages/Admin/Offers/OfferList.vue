@@ -10,18 +10,26 @@
           to="/admin/offers"
         />
         <q-breadcrumbs-el
-          :label="$route.params.game.name"
+          :label="
+            $route.params.name.charAt(0).toUpperCase() +
+              $route.params.name.slice(1)
+          "
           icon="sports_esports"
-          to="/admin/users/:id"
+          to="/admin/offers/:name"
         />
       </q-breadcrumbs>
     </div>
+    <offer-list-table />
   </div>
 </template>
 
 <script>
+import OfferListTable from '../../../components/Admin/Offers/OfferListTable'
 export default {
   name: 'OfferList',
+  components: {
+    OfferListTable,
+  },
   data() {
     return {}
   },

@@ -57,16 +57,38 @@
           </q-item>
 
           <q-separator></q-separator>
-          <q-item clickable v-close-popup :to="{ name: 'GamesOfferList' }">
-            <q-item-section avatar>
-              <q-icon name="local_offer" color="primary" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label style="padding-left: 0px">
-                Offers
-              </q-item-label>
-            </q-item-section>
-          </q-item>
+
+          <q-expansion-item
+            icon="local_offer"
+            label="Offers"
+            header-class="ts-header-item"
+            expand-icon-class="ts-header-item"
+            :default-opened="true"
+          >
+            <q-item clickable to="/admin/offers/minecraft">
+              <q-item-section>
+                <q-item-label>
+                  Minecraft
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable to="/admin/offers/hytale">
+              <q-item-section>
+                <q-item-label>
+                  Hytale
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable to="/admin/offers/dofus">
+              <q-item-section>
+                <q-item-label>
+                  Dofus
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-expansion-item>
         </q-list>
       </q-scroll-area>
     </q-drawer>

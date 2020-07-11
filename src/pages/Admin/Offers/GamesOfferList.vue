@@ -39,7 +39,7 @@
               @click="
                 $router.push({
                   name: 'OfferList',
-                  params: { id: game.id, game: game },
+                  params: { name: game.name.toLowerCase(), game: game },
                 })
               "
               color="primary"

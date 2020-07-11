@@ -67,17 +67,42 @@ export default {
           status: 'payed',
         },
       ],
-      currentUser: this.$route.params.user,
+      currentUser: {
+        ID: '0',
+        CreatedAt: '2020-06-13T10:24:16.630113Z',
+        UpdatedAt: '2020-06-13T10:24:16.630113Z',
+        DeletedAt: null,
+        Role: 'user',
+        email: '',
+        password: '',
+        token: '',
+        Verified: false,
+        Activate: false,
+      },
     }
   },
   created() {
     this.$q.loading.show()
-    this.getUsers()
+    this.getUsers().then((users) => this.getCurrentUser(users))
     // TODO: Get all users and get the current one with id
     this.$q.loading.hide()
   },
   methods: {
-    getUsers() {},
+    getUsers() {
+      // TODO: Change with API
+      return new Promise((resolve) => {
+        resolve(this.$route.params.users)
+      })
+    },
+    getCurrentUser(users) {
+      for (let index = 0; index < users.length; index++) {
+        const element = users[index]
+        if (element.ID === this.$route.params.id) {
+          this.currentUser = element
+          break
+        }
+      }
+    },
   },
 }
 </script>

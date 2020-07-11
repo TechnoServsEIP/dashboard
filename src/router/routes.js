@@ -65,7 +65,7 @@ const routes = [
                 path: '/',
               },
               {
-                path: ':id',
+                path: ':name',
                 name: 'OfferList',
                 component: () => import('pages/Admin/Offers/OfferList.vue'),
               },
