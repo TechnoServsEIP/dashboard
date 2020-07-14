@@ -9,18 +9,18 @@ import axios from "axios";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  baseURL: process.env.baseURL || process.env.apiUrl || "http://ec2-3-250-28-76.eu-west-1.compute.amazonaws.com:9096",
+  baseURL: process.env.baseURL || process.env.apiUrl || "http://40.124.38.86:9096",
   withCredentials: false
 };
 
 const _axios = axios.create(config);
 
 _axios.interceptors.request.use(
-  function(config) {
+  function (config) {
     // Do something before request is sent
     return config;
   },
-  function(error) {
+  function (error) {
     // Do something with request error
     return Promise.reject(error);
   }
@@ -28,17 +28,17 @@ _axios.interceptors.request.use(
 
 // Add a response interceptor
 _axios.interceptors.response.use(
-  function(response) {
+  function (response) {
     // Do something with response data
     return response;
   },
-  function(error) {
+  function (error) {
     // Do something with response error
     return Promise.reject(error);
   }
 );
 
-Plugin.install = function(Vue, options) {
+Plugin.install = function (Vue, options) {
   Vue.axios = _axios;
   window.axios = _axios;
   Object.defineProperties(Vue.prototype, {
@@ -57,6 +57,8 @@ Plugin.install = function(Vue, options) {
 
 Vue.use(Plugin)
 
-export default ({ Vue }) => {
+export default ({
+  Vue
+}) => {
   Vue.use(Plugin)
 }
