@@ -70,3 +70,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.b-table {
+  width: 100%;
+}
+</style>
