@@ -33,7 +33,9 @@
             <nuxt-link to="/auth/signup">Don't have an account yet ?</nuxt-link>
           </b-field>
 
-          <b-button type="is-primary"><strong>Sign In</strong></b-button>
+          <b-button type="is-primary" @click="userSignIn"
+            ><strong>Sign In</strong></b-button
+          >
         </section>
       </div>
     </div>
@@ -51,6 +53,21 @@ export default {
       passwordInvalid: "",
       isEmailInvalid: true
     };
+  },
+  methods: {
+    userSignIn() {
+      this.$axios
+        .$post("/user/login", {
+          email: this.userEmail,
+          password: this.userPassword
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   }
 };
 </script>

@@ -15,7 +15,8 @@ export default {
    */
   head: {
     title: process.env.npm_package_name || "",
-    meta: [{
+    meta: [
+      {
         charset: "utf-8"
       },
       {
@@ -28,11 +29,13 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [{
-      rel: "icon",
-      type: "image/x-icon",
-      href: "/favicon.ico"
-    }]
+    link: [
+      {
+        rel: "icon",
+        type: "image/x-icon",
+        href: "/favicon.ico"
+      }
+    ]
   },
   /*
    ** Global CSS
@@ -57,7 +60,8 @@ export default {
    */
   modules: [
     // Doc: https://buefy.github.io/#/documentation
-    "nuxt-buefy"
+    "nuxt-buefy",
+    "@nuxtjs/axios"
   ],
   /*
    ** Build configuration
@@ -67,5 +71,7 @@ export default {
   generate: {
     fallback: true
   },
-  routes: {}
+  axios: {
+    baseURL: "x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096"
+  }
 };
