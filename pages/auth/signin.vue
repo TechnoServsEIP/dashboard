@@ -9,21 +9,21 @@
 
       <div class="card-content">
         <section>
-          <b-field label="Email" :message="emailInvalid">
+          <b-field label="Email" :message="emailInvalid" :type="isError">
             <b-input
               type="email"
-              :value="userEmail"
+              v-model="userEmail"
               validation-message="Email invalid"
               placeholder="Email"
             >
             </b-input>
           </b-field>
 
-          <b-field label="Password">
+          <b-field label="Password" :message="passwordInvalid" :type="isError">
             <b-input
               type="password"
               placeholder="Password"
-              :value="userPassword"
+              v-model="userPassword"
               password-reveal
             >
             </b-input>
@@ -51,21 +51,24 @@ export default {
       userPassword: "",
       emailInvalid: "",
       passwordInvalid: "",
-      isEmailInvalid: true
+      isError: ""
     };
   },
   methods: {
     userSignIn() {
       this.$axios
         .$post("/user/login", {
-          email: this.userEmail,
+          Email: this.userEmail,
           password: this.userPassword
         })
         .then(response => {
-          console.log(response);
+          this.$store.commit("updateToken", response.account.token);
+          this.$router.push({ path: "/apps" });
         })
-        .catch(e => {
-          console.log(e);
+        .catch(() => {
+          this.emailInvalid = "Wrong email or password";
+          this.passwordInvalid = "Wrong email or password";
+          this.isError = "is-danger";
         });
     }
   }

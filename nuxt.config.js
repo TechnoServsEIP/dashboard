@@ -15,8 +15,7 @@ export default {
    */
   head: {
     title: process.env.npm_package_name || "",
-    meta: [
-      {
+    meta: [{
         charset: "utf-8"
       },
       {
@@ -29,13 +28,11 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [
-      {
-        rel: "icon",
-        type: "image/x-icon",
-        href: "/favicon.ico"
-      }
-    ]
+    link: [{
+      rel: "icon",
+      type: "image/x-icon",
+      href: "/favicon.ico"
+    }]
   },
   /*
    ** Global CSS
@@ -45,7 +42,10 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: [{
+    src: "~/plugins/vuex-persist",
+    ssr: false
+  }],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -72,6 +72,10 @@ export default {
     fallback: true
   },
   axios: {
-    baseURL: "x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096"
+    baseURL: "http://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096",
+    credentials: false
+  },
+  router: {
+    middleware: 'auth'
   }
 };

@@ -15,6 +15,9 @@ import NavBar from "~/components/Navbar";
 export default {
   components: {
     NavBar
+  },
+  created() {
+    console.log(this.$store.state.token);
   }
 };
 </script>
