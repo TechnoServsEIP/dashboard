@@ -3,7 +3,7 @@ export default {
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
    */
-  mode: "universal",
+  mode: "spa",
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
@@ -15,7 +15,8 @@ export default {
    */
   head: {
     title: process.env.npm_package_name || "",
-    meta: [{
+    meta: [
+      {
         charset: "utf-8"
       },
       {
@@ -28,11 +29,13 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [{
-      rel: "icon",
-      type: "image/x-icon",
-      href: "/favicon.ico"
-    }]
+    link: [
+      {
+        rel: "icon",
+        type: "image/x-icon",
+        href: "/favicon.ico"
+      }
+    ]
   },
   /*
    ** Global CSS
@@ -42,10 +45,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [{
-    src: "~/plugins/vuex-persist",
-    ssr: false
-  }],
+  plugins: [],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -61,7 +61,8 @@ export default {
   modules: [
     // Doc: https://buefy.github.io/#/documentation
     "nuxt-buefy",
-    "@nuxtjs/axios"
+    "@nuxtjs/axios",
+    "@nuxtjs/auth"
   ],
   /*
    ** Build configuration
@@ -72,10 +73,37 @@ export default {
     fallback: true
   },
   axios: {
-    baseURL: "http://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096",
+    baseURL:
+      "http://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096",
     credentials: false
   },
-  router: {
-    middleware: 'auth'
+  router: {},
+  auth: {
+    cookie: {
+      prefix: "auth.",
+      options: {
+        expires: 15
+      }
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: "/user/login",
+            method: "post",
+            propertyName: "data.account"
+          },
+          logout: false,
+          user: false
+        }
+      }
+    },
+    redirect: {
+      login: "/auth/signin",
+      register: "/auth/signup",
+      logout: "/auth/signin",
+      home: "/apps",
+      user: "/apps"
+    }
   }
 };

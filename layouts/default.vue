@@ -13,11 +13,9 @@
 import NavBar from "~/components/Navbar";
 
 export default {
+  middleware: "auth",
   components: {
     NavBar
-  },
-  created() {
-    console.log(this.$store.state.token);
   }
 };
 </script>

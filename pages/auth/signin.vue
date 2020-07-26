@@ -33,7 +33,7 @@
             <nuxt-link to="/auth/signup">Don't have an account yet ?</nuxt-link>
           </b-field>
 
-          <b-button type="is-primary" @click="userSignIn"
+          <b-button type="is-primary" @click.prevent="userSignIn"
             ><strong>Sign In</strong></b-button
           >
         </section>
@@ -55,20 +55,17 @@ export default {
     };
   },
   methods: {
-    userSignIn() {
-      this.$axios
-        .$post("/user/login", {
-          Email: this.userEmail,
-          password: this.userPassword
+    async userSignIn() {
+      this.$auth
+        .loginWith("local", {
+          data: {
+            Email: this.userEmail,
+            password: this.userPassword
+          }
         })
         .then(response => {
-          this.$store.commit("updateToken", response.account.token);
+          this.$auth.setUser(response.data.account);
           this.$router.push({ path: "/apps" });
-        })
-        .catch(() => {
-          this.emailInvalid = "Wrong email or password";
-          this.passwordInvalid = "Wrong email or password";
-          this.isError = "is-danger";
         });
     }
   }
