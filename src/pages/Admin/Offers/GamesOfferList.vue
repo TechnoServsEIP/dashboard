@@ -63,14 +63,14 @@ export default {
           name: 'Minecraft',
           id: '1',
         },
-        {
-          name: 'Hytale',
-          id: '2',
-        },
-        {
-          name: 'Dofus',
-          id: '3',
-        },
+        // {
+        //   name: 'Hytale',
+        //   id: '2',
+        // },
+        // {
+        //   name: 'Dofus',
+        //   id: '3',
+        // },
       ],
       hoverGame: null,
       selectedGame: null,

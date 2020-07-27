@@ -72,22 +72,6 @@
                 </q-item-label>
               </q-item-section>
             </q-item>
-
-            <q-item clickable to="/admin/offers/hytale">
-              <q-item-section>
-                <q-item-label>
-                  Hytale
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item clickable to="/admin/offers/dofus">
-              <q-item-section>
-                <q-item-label>
-                  Dofus
-                </q-item-label>
-              </q-item-section>
-            </q-item>
           </q-expansion-item>
         </q-list>
       </q-scroll-area>

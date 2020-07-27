@@ -1,75 +1,19 @@
 <template>
   <q-page>
     <div>
-      <div class="flex row">
-        <div v-for="plan in Plan" :key="plan.id" class="q-pa-md col-md-3">
-          <div class="my-card">
-            <q-card class="my-card">
-              <q-card-section class="bg-grey-1">
-                <div class="text-h5">
-                  <b>{{ plan.name }}</b>
-                </div>
-                <div class="text-overline price">{{ plan.price }}€/month</div>
-              </q-card-section>
-
-              <q-card-section>
-                <div class="text-h6">{{ plan.space }}GB</div>
-                <div class="subText">
-                  <p>{{ plan.spaceText }}<br /></p>
-                </div>
-                <div v-if="plan.player > 1">
-                  Up to <span class="bold">{{ plan.player }}</span> players
-                  connected at the same time.
-                </div>
-                <div v-else>
-                  Up to <span class="bold">{{ plan.player }}</span> player
-                  connected at the same time.
-                </div>
-              </q-card-section>
-
-              <q-card-separator />
-
-              <q-card-section>
-                <div>
-                <q-btn
-                  outline
-                  class="full-width"
-                  color="secondary"
-                  label="modify"
-                  @click="select(plan)"
-                />
-                </div>
-              </q-card-section>
-
-              <q-card-actions>
-                <button @click="plan.expanded = !plan.expanded" class="link">
-                  Show more
-                </button>
-                <q-space />
-                <q-btn
-                  color="grey"
-                  flat
-                  round
-                  dense
-                  :icon="plan.expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-                  @click="plan.expanded = !plan.expanded"
-                />
-              </q-card-actions>
-              <q-slide-transition>
-                <div v-show="plan.expanded">
-                  <q-separator />
-                  <q-card-section class="text-subitle2 bg-grey-1">
-                    Lorem Elsass ipsum amet, sed sit ornare blottkopf, Heineken
-                    rucksack rhoncus et Oberschaeffolsheim turpis risus, so
-                    flammekueche senectus kougelhopf s'guelt commodo elementum
-                    condimentum hop Mauris amet sagittis vielmols, morbi geïz
-                    libero, Gal ! ornare dui schpeck vulputate auctor, leo jetz
-                    gehts los tellus semper bredele purus gal hopla mamsell
-                    libero. turpis, gravida Coopé de Truchtersheim picon bière
-                  </q-card-section>
-                </div>
-              </q-slide-transition>
-            </q-card>
+      <div class="flex">
+        <div v-for="plan in Plan" :key="plan.uuid" class="q-pa-md col-md-3">
+          <div class="text-h5">
+            <b>{{ plan.name }}</b>
+          </div>
+          <div class="flex row">
+            <div
+              v-for="offer in plan.models"
+              :key="offer.name"
+              class="q-pa-md col-md-3"
+            >
+              <single-offer-card :offer="offer" />
+            </div>
           </div>
         </div>
       </div>
@@ -78,64 +22,431 @@
 </template>
 
 <script>
+import SingleOfferCard from './SingleOfferCard'
 export default {
   name: 'OfferListTable',
+  components: {
+    SingleOfferCard,
+  },
+  created() {
+    for (let index = 0; index < this.result.length; index++) {
+      const element = this.result[index]
+      // Minecraft UUID
+      if (element.uuid == '5f1ea7ca7582b146cf0a44d0') {
+        this.Plan = element.offer_types
+        console.log(this.Plan)
+      }
+    }
+  },
   data() {
     return {
       tmp: Object,
       holder: 0,
-      Plan: [
+      Plan: [],
+      result: [
         {
-          name: 'Little',
-          expanded: false,
-          price: 1,
-          player: 5,
-          space: 5,
-          spaceText: null,
-          //space unit ?
-          text: null,
-          id: '1',
-        },
-        {
-          name: 'Medium',
-          expanded: false,
-          price: 4,
-          player: 10,
-          space: 15,
-          spaceText: 'Lorem Elsass ipsum so dui ullamcorper ftomi!',
-          text: null,
-          id: '2',
-        },
-        {
-          name: 'Large',
-          expanded: false,
-          price: 8,
-          player: 15,
-          space: 20,
-          spaceText: 'Lorem Elsass ipsum so dui ullamcorper ftomi!',
-          text: null,
-          id: '3',
-        },
-        {
-          name: 'Platinium',
-          expanded: false,
-          price: 100,
-          player: 1,
-          space: 1,
-          spaceText: null,
-          text: 'Pigeon',
-          id: '5',
+          uuid: '5f1ea7ca7582b146cf0a44d0',
+          name: 'Minecraft Offers',
+          offer_types: [
+            {
+              uuid: '',
+              name: 'Starter',
+              type: 'shared',
+              models: [
+                {
+                  uuid: '',
+                  name: 'Starter-2048',
+                  players_slots: 64000,
+                  plugins_limit: 64000,
+                  ram_memory: 2048,
+                  disk_space: {
+                    current_disk_space: 0,
+                    min: 0,
+                    max: 0,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  port: {
+                    current_nb_port: 0,
+                    min: 0,
+                    max: 5,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  custom_domain_address: true,
+                  dedicated_ip_address: {
+                    dedicated_ip: false,
+                    monthly_price: 1.99,
+                    hourly_price: 0.00035,
+                  },
+                  modded_servers_allowed: true,
+                  automated_backups: true,
+                  planned_tasks: true,
+                  prioritized_support: false,
+                  sla: 99.95,
+                  monthly_price: 0,
+                  hourly_price: 0,
+                },
+                {
+                  uuid: '',
+                  name: 'Starter-3072',
+                  players_slots: 64000,
+                  plugins_limit: 64000,
+                  ram_memory: 3072,
+                  disk_space: {
+                    current_disk_space: 0,
+                    min: 0,
+                    max: 0,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  port: {
+                    current_nb_port: 0,
+                    min: 0,
+                    max: 5,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  custom_domain_address: true,
+                  dedicated_ip_address: {
+                    dedicated_ip: false,
+                    monthly_price: 1.99,
+                    hourly_price: 0.00035,
+                  },
+                  modded_servers_allowed: true,
+                  automated_backups: true,
+                  planned_tasks: true,
+                  prioritized_support: false,
+                  sla: 99.95,
+                  monthly_price: 0,
+                  hourly_price: 0,
+                },
+                {
+                  uuid: '',
+                  name: 'Starter-4096',
+                  players_slots: 64000,
+                  plugins_limit: 64000,
+                  ram_memory: 4096,
+                  disk_space: {
+                    current_disk_space: 0,
+                    min: 0,
+                    max: 0,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  port: {
+                    current_nb_port: 0,
+                    min: 0,
+                    max: 5,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  custom_domain_address: true,
+                  dedicated_ip_address: {
+                    dedicated_ip: false,
+                    monthly_price: 1.99,
+                    hourly_price: 0.00035,
+                  },
+                  modded_servers_allowed: true,
+                  automated_backups: true,
+                  planned_tasks: true,
+                  prioritized_support: false,
+                  sla: 99.95,
+                  monthly_price: 0,
+                  hourly_price: 0,
+                },
+                {
+                  uuid: '',
+                  name: 'Starter-6144',
+                  players_slots: 64000,
+                  plugins_limit: 64000,
+                  ram_memory: 6144,
+                  disk_space: {
+                    current_disk_space: 0,
+                    min: 0,
+                    max: 0,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  port: {
+                    current_nb_port: 0,
+                    min: 0,
+                    max: 5,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  custom_domain_address: true,
+                  dedicated_ip_address: {
+                    dedicated_ip: false,
+                    monthly_price: 1.99,
+                    hourly_price: 0.00035,
+                  },
+                  modded_servers_allowed: true,
+                  automated_backups: true,
+                  planned_tasks: true,
+                  prioritized_support: false,
+                  sla: 99.95,
+                  monthly_price: 0,
+                  hourly_price: 0,
+                },
+                {
+                  uuid: '',
+                  name: 'Starter-8192',
+                  players_slots: 64000,
+                  plugins_limit: 64000,
+                  ram_memory: 8192,
+                  disk_space: {
+                    current_disk_space: 0,
+                    min: 0,
+                    max: 0,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  port: {
+                    current_nb_port: 0,
+                    min: 0,
+                    max: 5,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  custom_domain_address: true,
+                  dedicated_ip_address: {
+                    dedicated_ip: false,
+                    monthly_price: 1.99,
+                    hourly_price: 0.00035,
+                  },
+                  modded_servers_allowed: true,
+                  automated_backups: true,
+                  planned_tasks: true,
+                  prioritized_support: false,
+                  sla: 99.95,
+                  monthly_price: 0,
+                  hourly_price: 0,
+                },
+                {
+                  uuid: '',
+                  name: 'Starter-10240',
+                  players_slots: 64000,
+                  plugins_limit: 64000,
+                  ram_memory: 10240,
+                  disk_space: {
+                    current_disk_space: 0,
+                    min: 0,
+                    max: 0,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  port: {
+                    current_nb_port: 0,
+                    min: 0,
+                    max: 5,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  custom_domain_address: true,
+                  dedicated_ip_address: {
+                    dedicated_ip: false,
+                    monthly_price: 1.99,
+                    hourly_price: 0.00035,
+                  },
+                  modded_servers_allowed: true,
+                  automated_backups: true,
+                  planned_tasks: true,
+                  prioritized_support: false,
+                  sla: 99.95,
+                  monthly_price: 0,
+                  hourly_price: 0,
+                },
+                {
+                  uuid: '',
+                  name: 'Starter-12288',
+                  players_slots: 64000,
+                  plugins_limit: 64000,
+                  ram_memory: 12288,
+                  disk_space: {
+                    current_disk_space: 0,
+                    min: 0,
+                    max: 0,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  port: {
+                    current_nb_port: 0,
+                    min: 0,
+                    max: 5,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  custom_domain_address: true,
+                  dedicated_ip_address: {
+                    dedicated_ip: false,
+                    monthly_price: 1.99,
+                    hourly_price: 0.00035,
+                  },
+                  modded_servers_allowed: true,
+                  automated_backups: true,
+                  planned_tasks: true,
+                  prioritized_support: false,
+                  sla: 99.95,
+                  monthly_price: 0,
+                  hourly_price: 0,
+                },
+              ],
+            },
+            {
+              uuid: '',
+              name: 'Premium',
+              type: 'Dedicated',
+              models: [
+                {
+                  uuid: '',
+                  name: 'Premium-2048',
+                  players_slots: 64000,
+                  plugins_limit: 64000,
+                  ram_memory: 2048,
+                  disk_space: {
+                    current_disk_space: 20000,
+                    min: 20000,
+                    max: 120000,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  port: {
+                    current_nb_port: 0,
+                    min: 0,
+                    max: 5,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  custom_domain_address: true,
+                  dedicated_ip_address: {
+                    dedicated_ip: true,
+                    monthly_price: 1.99,
+                    hourly_price: 0.00035,
+                  },
+                  modded_servers_allowed: true,
+                  automated_backups: true,
+                  planned_tasks: true,
+                  prioritized_support: true,
+                  sla: 99.95,
+                  monthly_price: 0,
+                  hourly_price: 0,
+                },
+                {
+                  uuid: '',
+                  name: 'Premium-4096',
+                  players_slots: 64000,
+                  plugins_limit: 64000,
+                  ram_memory: 4096,
+                  disk_space: {
+                    current_disk_space: 40000,
+                    min: 40000,
+                    max: 120000,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  port: {
+                    current_nb_port: 0,
+                    min: 0,
+                    max: 5,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  custom_domain_address: true,
+                  dedicated_ip_address: {
+                    dedicated_ip: true,
+                    monthly_price: 1.99,
+                    hourly_price: 0.00035,
+                  },
+                  modded_servers_allowed: true,
+                  automated_backups: true,
+                  planned_tasks: true,
+                  prioritized_support: true,
+                  sla: 99.95,
+                  monthly_price: 0,
+                  hourly_price: 0,
+                },
+                {
+                  uuid: '',
+                  name: 'Premium-8192',
+                  players_slots: 64000,
+                  plugins_limit: 64000,
+                  ram_memory: 8192,
+                  disk_space: {
+                    current_disk_space: 80000,
+                    min: 80000,
+                    max: 120000,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  port: {
+                    current_nb_port: 0,
+                    min: 0,
+                    max: 5,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  custom_domain_address: true,
+                  dedicated_ip_address: {
+                    dedicated_ip: true,
+                    monthly_price: 1.99,
+                    hourly_price: 0.00035,
+                  },
+                  modded_servers_allowed: true,
+                  automated_backups: true,
+                  planned_tasks: true,
+                  prioritized_support: true,
+                  sla: 99.95,
+                  monthly_price: 0,
+                  hourly_price: 0,
+                },
+                {
+                  uuid: '',
+                  name: 'Premium-12288',
+                  players_slots: 64000,
+                  plugins_limit: 64000,
+                  ram_memory: 12288,
+                  disk_space: {
+                    current_disk_space: 120000,
+                    min: 120000,
+                    max: 240000,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  port: {
+                    current_nb_port: 0,
+                    min: 0,
+                    max: 5,
+                    monthly_price: 0,
+                    hourly_price: 0,
+                  },
+                  custom_domain_address: true,
+                  dedicated_ip_address: {
+                    dedicated_ip: true,
+                    monthly_price: 1.99,
+                    hourly_price: 0.00035,
+                  },
+                  modded_servers_allowed: true,
+                  automated_backups: true,
+                  planned_tasks: true,
+                  prioritized_support: true,
+                  sla: 99.95,
+                  monthly_price: 0,
+                  hourly_price: 0,
+                },
+              ],
+            },
+          ],
         },
       ],
     }
   },
   methods: {
-    select(tmp) {
-      this.tmp.selected = false
-      this.tmp = tmp
-      this.tmp.selected = true
-      this.holder = tmp.id
+    modify(tmp) {
+      this.modifyPlan = tmp
+      this.modifyModal = true
     },
+    updateOffer() {},
   },
 }
 </script>

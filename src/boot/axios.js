@@ -9,7 +9,9 @@ import axios from "axios";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  baseURL: process.env.baseURL || process.env.apiUrl || "http://ec2-3-250-28-76.eu-west-1.compute.amazonaws.com:9096",
+  // baseURL: process.env.baseURL || process.env.apiUrl || "http://ec2-3-250-28-76.eu-west-1.compute.amazonaws.com:9096",
+  baseURL:
+    'http://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096',
   withCredentials: false
 };
 
