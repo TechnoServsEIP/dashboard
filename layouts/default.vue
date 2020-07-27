@@ -13,7 +13,7 @@
 import NavBar from "~/components/Navbar";
 
 export default {
-  middleware: "auth",
+  middleware: "dashboard",
   components: {
     NavBar
   }

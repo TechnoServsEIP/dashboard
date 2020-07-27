@@ -1,9 +1,9 @@
-export const state = () => {
-  token: null
-}
+export const state = () => ({
+  user: null
+});
 
 export const mutations = {
-  updateToken(state, token) {
-    state.token = token
+  updateUser(state, user) {
+    state.user = user;
   }
-}
+};

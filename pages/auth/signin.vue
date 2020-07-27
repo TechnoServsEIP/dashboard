@@ -44,6 +44,7 @@
 
 <script>
 export default {
+  middleware: "auth",
   layout: "authentication",
   data() {
     return {
@@ -55,17 +56,18 @@ export default {
     };
   },
   methods: {
-    async userSignIn() {
-      this.$auth
-        .loginWith("local", {
-          data: {
-            Email: this.userEmail,
-            password: this.userPassword
-          }
+    userSignIn() {
+      this.$axios
+        .post("/user/login", {
+          email: this.userEmail,
+          password: this.userPassword
         })
         .then(response => {
-          this.$auth.setUser(response.data.account);
+          this.$store.commit("updateUser", response.data.account);
           this.$router.push({ path: "/apps" });
+        })
+        .catch(e => {
+          console.log(e);
         });
     }
   }
