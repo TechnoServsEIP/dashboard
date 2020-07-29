@@ -69,15 +69,12 @@ export default {
       this.$axios
         .post(
           "/docker/list",
-          {
+          JSON.stringify({
             user_id: this.$store.state.user.ID
-          },
+          }),
           {
             headers: {
-              Authorization: `Bearer ${this.$store.state.user.token}`,
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods":
-                "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+              Authorization: `Bearer ${this.$store.state.user.token}`
             }
           }
         )

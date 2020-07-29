@@ -72,8 +72,11 @@ export default {
     fallback: true
   },
   axios: {
-    baseURL: "http://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096",
-    credentials: false
+    baseURL: "https://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096",
+    credentials: false,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
   },
   middleware: ['auth']
 
