@@ -3,6 +3,7 @@
     <section class="section">
       <div class="columns">
         <h1 class="title is-3">Applications</h1>
+        <b-button class="add-server-button" type="is-success">New server</b-button>
       </div>
       <div>
         <applications-list-table />
@@ -17,7 +18,13 @@ import ApplicationsListTable from "~/components/Applications/ApplicationsListTab
 export default {
   name: "AppsIndex",
   components: {
-    ApplicationsListTable
-  }
+    ApplicationsListTable,
+  },
 };
 </script>
+
+<style lang="scss" scoped>
+.add-server-button {
+  margin-left: 2em;
+}
+</style>
