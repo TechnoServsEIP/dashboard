@@ -3,7 +3,11 @@
     <section class="section">
       <div class="columns">
         <h1 class="title is-3">Applications</h1>
-        <b-button class="add-server-button" type="is-success">New server</b-button>
+        <b-button
+          class="add-server-button"
+          type="is-primary"
+          v-on:click.native="$router.push({path: '/apps/create'})"
+        >New Server</b-button>
       </div>
       <div>
         <applications-list-table />
