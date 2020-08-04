@@ -1,0 +1,37 @@
+[
+  {
+    "name": "apps",
+    "path": "/apps",
+    "component": "/Users/valentin/Documents/EIP_GitHub/dashboard/pages/apps/index.vue",
+    "chunkName": "pages/apps/index",
+    "_name": "_2fcd1eb5"
+  },
+  {
+    "name": "apps-create",
+    "path": "/apps/create",
+    "component": "/Users/valentin/Documents/EIP_GitHub/dashboard/pages/apps/create.vue",
+    "chunkName": "pages/apps/create",
+    "_name": "_1ce9faae"
+  },
+  {
+    "name": "auth-signin",
+    "path": "/auth/signin",
+    "component": "/Users/valentin/Documents/EIP_GitHub/dashboard/pages/auth/signin.vue",
+    "chunkName": "pages/auth/signin",
+    "_name": "_3ba5fd59"
+  },
+  {
+    "name": "auth-signup",
+    "path": "/auth/signup",
+    "component": "/Users/valentin/Documents/EIP_GitHub/dashboard/pages/auth/signup.vue",
+    "chunkName": "pages/auth/signup",
+    "_name": "_503c53cf"
+  },
+  {
+    "name": "apps-app",
+    "path": "/apps/:app?",
+    "component": "/Users/valentin/Documents/EIP_GitHub/dashboard/pages/apps/_app.vue",
+    "chunkName": "pages/apps/_app",
+    "_name": "_3734ad62"
+  }
+]
