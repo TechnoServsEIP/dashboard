@@ -15,8 +15,7 @@ export default {
    */
   head: {
     title: process.env.npm_package_name || "",
-    meta: [
-      {
+    meta: [{
         charset: "utf-8"
       },
       {
@@ -29,13 +28,11 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [
-      {
-        rel: "icon",
-        type: "image/x-icon",
-        href: "/favicon.ico"
-      }
-    ]
+    link: [{
+      rel: "icon",
+      type: "image/x-icon",
+      href: "/favicon.ico"
+    }]
   },
   /*
    ** Global CSS
@@ -45,12 +42,10 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [
-    {
-      src: "~/plugins/localStorage.js",
-      ssr: false
-    }
-  ],
+  plugins: [{
+    src: "~/plugins/localStorage.js",
+    ssr: false
+  }],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -69,8 +64,7 @@ export default {
       "nuxt-buefy",
       {
         defaultIconPack: "fas",
-        materialDesignIconsHRef:
-          "https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+        materialDesignIconsHRef: "https://use.fontawesome.com/releases/v5.4.1/css/all.css"
       }
     ],
     "@nuxtjs/axios"
@@ -84,12 +78,14 @@ export default {
     fallback: true
   },
   axios: {
-    baseURL:
-      "https://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096",
+    baseURL: "https://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096",
     credentials: false,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     }
   },
-  middleware: ["auth"]
+  middleware: ["auth"],
+  router: {
+    base: '/'
+  }
 };
