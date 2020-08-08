@@ -36,6 +36,7 @@
     "node-fetch": "^2.6.0",
     "quasar": "^1.0.0",
     "technoservs": "^1.0.15",
+    "technoservs.js": "^1.0.0",
     "vue-apexcharts": "^1.5.0",
     "vue-axios": "^2.1.5",
     "vue-country-flag": "^2.0.0",
