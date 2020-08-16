@@ -30,6 +30,17 @@ export default {
   components: {
     OfferListTable,
   },
+  created() {
+    // Check if game exist
+    // Get all offer
+    this.getOffers()
+  },
+  methods: {
+    getOffers() {
+      const game = this.$route.params.name
+      // TODO: Add API
+    },
+  },
   data() {
     return {}
   },
