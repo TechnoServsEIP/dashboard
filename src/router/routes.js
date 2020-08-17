@@ -50,13 +50,43 @@ const routes = [
             component: () => import('pages/Admin/Users/RoleList.vue'),
           },
           {
-            path: 'servers',
+            path: 'server',
             component: () => import('pages/Admin/Servers/ServersRouter.vue'),
             children: [
               {
                 name: 'AllServersList',
                 component: () => import('pages/Admin/Servers/ServersList.vue'),
                 path: '/',
+              },
+              {
+                path: 'server/:id',
+                component: () => import('pages/Servers/ServerLayout.vue'),
+                children: [
+                  {
+                    path: '/',
+                    component: () => import('pages/Servers/ServerIndex.vue'),
+                  },
+                  {
+                    path: '/admin/server/:id/resources',
+                    name: 'Resources',
+                    component: () => import('pages/Servers/ServerResources.vue'),
+                  },
+                  {
+                    path: '/admin/server/:id/environment',
+                    name: 'Environment',
+                    component: () => import('pages/Servers/ServerEnvironment.vue'),
+                  },
+                  {
+                    path: '/admin/server/:id/deploy',
+                    name: 'Deployments',
+                    component: () => import('pages/Servers/ServerDeployments.vue'),
+                  },
+                  {
+                    path: '/admin/server/:id/code',
+                    name: 'Code',
+                    component: () => import('pages/Servers/ServerCode.vue'),
+                  },
+                ],
               },
             ],
           },

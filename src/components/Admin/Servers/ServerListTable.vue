@@ -9,7 +9,9 @@
       :columns="columns"
       :rows-per-page="10"
       :filter="filter"
-      row-key="ID"
+      row-key="server_id"
+      :selected.sync="selected"
+      selection="multiple"
       :rows-per-page-options="[]"
     >
       <template v-slot:top-right>
@@ -31,8 +33,20 @@
           <q-td auto-width>
             <q-checkbox dense v-model="props.selected" />
           </q-td>
-          <q-td key="id" :props="props">
-            {{ props.row.id }}
+          <q-td key="server_id" :props="props">
+            {{ props.row.ID }}
+          </q-td>
+          <q-td key="user_id" :props="props">
+            {{ props.row.user_id }}
+          </q-td>
+          <q-td key="game" :props="props">
+            {{ props.row.game }}
+          </q-td>
+          <q-td key="id_docker" :props="props">
+            {{ props.row.id_docker }}
+          </q-td>
+          <q-td key="server_status" :props="props">
+            {{ props.row.server_status }}
           </q-td>
           <q-td key="edit" :props="props">
             <q-btn
@@ -40,6 +54,12 @@
               color="black"
               round
               icon="info"
+              @click="
+                $router.push({
+                  path: `/admin/server/${props.row.ID}`,
+                  params: { id: props.row.ID },
+                })
+              "
             />
           </q-td>
         </q-tr>
@@ -75,22 +95,56 @@ export default {
       selected: [],
       columns: [
         {
-          name: 'id',
+          name: 'server_id',
           required: true,
-          label: 'ID',
+          label: 'Server ID',
           align: 'left',
           sortable: true,
           field: (row) => row.ID,
           format: (val) => `${val}`,
         },
         {
-          name: 'label',
+          name: 'user_id',
           required: true,
-          label: 'Label',
+          label: 'User ID',
           align: 'left',
           sortable: true,
-          field: (row) => row.label,
+          field: (row) => row.user_id,
           format: (val) => `${val}`,
+        },
+        {
+          name: 'game',
+          required: true,
+          label: 'Game',
+          align: 'left',
+          sortable: true,
+          field: (row) => row.game,
+          format: (val) => `${val}`,
+        },
+        {
+          name: 'id_docker',
+          required: true,
+          label: 'Docker ID',
+          align: 'left',
+          sortable: true,
+          field: (row) => row.id_docker,
+          format: (val) => `${val}`,
+        },
+        {
+          name: 'server_status',
+          required: true,
+          label: 'Status',
+          align: 'left',
+          sortable: true,
+          field: (row) => row.server_status,
+          format: (val) => `${val}`,
+        },
+        {
+          name: 'edit',
+          required: false,
+          label: 'Edit',
+          align: 'left',
+          sortable: false,
         },
       ],
       filter: '',

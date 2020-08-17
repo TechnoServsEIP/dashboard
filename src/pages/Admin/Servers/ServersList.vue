@@ -60,7 +60,92 @@ export default {
   },
   methods: {
     getServers() {
-      // TODO: wait to backend to develop route
+      // TODO: Replace with this.axios
+      const result = {
+          "res": {
+              "Value": [
+                  {
+                      "ID": 1,
+                      "CreatedAt": "2020-07-25T15:38:22.463242Z",
+                      "UpdatedAt": "2020-07-25T15:38:22.463242Z",
+                      "DeletedAt": null,
+                      "Role": "user",
+                      "email": "blazx972@gmail.com",
+                      "password": "$2a$10$Xx/G.FJkjmKriw0grQjq1uZBvdd5W7XVMtLwjOg2wEh61szhx/NC.",
+                      "token": "",
+                      "Verified": true,
+                      "Activate": true
+                  },
+                  {
+                      "ID": 2,
+                      "CreatedAt": "2020-07-26T13:32:02.767529Z",
+                      "UpdatedAt": "2020-07-26T13:32:02.767529Z",
+                      "DeletedAt": null,
+                      "Role": "admin",
+                      "email": "valentin.ichkour68210@gmail.com",
+                      "password": "$2a$10$XF4sAVnw00qEiA4Nue7xDeR6m.a0aGKZOu5IR0Io8ZHx37T6ezv.a",
+                      "token": "",
+                      "Verified": true,
+                      "Activate": true
+                  },
+                  {
+                      "ID": 3,
+                      "CreatedAt": "2020-07-27T09:24:37.573387Z",
+                      "UpdatedAt": "2020-07-27T09:24:37.573387Z",
+                      "DeletedAt": null,
+                      "Role": "admin",
+                      "email": "jeremie.bruhwiler@gmail.com",
+                      "password": "$2a$10$fmo9dwV2tlKir7UEvTnmUO2fD5y1iZ0NOc.AKkOCybhQvo2sGJrre",
+                      "token": "",
+                      "Verified": true,
+                      "Activate": true
+                  }
+              ],
+              "Error": null,
+              "RowsAffected": 3
+          }
+      }
+      const usersIds = result.res.Value.map(elem => elem.ID)
+      console.log(usersIds)
+      let res
+      // TODO: Replace with API
+      for (let index = 0; index < usersIds.length; index++) {
+        const element = usersIds[index];
+        const toSend = {
+          "user_id": element.toString()
+        }
+        res = {
+            "list": [
+                {
+                    "ID": 11,
+                    "CreatedAt": "2020-08-08T13:51:15.546337Z",
+                    "UpdatedAt": "2020-08-08T15:36:20.880737Z",
+                    "DeletedAt": null,
+                    "id_docker": "b12f3a053e4ff8825336ab845d58e6e18f2aaf18a09e2e7cd07dcae0db7b0391",
+                    "game": "minecraft",
+                    "server_name": "test from library",
+                    "server_status": "Started",
+                    "user_id": 2,
+                },
+                {
+                    "ID": 12,
+                    "CreatedAt": "2020-08-08T15:41:16.252704Z",
+                    "UpdatedAt": "2020-08-09T17:01:29.12827Z",
+                    "DeletedAt": null,
+                    "id_docker": "e49367fee12be406b88b656b3919e7395f4584d0b4359ed59d68679743fae56c",
+                    "game": "minecraft",
+                    "server_name": "salut",
+                    "server_status": "Stoped",
+                    "user_id": 2,
+                }
+            ]
+        }
+        console.log(res.list)
+        for (let index = 0; index < res.list.length; index++) {
+          const server = res.list[index];
+          this.servers.push(server)
+        }
+      }
     },
   },
 }
