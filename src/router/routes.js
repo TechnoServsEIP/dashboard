@@ -51,11 +51,10 @@ const routes = [
           },
           {
             path: 'servers',
-            name: 'ServersList',
             component: () => import('pages/Admin/Servers/ServersRouter.vue'),
             children: [
               {
-                name: 'ServersList',
+                name: 'AllServersList',
                 component: () => import('pages/Admin/Servers/ServersList.vue'),
                 path: '/',
               },

@@ -45,7 +45,7 @@
 
           <q-separator></q-separator>
 
-          <q-item clickable v-close-popup :to="{ name: 'ServersList' }">
+          <q-item clickable v-close-popup :to="{ name: 'AllServersList' }">
             <q-item-section avatar>
               <q-icon name="dns" color="primary" />
             </q-item-section>

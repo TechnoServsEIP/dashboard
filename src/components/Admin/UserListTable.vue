@@ -234,7 +234,7 @@ export default {
     },
     deleteUsers() {
       //TODO: Add call API
-      // TODO: check if user is admin or not and if so, dont delete
+      // TODO: check if user is admin or not and if is admin, dont delete
       this.selected.forEach((element) => {
         let id = element.ID
         let role = element.Role

@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div v-if="!currentUser.ID">
+    User not found
+  </div>
+  <div v-else>
     <div class="textParam">Email</div>
     <q-input
       square
@@ -114,8 +117,11 @@ export default {
     currentUser: { type: Object },
   },
   created() {
-    this.roleSelect = this.currentUser.Role
-    this.activation = this.currentUser.Activate
+    console.log(this.currentUser)
+    if (this.currentUser) {
+      this.roleSelect = this.currentUser.Role.toString()
+      this.activation = this.currentUser.Activate
+    }
   },
   methods: {
     deleteUser() {

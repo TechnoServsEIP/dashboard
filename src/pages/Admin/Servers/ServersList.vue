@@ -20,7 +20,7 @@ import ServerListTable from '../../../components/Admin/Servers/ServerListTable'
 // eslint-disable-next-line no-unused-vars
 import axios from 'axios'
 export default {
-  name: 'ServersList',
+  name: 'AllServersList',
   components: {
     ServerListTable,
   },

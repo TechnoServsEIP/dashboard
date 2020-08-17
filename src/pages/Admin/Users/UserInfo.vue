@@ -6,7 +6,7 @@
         <q-breadcrumbs-el label="Admin" icon="widgets" to="/admin" />
         <q-breadcrumbs-el label="Users" icon="group" to="/admin/users" />
         <q-breadcrumbs-el
-          :label="$route.params.id"
+          :label="$route.params.id.toString()"
           icon="person"
           to="/admin/users/:id"
         />
@@ -52,10 +52,13 @@ export default {
     ServerUserTable,
     BillingListTable,
   },
+  watch: {
+    // call again the method if the route changes
+    '$route': 'getCurrentUser'
+  },
   data() {
     return {
       tab: 'infos',
-      users: [],
       servers: [],
       billings: [
         {
@@ -67,39 +70,64 @@ export default {
           status: 'payed',
         },
       ],
-      currentUser: {
-        ID: '0',
-        CreatedAt: '2020-06-13T10:24:16.630113Z',
-        UpdatedAt: '2020-06-13T10:24:16.630113Z',
-        DeletedAt: null,
-        Role: 'user',
-        email: '',
-        password: '',
-        token: '',
-        Verified: false,
-        Activate: false,
-      },
+      currentUser: {},
     }
   },
-  created() {
-    this.$q.loading.show()
-    this.getUsers().then((users) => this.getCurrentUser(users))
-    // TODO: Get all users and get the current one with id
-    this.$q.loading.hide()
+  created () {
+    this.getCurrentUser()
   },
   methods: {
-    getUsers() {
-      // TODO: Change with API
-      return new Promise((resolve) => {
-        resolve(this.$route.params.users)
-      })
-    },
-    getCurrentUser(users) {
+    getCurrentUser() {
+      // TODO: Replace with this.axios
+      const result = {
+          "res": {
+              "Value": [
+                  {
+                      "ID": 1,
+                      "CreatedAt": "2020-07-25T15:38:22.463242Z",
+                      "UpdatedAt": "2020-07-25T15:38:22.463242Z",
+                      "DeletedAt": null,
+                      "Role": "user",
+                      "email": "blazx972@gmail.com",
+                      "password": "$2a$10$Xx/G.FJkjmKriw0grQjq1uZBvdd5W7XVMtLwjOg2wEh61szhx/NC.",
+                      "token": "",
+                      "Verified": true,
+                      "Activate": true
+                  },
+                  {
+                      "ID": 2,
+                      "CreatedAt": "2020-07-26T13:32:02.767529Z",
+                      "UpdatedAt": "2020-07-26T13:32:02.767529Z",
+                      "DeletedAt": null,
+                      "Role": "admin",
+                      "email": "valentin.ichkour68210@gmail.com",
+                      "password": "$2a$10$XF4sAVnw00qEiA4Nue7xDeR6m.a0aGKZOu5IR0Io8ZHx37T6ezv.a",
+                      "token": "",
+                      "Verified": true,
+                      "Activate": true
+                  },
+                  {
+                      "ID": 3,
+                      "CreatedAt": "2020-07-27T09:24:37.573387Z",
+                      "UpdatedAt": "2020-07-27T09:24:37.573387Z",
+                      "DeletedAt": null,
+                      "Role": "admin",
+                      "email": "jeremie.bruhwiler@gmail.com",
+                      "password": "$2a$10$fmo9dwV2tlKir7UEvTnmUO2fD5y1iZ0NOc.AKkOCybhQvo2sGJrre",
+                      "token": "",
+                      "Verified": true,
+                      "Activate": true
+                  }
+              ],
+              "Error": null,
+              "RowsAffected": 3
+          }
+      }
+      const users = result.res.Value
       for (let index = 0; index < users.length; index++) {
-        const element = users[index]
-        if (element.ID === this.$route.params.id) {
+        const element = users[index];
+        if (element.ID == this.$route.params.id) {
           this.currentUser = element
-          break
         }
       }
     },

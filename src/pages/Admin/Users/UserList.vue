@@ -20,8 +20,7 @@
 
 <script>
 import UserListTable from '../../../components/Admin/UserListTable'
-// eslint-disable-next-line no-unused-vars
-import axios from 'axios'
+
 export default {
   name: 'UserList',
   components: {
@@ -30,34 +29,7 @@ export default {
   data() {
     return {
       deleteLoader: false,
-      users: [
-        {
-          ID: '0',
-          CreatedAt: '2020-06-13T10:24:16.630113Z',
-          UpdatedAt: '2020-06-13T10:24:16.630113Z',
-          DeletedAt: null,
-          Role: 'admin',
-          email: 'jeremie.bruhwiler@epitech.eu',
-          password:
-            '$2a$10$0Bo6v/UjnfzdMPqdnMUiM.tGulroMFO6BlCXGuerDFiN4yUhmqsAG',
-          token: '',
-          Verified: true,
-          Activate: true,
-        },
-        {
-          ID: '1',
-          CreatedAt: '2020-06-13T10:24:16.630113Z',
-          UpdatedAt: '2020-06-13T10:24:16.630113Z',
-          DeletedAt: null,
-          Role: 'user',
-          email: 'jeremie.bruhwiler@gmail.com',
-          password:
-            '$2a$10$0Bo6v/UjnfzdMPqdnMUiM.tGulroMFO6BlCXGuerDFiN4yUhmqsAG',
-          token: '',
-          Verified: true,
-          Activate: true,
-        },
-      ],
+      users: [],
       serverInformation: null,
       serversStatus: '',
       buttonLoading: false,
@@ -69,7 +41,54 @@ export default {
     this.getUser()
   },
   methods: {
-    getUser() {},
+    getUser() {
+      // TODO: Replace with this.axios
+      const result = {
+          "res": {
+              "Value": [
+                  {
+                      "ID": 1,
+                      "CreatedAt": "2020-07-25T15:38:22.463242Z",
+                      "UpdatedAt": "2020-07-25T15:38:22.463242Z",
+                      "DeletedAt": null,
+                      "Role": "user",
+                      "email": "blazx972@gmail.com",
+                      "password": "$2a$10$Xx/G.FJkjmKriw0grQjq1uZBvdd5W7XVMtLwjOg2wEh61szhx/NC.",
+                      "token": "",
+                      "Verified": true,
+                      "Activate": true
+                  },
+                  {
+                      "ID": 2,
+                      "CreatedAt": "2020-07-26T13:32:02.767529Z",
+                      "UpdatedAt": "2020-07-26T13:32:02.767529Z",
+                      "DeletedAt": null,
+                      "Role": "admin",
+                      "email": "valentin.ichkour68210@gmail.com",
+                      "password": "$2a$10$XF4sAVnw00qEiA4Nue7xDeR6m.a0aGKZOu5IR0Io8ZHx37T6ezv.a",
+                      "token": "",
+                      "Verified": true,
+                      "Activate": true
+                  },
+                  {
+                      "ID": 3,
+                      "CreatedAt": "2020-07-27T09:24:37.573387Z",
+                      "UpdatedAt": "2020-07-27T09:24:37.573387Z",
+                      "DeletedAt": null,
+                      "Role": "admin",
+                      "email": "jeremie.bruhwiler@gmail.com",
+                      "password": "$2a$10$fmo9dwV2tlKir7UEvTnmUO2fD5y1iZ0NOc.AKkOCybhQvo2sGJrre",
+                      "token": "",
+                      "Verified": true,
+                      "Activate": true
+                  }
+              ],
+              "Error": null,
+              "RowsAffected": 3
+          }
+      }
+      this.users = result.res.Value
+    },
     addUser(newUser) {
       console.log(newUser)
       this.users.push(newUser)
