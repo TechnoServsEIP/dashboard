@@ -54,7 +54,9 @@
     "eslint": "^5.10.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-vue": "^5.0.0",
-    "majestic": "^1.6.0"
+    "majestic": "^1.6.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^9.0.3"
   },
   "engines": {
     "node": ">= 8.9.0",

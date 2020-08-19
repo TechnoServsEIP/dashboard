@@ -6,20 +6,9 @@
       </q-card-section>
 
       <q-separator inset></q-separator>
-      <form
-        @submit.prevent.stop="submitForm"
-        @delete.prevent.stop="onReset"
-        class="q-gutter-md"
-      >
+      <form @submit.prevent.stop="submitForm" @delete.prevent.stop="onReset" class="q-gutter-md">
         <q-card-section class="q-pt-none">
-          <q-input
-            bottom-slots
-            v-model="email"
-            type="email"
-            label="Email"
-            dense
-            autofocus
-          />
+          <q-input bottom-slots v-model="email" type="email" label="Email" dense autofocus />
           <q-input
             bottom-slots
             label="Password"
@@ -38,10 +27,7 @@
           <q-select v-model="role" :options="roles" label="Role" />
         </q-card-section>
 
-        <q-card-actions
-          style="justify-content:space-between"
-          class="text-primary"
-        >
+        <q-card-actions style="justify-content:space-between" class="text-primary">
           <q-btn flat type="reset" label="Reset" color="red" @click="onReset" />
           <div style="align-items:right">
             <q-btn
@@ -54,12 +40,7 @@
                 }
               "
             />
-            <q-btn
-              flat
-              type="submit"
-              label="Add"
-              :disable="email === '' || password === ''"
-            />
+            <q-btn flat type="submit" label="Add" :disable="email === '' || password === ''" />
           </div>
         </q-card-actions>
       </form>
@@ -95,17 +76,17 @@ export default {
     }
   },
   methods: {
-    submitForm: function() {
+    submitForm: function () {
       this.$emit('close')
       this.$emit('modify')
       this.onReset()
     },
-    onReset: function() {
+    onReset: function () {
       this.email = ''
       this.password = ''
       this.role = 'user'
     },
-    closeModal: function() {
+    closeModal: function () {
       this.$emit('close')
     },
   },
