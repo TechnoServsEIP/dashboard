@@ -130,7 +130,6 @@ export default {
           })
           let infos
           const element = container[0]
-          console.log(element)
           var created = new Date(element.CreatedAt).toLocaleString('en-US')
           const today = new Date()
           const endDate = new Date(element.UpdatedAt)

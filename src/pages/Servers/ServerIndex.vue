@@ -11,165 +11,169 @@
       </q-breadcrumbs>
     </div>
 
-    <div class="row q-col-gutter-x-md">
-      <div class="col-5">
-        <q-card flat class="ts-server-info-card">
-          <q-card-section>
-            <div class="row q-col-gutter-x-sm">
-              <div class="col-8 text-h6">Server Information</div>
-              <p class="col-3">
-                Server status:
-                <span style="font-weight: bold">{{ serversStatus }}</span>
-              </p>
-            </div>
+    <div v-if="serverInformation !== null">
+      <div class="row">
+        <div class="col-12" v-if="serverInformation !== null">
+          <q-card flat class="ts-server-info-card">
+            <q-card-section>
+              <div class="row q-col-gutter-x-sm">
+                <div class="col-8 text-h6">Server Information</div>
+                <div class="col-3">
+                  Server status:
+                  <q-badge align="middle">{{ serversStatus }}</q-badge>
+                </div>
+              </div>
 
-            <q-item-label class="ts-server-info-label">
-              Game:
-              <span class="ts-server-info-item">{{
-                serverInformation.game
-              }}</span>
-            </q-item-label>
+              <q-item-label class="ts-server-info-label">
+                Game:
+                <span class="ts-server-info-item">{{
+                  serverInformation.game
+                }}</span>
+              </q-item-label>
 
-            <q-item-label class="ts-server-info-label">
-              Instance name:
-              <span class="ts-server-info-item">{{
-                serverInformation.server_name
-              }}</span>
-            </q-item-label>
+              <q-item-label class="ts-server-info-label">
+                Instance name:
+                <span class="ts-server-info-item">{{
+                  serverInformation.server_name
+                }}</span>
+              </q-item-label>
 
-            <q-item-label class="ts-server-info-label">
-              Players Online: <span class="ts-server-info-item">NaN</span>
-            </q-item-label>
+              <q-item-label class="ts-server-info-label">
+                Players Online: <span class="ts-server-info-item">NaN</span>
+              </q-item-label>
 
-            <q-item-label class="ts-server-info-label">
-              IP:
-              <span class="ts-server-info-item"
-                >ec2-3-250-28-76.eu-west-1.compute.amazonaws.com</span
-              >
-            </q-item-label>
+              <q-item-label class="ts-server-info-label">
+                IP:
+                <span class="ts-server-info-item">{{
+                  `https://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:${serverInformation.settings.HostConfig['PortBindings']['25565/tcp'][0]['HostPort']}`
+                }}</span>
+              </q-item-label>
 
-            <q-item-label class="ts-server-info-label">
-              Port:
-              <span class="ts-server-info-item">{{
-                serverInformation.settings.HostConfig['PortBindings'][
-                  '25565/tcp'
-                ][0]['HostPort']
-              }}</span>
-            </q-item-label>
+              <q-item-label class="ts-server-info-label">
+                Port:
+                <span class="ts-server-info-item">{{
+                  serverInformation.settings.HostConfig['PortBindings'][
+                    '25565/tcp'
+                  ][0]['HostPort']
+                }}</span>
+              </q-item-label>
 
-            <q-item-label class="ts-server-info-label">
-              Custom IP address: <span class="ts-server-info-item">NaN</span>
-            </q-item-label>
+              <q-item-label class="ts-server-info-label">
+                Custom IP address: <span class="ts-server-info-item">NaN</span>
+              </q-item-label>
 
-            <q-item-label class="ts-server-info-label">
-              Version:
-              <q-avatar
-                size="40px"
-                icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
-              ></q-avatar>
-              <q-badge color="secondary">
-                NaN
-              </q-badge>
-            </q-item-label>
+              <q-item-label class="ts-server-info-label">
+                Version:
+                <q-avatar
+                  size="40px"
+                  icon="img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
+                ></q-avatar>
+                <q-badge color="secondary">
+                  NaN
+                </q-badge>
+              </q-item-label>
 
-            <q-item-label class="ts-server-info-label">
-              <q-img
-                src="https://cdn.quasar.dev/img/material.png"
-                spinner-color="white"
-                style="height: 130px; max-width: 170px"
-              />
-              <input
-                type="file"
-                accept="image/*"
-                @change="uploadImage($event)"
-                id="file-input"
-              />
-            </q-item-label>
-          </q-card-section>
-        </q-card>
+              <q-item-label class="ts-server-info-label">
+                <q-img
+                  src="https://cdn.quasar.dev/img/material.png"
+                  spinner-color="white"
+                  style="height: 130px; max-width: 170px"
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  @change="uploadImage($event)"
+                  id="file-input"
+                />
+              </q-item-label>
+            </q-card-section>
+          </q-card>
+        </div>
       </div>
 
-      <div class="col-7">
-        <q-card flat class="ts-resources-card">
-          <q-card-section>
-            <div class="text-h6">Resources usage</div>
-            <div>
-              <q-item-label class="ts-server-info-label">
-                CPU:
-              </q-item-label>
-              <q-linear-progress
-                rounded
-                size="40px"
-                :value="0.8"
-                color="primary-light"
-                class="q-mt-sm"
-              >
-                <div class="absolute-full flex flex-center">
-                  <q-badge color="white" text-color="primary" label="80%" />
-                </div>
-              </q-linear-progress>
-            </div>
-            <div>
-              <q-item-label class="ts-server-info-label">
-                CPU:
-              </q-item-label>
-              <q-linear-progress
-                rounded
-                size="40px"
-                :value="0.2"
-                color="primary"
-                class="q-mt-sm"
-              >
-                <div class="absolute-full flex flex-center">
-                  <q-badge color="white" text-color="primary" label="20%" />
-                </div>
-              </q-linear-progress>
-            </div>
-            <div class="row q-pt-md">
-              <div class="q-pr-md" v-if="serversStatus == 'running'">
-                <q-btn
-                  :loading="buttonLoading"
-                  color="primary"
-                  label="Restart"
-                  @click="restartServer"
-                />
-              </div>
-              <div class="q-pr-md" v-else>
-                <q-btn
-                  :loading="buttonLoading"
-                  color="primary"
-                  label="Start"
-                  @click="startServer"
-                />
-              </div>
-              <div class="q-pr-md" v-if="serversStatus != 'exited'">
-                <q-btn
-                  :loading="buttonLoading"
-                  color="secondary"
-                  label="Stop"
-                  @click="stopServer"
-                />
+      <div class="q-pt-md">
+        <div class="col-12">
+          <q-card flat class="ts-resources-card">
+            <q-card-section>
+              <div class="text-h6">Resources usage</div>
+              <div>
+                <q-item-label class="ts-server-info-label">
+                  CPU:
+                </q-item-label>
+                <q-linear-progress
+                  rounded
+                  size="40px"
+                  :value="0.8"
+                  color="primary-light"
+                  class="q-mt-sm"
+                >
+                  <div class="absolute-full flex flex-center">
+                    <q-badge color="white" text-color="primary" label="80%" />
+                  </div>
+                </q-linear-progress>
               </div>
               <div>
-                <q-btn
-                  :loading="buttonLoading"
-                  color="red"
-                  label="Delete"
-                  @click="deleteServer"
-                />
+                <q-item-label class="ts-server-info-label">
+                  CPU:
+                </q-item-label>
+                <q-linear-progress
+                  rounded
+                  size="40px"
+                  :value="0.2"
+                  color="primary"
+                  class="q-mt-sm"
+                >
+                  <div class="absolute-full flex flex-center">
+                    <q-badge color="white" text-color="primary" label="20%" />
+                  </div>
+                </q-linear-progress>
               </div>
-            </div>
-          </q-card-section>
-        </q-card>
+              <div class="row q-pt-md">
+                <div class="q-pr-md" v-if="serversStatus == 'running'">
+                  <q-btn
+                    :loading="buttonLoading"
+                    color="primary"
+                    label="Restart"
+                    @click="restartServer"
+                  />
+                </div>
+                <div class="q-pr-md" v-else>
+                  <q-btn
+                    :loading="buttonLoading"
+                    color="primary"
+                    label="Start"
+                    @click="startServer"
+                  />
+                </div>
+                <div class="q-pr-md" v-if="serversStatus != 'exited'">
+                  <q-btn
+                    :loading="buttonLoadingStop"
+                    color="secondary"
+                    label="Stop"
+                    v-on:click.prevent="stopServer()"
+                  />
+                </div>
+                <div>
+                  <q-btn
+                    :loading="buttonLoading"
+                    color="red"
+                    label="Delete"
+                    @click="deleteServer"
+                  />
+                </div>
+              </div>
+            </q-card-section>
+          </q-card>
+        </div>
       </div>
-    </div>
 
-    <div class="row q-pt-md">
-      <player-list-table
-        class="ts-player-table"
-        :data="data"
-        :columns="columns"
-      ></player-list-table>
+      <div class="row q-pt-md">
+        <player-list-table
+          class="ts-player-table"
+          :data="data"
+          :columns="columns"
+        ></player-list-table>
+      </div>
     </div>
   </div>
 </template>
@@ -307,8 +311,8 @@ export default {
       buttonLoadingStop: false,
     }
   },
-  created() {
-    this.getServerInformation()
+  async created() {
+    await this.getServerInformation()
   },
   methods: {
     async restartServer() {
@@ -342,7 +346,6 @@ export default {
     },
     stopServer() {
       this.buttonLoadingStop = true
-      console.log('ici =>', this.serverInformation)
       this.axios
         .post(
           '/docker/stop',
@@ -357,8 +360,8 @@ export default {
           },
         )
         .then((response) => {
+          this.serverInformation.server_status = 'Stoped'
           this.buttonLoadingStop = false
-          console.log('Stoped', response)
           this.$router.go()
         })
         .catch((e) => {
@@ -367,7 +370,6 @@ export default {
         })
     },
     deleteServer() {
-      console.log('Delete du serveur ', this.$route.params.id)
       this.buttonLoading = true
 
       let body = {
@@ -376,42 +378,19 @@ export default {
       }
 
       this.axios
-        .post(
-          'http://ec2-3-250-28-76.eu-west-1.compute.amazonaws.com:9096/docker/delete',
-          body,
-          {
-            withCredentials: false,
-            headers: {
-              Authorization: `Bearer ${this.$store.getters['client'].token}`,
-            },
+        .post('/docker/delete', body, {
+          headers: {
+            Authorization: `Bearer ${this.$store.getters['client'].token}`,
           },
-        )
+        })
         .then((response) => {
           this.buttonLoading = false
-          console.log(response)
           this.$router.push(this.$route.query.redirect || '/apps')
         })
         .catch((e) => {
           this.buttonLoading = false
           console.log('AXIOS ERROR')
         })
-
-      // fetch('http://ec2-3-250-28-76.eu-west-1.compute.amazonaws.com:9096/docker/delete', {
-      //     method: 'POST',
-      //     body: JSON.stringify(body),
-      //     headers: {
-      //       'Authorization': `Bearer ${this.$store.getters['currentUser'].email.token}`
-      //     }
-      //   })
-      //   .then(res => res.json()).catch(e => {
-      //     this.deleteLoader = false
-      //     return e
-      //   })
-      //   .then(response => {
-      //     console.log(response)
-      //     this.deleteLoader = false
-      //     return
-      //   })
     },
     getServerInformation() {
       this.axios
@@ -437,27 +416,6 @@ export default {
         .catch((e) => {
           console.log('ERROR', e)
         })
-      // let body = {
-      //   "user_id": this.$store.getters['client']._user.ID.toString()
-      // }
-
-      // fetch('http://ec2-3-250-28-76.eu-west-1.compute.amazonaws.com:9096/docker/list', {
-      //     method: 'POST',
-      //     body: JSON.stringify(body)
-      //   })
-      //   .then(res => res.json()).catch(e => {
-      //     return e
-      //   })
-      //   .then(response => {
-      //     let currentServer = response.list.filter(v => {
-      //       if (v.ID == this.$route.params.id) {
-      //         return v
-      //       }
-      //     })
-      //     this.serverInformation = currentServer[0]
-      //     console.log(this.serverInformation)
-      //     return
-      //   })
     },
   },
 }
