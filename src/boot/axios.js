@@ -9,7 +9,7 @@ import axios from "axios";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  baseURL: process.env.baseURL || process.env.apiUrl || "http://40.124.38.86:9096",
+  baseURL: process.env.baseURL || process.env.apiUrl || "https://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096",
   withCredentials: false
 };
 

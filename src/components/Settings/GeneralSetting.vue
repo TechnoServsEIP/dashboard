@@ -35,7 +35,7 @@
         label="Password"
         v-model="password1"
         :type="isPwd ? 'password' : 'text'"
-        :rules="[v => v.length >= 6 || 'Password too short']"
+        :rules="[(v) => v.length >= 6 || 'Password too short']"
       >
         <template v-slot:append>
           <q-icon
@@ -53,7 +53,7 @@
         v-model="password2"
         label="Confirm password"
         :type="isPwd ? 'password' : 'text'"
-        :rules="[v => v == password1 || 'Password are different']"
+        :rules="[(v) => v == password1 || 'Password are different']"
       >
         <template v-slot:append>
           <q-icon
@@ -63,9 +63,16 @@
           />
         </template>
       </q-input>
-      
-      <q-btn :loader="changePassLoader" v-if="password1 == password2" class="q-mt-md" color="primary" label="Save" @click="changePassword"/>
-      <q-btn v-else  disabled class="q-mt-md" color="primary" label="Save" />
+
+      <q-btn
+        :loader="changePassLoader"
+        v-if="password1 == password2"
+        class="q-mt-md"
+        color="primary"
+        label="Save"
+        @click="changePassword"
+      />
+      <q-btn v-else disabled class="q-mt-md" color="primary" label="Save" />
     </div>
   </q-page>
 </template>
@@ -83,24 +90,27 @@ export default {
       realname: 'Valentin',
       surname: 'Ichkour',
       isPwd: true,
-      changePassLoader: false
+      changePassLoader: false,
     }
   },
   methods: {
     changePassword() {
-      this.axios.post('/user/resetpassword', {
-        Email: this.$store.getters['client']._user.email,
-        Password: this.password2
-      }).then(response => {
-        console.log(response)
-      }).catch(e => {
-        console.log(e)
-      })
-    }
+      this.axios
+        .post('/user/resetpassword', {
+          Email: this.$store.getters['client'].email,
+          Password: this.password2,
+        })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
   },
   created() {
-    this.email = this.$store.getters['client']._user.email
-  }
+    this.email = this.$store.getters['client'].email
+  },
 }
 </script>
 

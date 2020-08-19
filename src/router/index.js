@@ -26,20 +26,18 @@ export default function ({
     routes
   })
 
-  // Router.beforeEach((to, from, next) => {
-  //   if (to.name == 'Apps' && store.getters['token'] == null) next({
-  //     path: '/auth/login',
-  //   })
-  //   else next()
+  Router.beforeEach((to, from, next) => {
 
-  //   if ((to.name == 'Login' || to.name == 'Register') && store.getters['token'] != null) {
-  //     next({
-  //       path: '/apps/'
-  //     })
-  //   } else {
-  //     next()
-  //   }
-  // })
+
+    if (to.fullPath == '/apps' && store.getters['token'] == null) return next('/auth/login')
+    else return next()
+
+    if ((to.name == 'Login' || to.name == 'Register') && store.getters['token'] != null) {
+      return next('/apps/')
+    } else {
+      return next()
+    }
+  })
 
   return Router
 }

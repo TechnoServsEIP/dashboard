@@ -10,13 +10,15 @@
         <br />Please login to your account.
       </p>
       <div style="max-width: 500px">
-        <q-form @submit="logUser" class="q-gutter-md">
+        <q-form v-on:submit.prevent="logUser" class="q-gutter-md">
           <q-input
             outlined
             v-model="login"
             type="email"
             label="Login"
-            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            :rules="[
+              (val) => (val && val.length > 0) || 'Please type something',
+            ]"
           >
             <template v-slot:prepend>
               <q-icon name="mail" />
@@ -28,14 +30,16 @@
             v-model="password"
             label="Password"
             type="password"
-            :rules="[ val => val && val.length >= 6 || 'Enter correct password']"
+            :rules="[
+              (val) => (val && val.length >= 6) || 'Enter correct password',
+            ]"
           >
             <template v-slot:prepend>
               <q-icon name="fingerprint" />
             </template>
           </q-input>
 
-          <p v-if="errorMessage != ''" style="color: red">{{errorMessage}}</p>
+          <p v-if="errorMessage != ''" style="color: red">{{ errorMessage }}</p>
 
           <div class="q-pa-md">
             <q-btn
@@ -54,7 +58,6 @@
 
 <script>
 import fetch from 'node-fetch'
-import { clientFromAuth } from 'technoservs'
 
 export default {
   name: 'AuthLogin',
@@ -69,7 +72,7 @@ export default {
   },
   created() {},
   methods: {
-    async logUser() {
+    logUser() {
       this.loginLoader = false
       this.axios
         .post('/user/login', {
@@ -77,11 +80,13 @@ export default {
           password: this.password,
         })
         .then((response) => {
-          console.log(response)
+          this.$store.dispatch('setClient', response.data.account)
+          this.$store.dispatch('setToken', response.data.account.token)
+          this.loginLoader = false
+          this.$router.push(this.$route.query.redirect || '/apps')
         })
         .catch((e) => {
           this.errorMessage = e
-          console.log('ERROR', e)
           this.loginLoader = false
         })
       // this.errorMessage = ''
@@ -106,5 +111,4 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,3 +1,7 @@
+import {
+  store
+} from 'quasar/wrappers'
+
 const routes = [{
     path: '/auth',
     name: 'Auth',

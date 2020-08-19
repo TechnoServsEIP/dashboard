@@ -233,12 +233,12 @@ export default {
           '/docker/create',
           {
             game: 'minecraft',
-            user_id: this.$store.getters['client']._user.ID.toString(),
+            user_id: this.$store.getters['client'].ID.toString(),
             server_name: this.instanceName,
           },
           {
             headers: {
-              Authorization: `${this.$store.getters['client']._user.token}`,
+              Authorization: `${this.$store.getters['client'].token}`,
             },
           },
         )
