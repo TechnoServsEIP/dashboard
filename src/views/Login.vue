@@ -6,12 +6,30 @@
           <div class="text-center text-muted mb-4">
             <small>Sign in to the dashboard</small>
           </div>
+
+          <div v-if="error.isError">
+            <base-alert type="danger" dismissible>
+              <span class="alert-inner--text">
+                <strong>Error !</strong>
+                {{ error.message }}
+              </span>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </base-alert>
+          </div>
+
           <form type="submit" role="form">
             <base-input
               class="input-group-alternative mb-3"
               placeholder="Email"
               addon-left-icon="ni ni-email-83"
-              v-model="model.email"
+              v-model.trim="email"
             ></base-input>
 
             <base-input
@@ -19,11 +37,24 @@
               placeholder="Password"
               type="password"
               addon-left-icon="ni ni-lock-circle-open"
-              v-model="model.password"
+              v-model="password"
             ></base-input>
 
-            <div>
-              <base-button v-on:click.prevent="loginUser()" type="primary" class="my-4">Sign in</base-button>
+            <div class="text-center">
+              <base-button
+                v-on:click.prevent="loginUser()"
+                type="primary"
+                class="my-2 container"
+                :disabled="$v.email.$invalid || $v.password.$invalid"
+              >
+                <half-circle-spinner
+                  v-if="isLoginLoading"
+                  :animation-duration="1000"
+                  :size="20"
+                  color="white"
+                />
+                <strong v-else>Sign in</strong>
+              </base-button>
             </div>
           </form>
         </div>
@@ -46,34 +77,64 @@
 
 <script>
 import { Technoservs } from "technoservs.js";
+import { required, minLength } from "vuelidate/lib/validators";
+import { HalfCircleSpinner } from "epic-spinners";
+
 export default {
   name: "login",
+  components: {
+    HalfCircleSpinner,
+  },
   data() {
     return {
-      model: {
-        email: "",
-        password: "",
+      email: "",
+      password: "",
+      error: {
+        isError: false,
+        message: "",
       },
+      isLoginLoading: false,
     };
+  },
+  validations: {
+    email: {
+      required,
+    },
+    password: {
+      required,
+      minLength: minLength(6),
+    },
   },
   methods: {
     loginUser() {
+      this.isLoginLoading = true;
       const technoservs = require("technoservs.js");
       technoservs
-        .login(this.model.email, this.model.password)
+        .login(this.email, this.password)
         .then((response) => {
           this.$store.commit("setUser", response.account);
           this.$store.commit(
             "setClient",
             new Technoservs(response.account.token)
           );
+          this.isLoginLoading = false;
           this.$router.push("/dashboard");
         })
         .catch((e) => {
-          console.log(e);
+          this.email = "";
+          this.password = "";
+          this.isLoginLoading = false;
+          this.error = {
+            isError: true,
+            message: e._message.message,
+          };
         });
     },
   },
 };
 </script>
-<style></style>
+<style>
+.half-circle-spinner {
+  margin: auto;
+}
+</style>

@@ -81,11 +81,17 @@ export default {
           .then((response) => {
             this.isLoading = false;
             this.$router.push({ path: "/dashboard" });
-            console.log(response);
+            this.$notify({
+              type: "success",
+              title: `Server ${this.serverName} correctly created`
+            })
           })
           .catch((e) => {
             this.isLoading = false;
-            console.log(e);
+            this.$notify({
+              type: "danger",
+              title: `Something went wrong: ${e._message.message}`
+            })
           });
       }
     },

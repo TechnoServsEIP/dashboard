@@ -116,9 +116,17 @@ export default {
           this.isBtnLoading = false;
           this.serverInfos[0].server_status = "Started";
           this.updateServerStatus(response.settings.State.Status);
+          this.$notify({
+            type: "success",
+            title: "Server correctly started"
+          })
         })
         .catch((e) => {
-          console.log(e);
+          this.$notify({
+            type: "danger",
+            title: "An error occured while starting server"
+          })
+          console.log(e._message);
         });
     },
     stopServer() {
@@ -131,10 +139,18 @@ export default {
           this.serverInfos[0].server_status = "Stoped";
           this.updateServerStatus("exited");
           this.isBtnLoading = false;
+          this.$notify({
+            type: "success",
+            title: "Server correctly stoped"
+          })
         })
         .catch((e) => {
           this.isBtnLoading = false;
-          console.log(e);
+          this.$notify({
+            type: "danger",
+            title: "An error occured while stoping server"
+          })
+          console.log(e._message);
         });
     },
     restartServer() {
@@ -154,11 +170,19 @@ export default {
               this.isBtnLoading = false;
             })
             .catch((e) => {
-              console.log(e);
+              console.log(e._message);
             });
+          this.$notify({
+            type: "success",
+            title: "Server correctly restared"
+          })
         })
         .catch((e) => {
           console.log(e);
+          this.$notify({
+            type: "danger",
+            title: "An error occured while restarting server"
+          })
           this.isBtnLoading = false;
         });
     },
@@ -172,10 +196,20 @@ export default {
           console.log(response);
           this.isBtnLoading = false;
           this.$router.push({ path: "/dashboard" });
+          this.$notify({
+            type: "success",
+            title: "Server correctly deleted"
+          })
+          this.isBtnLoading = false;
         })
         .catch((e) => {
           this.isBtnLoading = false;
-          console.log(e);
+          this.$notify({
+            type: "danger",
+            title: "An error occured while deleting server"
+          })
+          this.isBtnLoading = false;
+          console.log(e._message);
         });
     },
   },

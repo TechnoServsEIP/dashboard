@@ -15,25 +15,28 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from "./store"
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
 import {
   Technoservs
-} from "technoservs.js"
-import './registerServiceWorker'
-import ArgonDashboard from './plugins/argon-dashboard'
+} from "technoservs.js";
+import "./registerServiceWorker";
+import ArgonDashboard from "./plugins/argon-dashboard";
 
-Vue.config.productionTip = false
-Vue.use(ArgonDashboard)
+import Vuelidate from "vuelidate";
+Vue.use(Vuelidate);
+
+Vue.config.productionTip = false;
+Vue.use(ArgonDashboard);
 
 if (store.state.user != null) {
-  store.commit('setClient', new Technoservs(store.state.user.token))
+  store.commit("setClient", new Technoservs(store.state.user.token));
 }
 
 new Vue({
   router,
   store,
-  render: h => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");

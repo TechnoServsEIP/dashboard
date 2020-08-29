@@ -2,32 +2,35 @@
   <div class="row justify-content-center">
     <div class="col-lg-5 col-md-7">
       <div class="card bg-secondary shadow border-0">
-        <!-- <div class="card-header bg-transparent pb-5">
-                    <div class="text-muted text-center mt-2 mb-3">
-                        <small>Sign up with</small>
-                    </div>
-                    <div class="btn-wrapper text-center">
-                        <a href="#" class="btn btn-neutral btn-icon">
-                            <span class="btn-inner--icon"><img src="img/icons/common/github.svg"></span>
-                            <span class="btn-inner--text">Github</span>
-                        </a>
-                        <a href="#" class="btn btn-neutral btn-icon">
-                            <span class="btn-inner--icon"><img src="img/icons/common/google.svg"></span>
-                            <span class="btn-inner--text">Google</span>
-                        </a>
-                    </div>
-        </div>-->
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
             <small>Register to the dashboard</small>
           </div>
+
+          <div v-if="error.isError">
+            <base-alert type="danger" dismissible>
+              <span class="alert-inner--text">
+                <strong>Error !</strong>
+                {{ error.message }}
+              </span>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </base-alert>
+          </div>
+
           <form role="form">
             <base-input
               class="input-group-alternative mb-3"
               placeholder="Email"
               type="email"
               addon-left-icon="ni ni-email-83"
-              v-model="model.email"
+              v-model="email"
             ></base-input>
 
             <base-input
@@ -35,7 +38,7 @@
               placeholder="Confirm your email"
               type="email"
               addon-left-icon="ni ni-email-83"
-              v-model="model.confEmail"
+              v-model="confEmail"
             ></base-input>
 
             <base-input
@@ -43,7 +46,7 @@
               placeholder="Password"
               type="password"
               addon-left-icon="ni ni-lock-circle-open"
-              v-model="model.password"
+              v-model="password"
             ></base-input>
 
             <base-input
@@ -51,28 +54,30 @@
               placeholder="Confirm your password"
               type="password"
               addon-left-icon="ni ni-lock-circle-open"
-              v-model="model.confPassword"
+              v-model="confPassword"
             ></base-input>
 
-            <!-- <div class="text-muted font-italic">
-              <small>
-                password strength:
-                <span class="text-success font-weight-700">strong</span>
-              </small>
-            </div>-->
-
-            <!-- <div class="row my-4">
-              <div class="col-12">
-                <base-checkbox class="custom-control-alternative">
-                  <span class="text-muted">
-                    I agree with the
-                    <a href="#!">Privacy Policy</a>
-                  </span>
-                </base-checkbox>
-              </div>
-            </div>-->
             <div class="text-center">
-              <base-button type="primary" class="my-4">Create account</base-button>
+              <base-button
+                :disabled="
+                  $v.email.$invalid ||
+                    $v.password.$invalid ||
+                    this.email !== this.confEmail ||
+                    this.password !== this.confPassword
+                "
+                style="width: 100%"
+                type="primary"
+                class="my-4"
+                @click.prevent="register()"
+              >
+                <half-circle-spinner
+                  v-if="isRegisterLoading"
+                  :animation-duration="1000"
+                  :size="20"
+                  color="white"
+                />
+                <strong v-else>Create account</strong>
+              </base-button>
             </div>
           </form>
         </div>
@@ -93,19 +98,86 @@
   </div>
 </template>
 <script>
+import { required, minLength } from "vuelidate/lib/validators";
+import { HalfCircleSpinner } from "epic-spinners";
+import { Technoservs } from "technoservs.js";
+
 export default {
   name: "register",
+  components: {
+    HalfCircleSpinner,
+  },
   data() {
     return {
-      model: {
-        email: "",
-        confEmail: "",
-        password: "",
-        confPassword: "",
+      email: "",
+      confEmail: "",
+      password: "",
+      confPassword: "",
+      isRegisterLoading: false,
+      error: {
+        isError: false,
+        message: "",
       },
     };
   },
+  validations: {
+    email: {
+      required,
+    },
+    password: {
+      required,
+      minLength: minLength(6),
+    },
+  },
+  methods: {
+    register() {
+      this.isRegisterLoading = true;
+      if (this.email !== this.confEmail) {
+        this.error = {
+          isError: true,
+          message: "Emails needs to be the same",
+        };
+      } else if (this.password !== this.confPassword) {
+        this.error = {
+          isError: true,
+          message: "Passwords needs to be the same",
+        };
+      } else {
+        const technoservs = require("technoservs.js");
+        technoservs
+          .register(this.email, this.password)
+          .then((response) => {
+            if (response.status === false) {
+              this.error = {
+                isError: true,
+                message: response.message,
+              };
+              console.log(this.error);
+              this.isRegisterLoading = false;
+            } else {
+              this.$notify({
+                type: "success",
+                title:
+                  "Account correctly created ! Check your emails to activate your account 😊",
+              });
+            }
+            this.isRegisterLoading = false;
+          })
+          .catch((e) => {
+            this.error = {
+              isError: true,
+              message: e.message,
+            };
+            console.log(this.error);
+            this.isRegisterLoading = false;
+          });
+      }
+    },
+  },
 };
 </script>
-<style>
+<style scoped>
+.half-circle-spinner {
+  margin: auto;
+}
 </style>
