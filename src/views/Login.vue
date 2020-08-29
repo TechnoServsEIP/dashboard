@@ -121,8 +121,6 @@ export default {
           this.$router.push("/dashboard");
         })
         .catch((e) => {
-          this.email = "";
-          this.password = "";
           this.isLoginLoading = false;
           this.error = {
             isError: true,

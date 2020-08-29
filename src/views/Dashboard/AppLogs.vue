@@ -55,9 +55,7 @@ export default {
           this.serverInfos = response.list.filter((v) => {
             return v.ID == this.$route.params.id;
           });
-          // setInterval(() => {
-          //   this.getServerLogs();
-          // }, 1000);
+          this.getServerLogs()
         })
         .catch((e) => {
           console.log(e);
