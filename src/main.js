@@ -19,17 +19,22 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import {
-  Technoservs
-} from "technoservs.js";
+import { Technoservs } from "technoservs.js";
 import "./registerServiceWorker";
 import ArgonDashboard from "./plugins/argon-dashboard";
+import axios from "./plugins/axios";
+
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+
+Vue.use(ElementUI);
 
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
 Vue.use(ArgonDashboard);
+Vue.prototype.$axios = axios;
 
 if (store.state.user != null) {
   store.commit("setClient", new Technoservs(store.state.user.token));

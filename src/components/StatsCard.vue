@@ -1,10 +1,10 @@
 <template>
-  <card class="card-stats" :show-footer-line="true">
+  <card class="card-stats" :shadow="shadow" :show-footer-line="true">
     <div class="row">
 
       <div class="col">
         <slot>
-          <h5 class="card-title text-uppercase text-muted mb-0" v-if="title">{{title}}</h5>
+          <h3 class="card-title text-uppercase text-muted mb-0" v-if="title">{{title}}</h3>
           <span class="h2 font-weight-bold mb-0" v-if="subTitle">{{subTitle}}</span>
         </slot>
       </div>
@@ -38,6 +38,10 @@
       type: {
         type: String,
         default: 'primary'
+      },
+      shadow: {
+        type: Boolean,
+        default: true,
       },
       icon: String,
       title: String,

@@ -1,0 +1,185 @@
+<template>
+  <div>
+    <div
+      class="card shadow"
+      style="width: 100%"
+      :class="type === 'dark' ? 'bg-default' : ''"
+    >
+      <div class="card-header" :class="type === 'dark' ? 'bg-transparent' : ''">
+        <div class="row align-items-center">
+          <div class="col">
+            <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
+              Users
+            </h3>
+          </div>
+          <div>
+            <div class="col mr-auto">
+              <el-input
+                placeholder="Search a user"
+                v-model="searchInput"
+              ></el-input>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <base-table
+          v-if="usersLocal.length > 0"
+          class="table align-items-center table-flush"
+          :class="type === 'dark' ? 'table-dark' : ''"
+          :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
+          tbody-classes="list"
+          :data="usersLocal"
+        >
+          <template slot="columns">
+            <th>ID</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Create</th>
+            <th></th>
+          </template>
+          <template slot-scope="{ row }">
+            <th scope="row">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <span class="name mb-0 text-sm">{{ row.ID }}</span>
+                </div>
+              </div>
+            </th>
+
+            <td>
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <span class="name mb-0 text-sm">{{ row.email }}</span>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <span
+                    class="name mb-0 text-sm"
+                    :style="{ color: row.Role === 'admin' ? 'red' : 'blue' }"
+                    >{{
+                      row.Role.slice(0, 1).toUpperCase() + row.Role.slice(1)
+                    }}</span
+                  >
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <span class="name mb-0 text-sm">{{ row.CreatedAt }}</span>
+                </div>
+              </div>
+            </td>
+            <td class="text-right">
+              <el-dropdown
+                trigger="click"
+                @command="
+                  updateUser(
+                    row.ID.toString(),
+                    row.Role === 'admin' ? 'user' : 'admin'
+                  )
+                "
+              >
+                <span class="el-dropdown-link">
+                  <base-button type="dark" size="sm">Edit</base-button>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item v-if="row.Role == 'admin'"
+                    >Change to User</el-dropdown-item
+                  >
+                  <el-dropdown-item v-if="row.Role == 'user'"
+                    >Change to Admin</el-dropdown-item
+                  >
+                </el-dropdown-menu>
+              </el-dropdown>
+            </td>
+          </template>
+        </base-table>
+
+        <div v-else class="text-center mt-3">
+          <h4>No users</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "TableUsersList",
+  props: {
+    users: Array,
+    type: {
+      type: String,
+    },
+  },
+  data() {
+    return {
+      selectedUser: {},
+      searchInput: "",
+      usersLocal: [],
+    };
+  },
+  created() {
+    this.usersLocal = this.users;
+  },
+  methods: {
+    updateUser(id, role) {
+      this.$axios
+        .post(
+          "/user/update",
+          {
+            Id: id,
+            Role: role,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          }
+        )
+        .then(() => {
+          this.$emit("update-user", { id: id, role: role });
+          this.$notify({
+            type: "success",
+            title: "User updated",
+          });
+        })
+        .catch((e) => {
+          this.$notify({
+            type: "danger",
+            title: e,
+          });
+        });
+    },
+  },
+  watch: {
+    users() {
+      this.usersLocal = this.users;
+    },
+    searchInput() {
+      if (this.searchInput == "") {
+        this.usersLocal = this.users;
+        return;
+      } else {
+        this.usersLocal = this.users.filter((v) => {
+          return v.email.includes(this.searchInput);
+        });
+      }
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+.el-form-item__label {
+  text-align: left;
+}
+</style>

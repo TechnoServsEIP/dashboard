@@ -17,6 +17,10 @@
             <div class="dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
+            <router-link v-if="$store.state.user.Role === 'admin'" :to="{name: 'Admin'}" class="dropdown-item">
+              <i class="ni ni-spaceship"></i>
+              <span>Admin Panel</span>
+            </router-link>
             <router-link to="/profile" class="dropdown-item">
               <i class="ni ni-single-02"></i>
               <span>My profile</span>

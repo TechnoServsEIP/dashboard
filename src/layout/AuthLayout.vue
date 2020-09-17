@@ -6,10 +6,6 @@
       containerClasses="px-4 container"
       expand
     >
-      <router-link slot="brand" class="navbar-brand" to="/">
-        <img src="img/brand/white.png" />
-      </router-link>
-
       <template v-slot="{closeMenu}">
         <!-- Collapse header -->
         <div class="navbar-collapse-header d-md-none">

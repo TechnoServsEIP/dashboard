@@ -68,12 +68,12 @@ export default {
   components: {
     NavbarToggleButton,
   },
+  data() {
+    return {
+      logo: require('../../assets/ts-logo-full.svg')
+    }
+  },
   props: {
-    logo: {
-      type: String,
-      default: "img/brand/green.png",
-      description: "Sidebar app logo",
-    },
     autoClose: {
       type: Boolean,
       default: true,

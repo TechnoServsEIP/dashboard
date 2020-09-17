@@ -10,19 +10,23 @@ Vue.use(Router);
 
 export default new Router({
   linkExactActiveClass: "active",
-  routes: [{
+  routes: [
+    {
       path: "/",
       redirect: "dashboard",
       component: DashboardLayout,
-      children: [{
-        path: "/dashboard",
-        name: "dashboard",
-        component: () => import('./views/Dashboard.vue')
-      }, {
-        path: "/create",
-        name: "create server",
-        component: () => import('./views/CreateServer.vue')
-      }],
+      children: [
+        {
+          path: "/dashboard",
+          name: "dashboard",
+          component: () => import("./views/Dashboard.vue"),
+        },
+        {
+          path: "/create",
+          name: "create server",
+          component: () => import("./views/CreateServer.vue"),
+        },
+      ],
       beforeEnter: (to, from, next) => {
         if (store.state.user == null) next("/login");
         else next();
@@ -31,16 +35,17 @@ export default new Router({
     {
       path: "/dashboard/:id",
       component: DashboardAppLayout,
-      children: [{
-          path: '/',
-          name: 'Overview',
-          component: () => import('./views/Dashboard/AppOverview.vue')
+      children: [
+        {
+          path: "/",
+          name: "Overview",
+          component: () => import("./views/Dashboard/AppOverview.vue"),
         },
         {
-          path: 'logs',
+          path: "logs",
           name: "Logs",
-          component: () => import('./views/Dashboard/AppLogs.vue')
-        }
+          component: () => import("./views/Dashboard/AppLogs.vue"),
+        },
       ],
       beforeEnter: (to, from, next) => {
         if (store.state.user == null) next("/login");
@@ -48,21 +53,38 @@ export default new Router({
       },
     },
     {
+      path: "/admin",
+      component: () => import("./layout/AdminLayout.vue"),
+      children: [
+        {
+          path: "",
+          name: "Admin",
+          component: () => import("./views/Admin/AdminHome.vue"),
+        },
+      ],
+      beforeEnter: (to, from, next) => {
+        if (store.state.user === null) next("/login");
+        else if (store.state.user.Role !== "admin") next("/");
+        else next();
+      },
+    },
+    {
       path: "/",
       redirect: "login",
       component: AuthLayout,
-      children: [{
+      children: [
+        {
           path: "/login",
           name: "login",
           component: () =>
-            import( /* webpackChunkName: "demo" */ "./views/Login.vue"),
+            import(/* webpackChunkName: "demo" */ "./views/Login.vue"),
         },
         {
           path: "/register",
           name: "register",
           component: () =>
-            import( /* webpackChunkName: "demo" */ "./views/Register.vue"),
-        }
+            import(/* webpackChunkName: "demo" */ "./views/Register.vue"),
+        },
       ],
       beforeEnter: (to, from, next) => {
         if (store.state.user != null) next("/dashboard");
@@ -73,11 +95,11 @@ export default new Router({
       path: "/logout",
       name: "logout",
       beforeEnter: (to, from, next) => {
-        console.log("coucou")
-        store.commit('setUser', null)
-        store.commit('setClient', null)
-        next('/login')
-      }
-    }
+        console.log("coucou");
+        store.commit("setUser", null);
+        store.commit("setClient", null);
+        next("/login");
+      },
+    },
   ],
 });
