@@ -20,7 +20,7 @@
     "node-mailjet": "^3.3.1",
     "nouislider": "14.6.0",
     "register-service-worker": "1.7.1",
-    "technoservs.js": "^1.0.7",
+    "technoservs.js": "^1.0.10",
     "vue": "2.6.11",
     "vue-chartjs": "3.5.0",
     "vue-clipboard2": "0.3.1",

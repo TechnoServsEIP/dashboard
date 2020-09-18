@@ -16,6 +16,13 @@
             path: `/dashboard/${$route.params.id}/logs`,
           }"
         />
+        <sidebar-item
+          :link="{
+            name: 'Environment',
+            icon: 'ni ni-tv-2 text-primary',
+            path: `/dashboard/${$route.params.id}/environment`,
+          }"
+        />
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">

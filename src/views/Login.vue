@@ -38,11 +38,14 @@
               type="password"
               addon-left-icon="ni ni-lock-circle-open"
               v-model="password"
+              v-on:keyup.enter="loginUser"
             ></base-input>
 
             <div class="text-center">
               <base-button
-                v-on:click.prevent="loginUser()"
+                v-on:click.prevent="loginUser"
+                v-on:keyup.enter="loginUser"
+                v-on:
                 type="primary"
                 class="my-2 container"
                 :disabled="$v.email.$invalid || $v.password.$invalid"

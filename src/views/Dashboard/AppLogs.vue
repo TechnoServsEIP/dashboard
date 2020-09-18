@@ -8,17 +8,31 @@
           style="width: 100%"
           :class="type === 'dark' ? 'bg-default' : ''"
         >
-          <div class="card-header" :class="type === 'dark' ? 'bg-transparent' : ''">
-            <div class="row align-items-center">
+          <div
+            class="card-header"
+            :class="type === 'dark' ? 'bg-transparent' : ''"
+          >
+            <div class="row">
               <div class="col">
-                <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">Logs</h3>
+                <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
+                  Logs
+                </h3>
+              </div>
+              <div class="col-md-auto">
+                <base-button
+                  type="success"
+                  outline
+                  size="sm"
+                  @click.prevent="refreshServerLogs"
+                  >Refresh</base-button
+                >
               </div>
             </div>
           </div>
 
           <div class="card-body">
             <code class="ts-code">
-              <pre>{{serverLogs}}</pre>
+              <pre>{{ serverLogs }}</pre>
             </code>
           </div>
         </div>
@@ -37,6 +51,9 @@ export default {
     };
   },
   methods: {
+    refreshServerLogs() {
+      this.getServerLogs();
+    },
     getServerLogs() {
       this.$store.state.client.Docker.logs(
         this.$store.state.user.ID.toString(),
@@ -55,7 +72,7 @@ export default {
           this.serverInfos = response.list.filter((v) => {
             return v.ID == this.$route.params.id;
           });
-          this.getServerLogs()
+          this.getServerLogs();
         })
         .catch((e) => {
           console.log(e);
@@ -67,7 +84,8 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+
+<style lang="scss">
 code {
   pre {
     background-color: #191e4e;

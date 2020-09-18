@@ -1,6 +1,9 @@
 <template>
   <div>
-    <base-header type="gradient-default" class="pb-6 pb-8 pt-5 pt-md-8"></base-header>
+    <base-header
+      type="gradient-default"
+      class="pb-6 pb-8 pt-5 pt-md-8"
+    ></base-header>
 
     <div class="container-fluid mt--7">
       <div class="row mt-5">
@@ -12,7 +15,9 @@
               </div>
               <div class="col-md-auto">
                 <router-link to="/dashboard">
-                  <base-button type="primary" size="sm">Return to dashboard</base-button>
+                  <base-button type="primary" size="sm"
+                    >Return to dashboard</base-button
+                  >
                 </router-link>
               </div>
             </div>
@@ -28,14 +33,13 @@
                   placeholder="Your server name"
                   aria-label="Your server name"
                   aria-describedby="button-addon2"
+                  v-on:keyup.enter="createServer"
                 />
               </div>
             </div>
 
             <div class="row mb-4">
-              <div class="col-md-6">
-                <strong>Game:</strong> Minecraft
-              </div>
+              <div class="col-md-6"><strong>Game:</strong> Minecraft</div>
             </div>
 
             <div class="row mb-4">
@@ -44,7 +48,15 @@
                   :disabled="!allFieldsCompleted || isLoading"
                   type="success"
                   @click.prevent="createServer()"
-                >Create !</base-button>
+                >
+                  <half-circle-spinner
+                    v-if="isLoading"
+                    :animation-duration="1000"
+                    :size="20"
+                    color="white"
+                  />
+                  <strong v-else>Create</strong>
+                </base-button>
               </div>
             </div>
           </div>
@@ -53,9 +65,14 @@
     </div>
   </div>
 </template>
+
 <script>
+import { HalfCircleSpinner } from "epic-spinners";
+
 export default {
-  components: {},
+  components: {
+    HalfCircleSpinner,
+  },
   data() {
     return {
       allFieldsCompleted: false,
@@ -83,15 +100,15 @@ export default {
             this.$router.push({ path: "/dashboard" });
             this.$notify({
               type: "success",
-              title: `Server ${this.serverName} correctly created`
-            })
+              title: `Server ${this.serverName} correctly created`,
+            });
           })
           .catch((e) => {
             this.isLoading = false;
             this.$notify({
               type: "danger",
-              title: `Something went wrong: ${e._message.message}`
-            })
+              title: `Something went wrong: ${e._message.message}`,
+            });
           });
       }
     },
