@@ -9,6 +9,13 @@
             path: '/admin',
           }"
         />
+        <sidebar-item
+          :link="{
+            name: 'Offers',
+            icon: 'ni ni-cart text-primary',
+            path: '/admin/offers',
+          }"
+        />
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">
@@ -48,4 +55,3 @@ export default {
   },
 };
 </script>
-

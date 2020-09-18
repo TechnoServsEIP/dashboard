@@ -9,7 +9,7 @@
         <div class="row align-items-center">
           <div class="col">
             <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-              Users
+              Offers
             </h3>
           </div>
           <div>
@@ -36,6 +36,8 @@
             <th>ID</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Activated</th>
+            <th>Verified</th>
             <th>Create</th>
             <th></th>
           </template>
@@ -59,13 +61,29 @@
             <td>
               <div class="media align-items-center">
                 <div class="media-body">
-                  <span
-                    class="name mb-0 text-sm"
-                    :style="{ color: row.Role === 'admin' ? 'red' : 'blue' }"
-                    >{{
-                      row.Role.slice(0, 1).toUpperCase() + row.Role.slice(1)
-                    }}</span
-                  >
+                  <span class="name mb-0 text-sm">{{
+                    row.Role.slice(0, 1).toUpperCase() + row.Role.slice(1)
+                  }}</span>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <span class="name mb-0 text-sm">{{
+                    row.Activate === true ? "Yes" : "No"
+                  }}</span>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <span class="name mb-0 text-sm">{{
+                    row.Verified === true ? "Yes" : "No"
+                  }}</span>
                 </div>
               </div>
             </td>
@@ -78,25 +96,37 @@
               </div>
             </td>
             <td class="text-right">
-              <el-dropdown
-                trigger="click"
-                @command="
-                  updateUser(
-                    row.ID.toString(),
-                    row.Role === 'admin' ? 'user' : 'admin'
-                  )
-                "
-              >
+              <el-dropdown trigger="click">
                 <span class="el-dropdown-link">
                   <base-button type="dark" size="sm">Edit</base-button>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item v-if="row.Role == 'admin'"
-                    >Change to User</el-dropdown-item
+                  <el-dropdown-item
+                    @click.native="
+                      updateUser(
+                        row.ID.toString(),
+                        row.Role === 'admin' ? 'user' : 'admin'
+                      )
+                    "
                   >
-                  <el-dropdown-item v-if="row.Role == 'user'"
-                    >Change to Admin</el-dropdown-item
+                    {{
+                      row.Role === "admin"
+                        ? "Change to user"
+                        : "Change to admin"
+                    }}
+                  </el-dropdown-item>
+
+                  <el-dropdown-item
+                    @click.native="
+                      updateActivateUser(!row.Activate, row.ID.toString())
+                    "
                   >
+                    {{
+                      row.Activate === true
+                        ? "Deactivate User"
+                        : "Activate User"
+                    }}
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </td>
@@ -131,6 +161,32 @@ export default {
     this.usersLocal = this.users;
   },
   methods: {
+    updateActivateUser(value, id) {
+      this.$axios
+        .post(
+          `/user/${value === false ? "deactivate" : "activate"}`,
+          {
+            Id: id,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          }
+        )
+        .then((response) => {
+          this.$emit("update-activate-user", { id: id, activate: value });
+          this.$notify({
+            type: "success",
+            title: `User correctly ${
+              value === false ? "deactivated" : "activated"
+            }`,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
     updateUser(id, role) {
       this.$axios
         .post(
@@ -149,7 +205,7 @@ export default {
           this.$emit("update-user", { id: id, role: role });
           this.$notify({
             type: "success",
-            title: "User updated",
+            title: "User role updated",
           });
         })
         .catch((e) => {

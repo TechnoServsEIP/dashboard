@@ -17,6 +17,10 @@
             <div class="dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
+            <router-link to="/dashboard" class="dropdown-item">
+              <i class="ni ni-app"></i>
+              <span>Dashboard</span>
+            </router-link>
             <router-link v-if="$store.state.user.Role === 'admin'" :to="{name: 'Admin'}" class="dropdown-item">
               <i class="ni ni-spaceship"></i>
               <span>Admin Panel</span>
@@ -24,14 +28,6 @@
             <router-link to="/profile" class="dropdown-item">
               <i class="ni ni-single-02"></i>
               <span>My profile</span>
-            </router-link>
-            <router-link to="/profile" class="dropdown-item">
-              <i class="ni ni-settings-gear-65"></i>
-              <span>Settings</span>
-            </router-link>
-            <router-link to="/profile" class="dropdown-item">
-              <i class="ni ni-calendar-grid-58"></i>
-              <span>Activity</span>
             </router-link>
             <router-link to="/profile" class="dropdown-item">
               <i class="ni ni-support-16"></i>

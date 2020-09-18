@@ -1,212 +1,351 @@
 <template>
-    <div>
-        <base-header class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
-                     style="min-height: 600px; background-image: url(img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
-            <!-- Mask -->
-            <span class="mask bg-gradient-success opacity-8"></span>
-            <!-- Header container -->
-            <div class="container-fluid d-flex align-items-center">
-                <div class="row">
-                    <div class="col-lg-7 col-md-10">
-                        <h1 class="display-2 text-white">Hello Jesse</h1>
-                        <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-                        <a href="#!" class="btn btn-info">Edit profile</a>
-                    </div>
-                </div>
-            </div>
-        </base-header>
-
-        <div class="container-fluid mt--7">
-            <div class="row">
-                <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
-
-                    <div class="card card-profile shadow">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-3 order-lg-2">
-                                <div class="card-profile-image">
-                                    <a href="#">
-                                        <img src="img/theme/team-4-800x800.jpg" class="rounded-circle">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                            <div class="d-flex justify-content-between">
-                                <base-button size="sm" type="info" class="mr-4">Connect</base-button>
-                                <base-button size="sm" type="default" class="float-right">Message</base-button>
-                            </div>
-                        </div>
-                        <div class="card-body pt-0 pt-md-4">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                                        <div>
-                                            <span class="heading">22</span>
-                                            <span class="description">Friends</span>
-                                        </div>
-                                        <div>
-                                            <span class="heading">10</span>
-                                            <span class="description">Photos</span>
-                                        </div>
-                                        <div>
-                                            <span class="heading">89</span>
-                                            <span class="description">Comments</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <h3>
-                                    Jessica Jones<span class="font-weight-light">, 27</span>
-                                </h3>
-                                <div class="h5 font-weight-300">
-                                    <i class="ni location_pin mr-2"></i>Bucharest, Romania
-                                </div>
-                                <div class="h5 mt-4">
-                                    <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
-                                </div>
-                                <div>
-                                    <i class="ni education_hat mr-2"></i>University of Computer Science
-                                </div>
-                                <hr class="my-4" />
-                                <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
-                                <a href="#">Show more</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-8 order-xl-1">
-                    <card shadow type="secondary">
-                        <div slot="header" class="bg-white border-0">
-                            <div class="row align-items-center">
-                                <div class="col-8">
-                                    <h3 class="mb-0">My account</h3>
-                                </div>
-                                <div class="col-4 text-right">
-                                    <a href="#!" class="btn btn-sm btn-primary">Settings</a>
-                                </div>
-                            </div>
-                        </div>
-                        <template>
-                            <form @submit.prevent>
-                                <h6 class="heading-small text-muted mb-4">User information</h6>
-                                <div class="pl-lg-4">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <base-input alternative=""
-                                                        label="Username"
-                                                        placeholder="Username"
-                                                        input-classes="form-control-alternative"
-                                                        v-model="model.username"
-                                            />
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <base-input alternative=""
-                                                        label="Email address"
-                                                        placeholder="jesse@example.com"
-                                                        input-classes="form-control-alternative"
-                                                        v-model="model.email"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <base-input alternative=""
-                                                        label="First name"
-                                                        placeholder="First name"
-                                                        input-classes="form-control-alternative"
-                                                        v-model="model.firstName"
-                                            />
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <base-input alternative=""
-                                                        label="Last name"
-                                                        placeholder="Last name"
-                                                        input-classes="form-control-alternative"
-                                                        v-model="model.lastName"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="my-4" />
-                                <!-- Address -->
-                                <h6 class="heading-small text-muted mb-4">Contact information</h6>
-                                <div class="pl-lg-4">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <base-input alternative=""
-                                                        label="Address"
-                                                        placeholder="Home Address"
-                                                        input-classes="form-control-alternative"
-                                                        v-model="model.address"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <base-input alternative=""
-                                                        label="City"
-                                                        placeholder="City"
-                                                        input-classes="form-control-alternative"
-                                                        v-model="model.city"
-                                            />
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <base-input alternative=""
-                                                        label="Country"
-                                                        placeholder="Country"
-                                                        input-classes="form-control-alternative"
-                                                        v-model="model.country"
-                                            />
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <base-input alternative=""
-                                                        label="Postal code"
-                                                        placeholder="Postal code"
-                                                        input-classes="form-control-alternative"
-                                                        v-model="model.zipCode"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="my-4" />
-                                <!-- Description -->
-                                <h6 class="heading-small text-muted mb-4">About me</h6>
-                                <div class="pl-lg-4">
-                                    <div class="form-group">
-                                        <base-input alternative=""
-                                                    label="About Me">
-                                            <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
-                                        </base-input>
-                                    </div>
-                                </div>
-                            </form>
-                        </template>
-                    </card>
-                </div>
-            </div>
-        </div>
+  <div>
+    <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
+      <div class="main-content">
+        <dashboard-navbar></dashboard-navbar>
+      </div>
     </div>
+    <base-header
+      class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+      style="min-height: 200px;"
+    >
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+    </base-header>
+
+    <div class="container-fluid mt--7">
+      <div class="row">
+        <div class="col">
+          <card shadow type="secondary">
+            <div slot="header" class="bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">My account</h3>
+                </div>
+              </div>
+            </div>
+            <template>
+              <form @submit.prevent>
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div>
+                  <div class="row mt-4">
+                    <div class="col-lg-6">
+                      <h5>Your email</h5>
+                      <el-input
+                        :value="$store.state.user.email"
+                        placeholder="Please input password"
+                        disabled
+                      ></el-input>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-lg-6">
+                      <h5>Change your password</h5>
+                      <el-input
+                        placeholder="Please input password"
+                        v-model="model.newPassword"
+                        show-password
+                      ></el-input>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-lg-6">
+                      <base-button
+                        type="primary"
+                        size="sm"
+                        :disabled="model.newPassword === '' ? true : false"
+                        >Save</base-button
+                      >
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </template>
+          </card>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col">
+          <card shadow type="secondary">
+            <div slot="header" class="bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Your payment methods</h3>
+                </div>
+                <div class="col-md-auto">
+                  <base-button
+                    type="success"
+                    size="sm"
+                    @click="opendAddCardModal()"
+                    >Add a credit card</base-button
+                  >
+                </div>
+              </div>
+            </div>
+            <template>
+              <div class="row pb-4">
+                <div class="col-3">
+                  <h4>Card holder name</h4>
+                </div>
+                <div class="col-3">
+                  <h4>Card number</h4>
+                </div>
+                <div class="col-2">
+                  <h4>CVC</h4>
+                </div>
+                <div class="col-2">
+                  <h4>Expiration Date</h4>
+                </div>
+              </div>
+
+              <div v-for="card in creditCards" :key="card.id" class="pt-2">
+                <div class="row">
+                  <div class="col-3">
+                    <span>
+                      {{ card.cardHolder }}
+                    </span>
+                  </div>
+                  <div class="col-3">
+                    <span>
+                      {{ card.cardNumber }}
+                    </span>
+                  </div>
+                  <div class="col-2">
+                    <span>
+                      {{ card.expDate }}
+                    </span>
+                  </div>
+                  <div class="col-2">
+                    <span>
+                      {{ card.cvc }}
+                    </span>
+                  </div>
+
+                  <div class="col-1">
+                    <base-button
+                      type="default"
+                      size="sm"
+                      icon="ni ni-settings-gear-65"
+                      @click="openUpdateCardModal(card)"
+                    ></base-button>
+                    <base-button
+                      type="danger"
+                      size="sm"
+                      icon="ni ni-fat-delete"
+                      @click="openDeleteCardModal(card)"
+                    ></base-button>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </card>
+        </div>
+      </div>
+    </div>
+
+    <modal :show.sync="modals.delete">
+      <div>
+        <h4>Are you sure to delete this card ?</h4>
+      </div>
+      <template slot="footer">
+        <base-button type="secondary" @click="modals.delete = false"
+          >Close</base-button
+        >
+        <base-button type="danger" @click="deleteCard">Confirm</base-button>
+      </template>
+    </modal>
+
+    <modal :show.sync="modals.update">
+      <div>
+        <h4>Update your card</h4>
+        <div>
+          <div class="row mt-4">
+            <div class="col-lg-6">
+              <h5>Card holder name</h5>
+              <el-input v-model="selectedCardModal.cardHolder"></el-input>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-lg-6">
+              <h5>Card number</h5>
+              <el-input v-model="selectedCardModal.cardNumber"></el-input>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-lg-3">
+              <h5>CVC</h5>
+              <el-input v-model="selectedCardModal.cvc"></el-input>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-lg-6">
+              <h5>Expiration date</h5>
+              <el-input v-model="selectedCardModal.expDate"></el-input>
+            </div>
+          </div>
+        </div>
+      </div>
+      <template slot="footer">
+        <base-button type="secondary" @click="modals.update = false"
+          >Close</base-button
+        >
+        <base-button type="success" @click="updateCard">Confirm</base-button>
+      </template>
+    </modal>
+
+    <modal :show.sync="modals.create">
+      <div>
+        <h4>Add a new card</h4>
+        <div>
+          <div class="row mt-4">
+            <div class="col-lg-6">
+              <h5>Card holder name</h5>
+              <el-input v-model="newCreditCard.cardHolder"></el-input>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-lg-6">
+              <h5>Card number</h5>
+              <el-input v-model="newCreditCard.cardNumber"></el-input>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-lg-3">
+              <h5>CVC</h5>
+              <el-input v-model="newCreditCard.cvc"></el-input>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-lg-6">
+              <h5>Expiration date</h5>
+              <el-input v-model="newCreditCard.expDate"></el-input>
+            </div>
+          </div>
+        </div>
+      </div>
+      <template slot="footer">
+        <base-button type="secondary" @click="modals.create = false"
+          >Close</base-button
+        >
+        <base-button type="success" @click="createCard">Confirm</base-button>
+      </template>
+    </modal>
+  </div>
 </template>
+
 <script>
-  export default {
-    name: 'user-profile',
-    data() {
-      return {
-        model: {
-          username: '',
-          email: '',
-          firstName: '',
-          lastName: '',
-          address: '',
-          city: '',
-          country: '',
-          zipCode: '',
-          about: '',
-        }
-      }
+import DashboardNavbar from "../layout/DashboardNavbar";
+
+export default {
+  name: "user-profile",
+  components: {
+    DashboardNavbar,
+  },
+  data() {
+    return {
+      model: {
+        newPassword: "",
+      },
+      modals: {
+        delete: false,
+        update: false,
+        create: false,
+      },
+      selectedCardModal: {},
+      creditCards: [
+        {
+          id: 1,
+          cardHolder: "Valentin Ichkour",
+          cardNumber: "1234 5678 9123 4567",
+          cvc: "404",
+          expDate: "09/2021",
+        },
+        {
+          id: 3,
+          cardHolder: "Valentin Ichkour",
+          cardNumber: "1234 5678 9123 4567",
+          cvc: "404",
+          expDate: "09/2021",
+        },
+        {
+          id: 4,
+          cardHolder: "Valentin Ichkour",
+          cardNumber: "1234 5678 9123 4567",
+          cvc: "404",
+          expDate: "09/2021",
+        },
+      ],
+      newCreditCard: {
+        id: Math.random(),
+        cardHolder: "",
+        cardNumber: "",
+        cvc: "",
+        expDate: "",
+      },
+    };
+  },
+  methods: {
+    openUpdateCardModal(card) {
+      this.modals.update = true;
+      this.selectedCardModal = card;
     },
-  };
+    openDeleteCardModal(card) {
+      this.modals.delete = true;
+      this.selectedCardModal = card;
+    },
+    opendAddCardModal() {
+      this.modals.create = true;
+    },
+    createCard() {
+      this.creditCards.push(this.newCreditCard);
+      this.newCreditCard = {
+        id: "",
+        cardHolder: "",
+        cardNumber: "",
+        cvc: "",
+        expDate: "",
+      };
+      this.$notify({
+        type: "success",
+        title: "Card correctly created",
+      });
+      this.modals.create = false;
+    },
+    updateCard() {
+      this.creditCards.filter((v) => {
+        if (v.id === this.selectedCardModal.id) {
+          v.cardHolder = this.selectedCardModal.cardHolder;
+          v.cardNumber = this.selectedCardModal.cardNumber;
+          v.cvc = this.selectedCardModal.cvc;
+          v.expDate = this.selectedCardModal.expDate;
+        }
+      });
+      this.$notify({
+        type: "success",
+        title: "Card correctly updated",
+      });
+      this.modals.update = false;
+    },
+    deleteCard() {
+      this.creditCards = this.creditCards.filter((v) => {
+        return v.id != this.selectedCardModal.id;
+      });
+      this.modals.delete = false;
+      this.$notify({
+        type: "success",
+        title: "Card correctly deleted",
+      });
+      this.selectedCardModal = null;
+    },
+  },
+};
 </script>
 <style></style>

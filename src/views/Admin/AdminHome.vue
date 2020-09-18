@@ -24,6 +24,7 @@
       <table-users-list
         :users="getUsers"
         @update-user="setUserNewRole"
+        @update-activate-user="updateActivatedUser"
       ></table-users-list>
     </div>
   </div>
@@ -57,6 +58,13 @@ export default {
       this.users.forEach((elem) => {
         if (elem.ID == event.id) {
           elem.Role = event.role;
+        }
+      });
+    },
+    updateActivatedUser(event) {
+      this.users.forEach((elem) => {
+        if (elem.ID == event.id) {
+          elem.Activate = event.activate;
         }
       });
     },
