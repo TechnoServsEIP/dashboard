@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content bg-default">
+  <div class="main-content bg-default" style="min-height: 100vh">
     <!-- Navbar -->
     <base-nav
       class="navbar-top navbar-horizontal navbar-dark"
@@ -89,14 +89,11 @@
                 href="https://www.creative-tim.com"
                 class="font-weight-bold ml-1"
                 target="_blank"
-              >Creative Tim</a>
+              >TechnoServs</a>
             </div>
           </div>
           <div class="col-xl-6">
             <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
               <li class="nav-item">
                 <a
                   href="https://www.creative-tim.com/presentation"
@@ -109,13 +106,6 @@
               </li>
               <li class="nav-item">
                 <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a
-                  href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md"
-                  class="nav-link"
-                  target="_blank"
-                >MIT License</a>
               </li>
             </ul>
           </div>
