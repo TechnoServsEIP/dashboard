@@ -1,5 +1,11 @@
 <template>
   <div class="container-fluid">
+     <div class="row pb-4">
+      <div class="col-6">
+        <base-button class="m-0" size="sm" type="primary">Invite people to join your server !</base-button>
+      </div>
+    </div>
+
     <div class="row">
       <div
         v-if="serverInfos.length != 0"

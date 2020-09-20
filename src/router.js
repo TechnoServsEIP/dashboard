@@ -10,11 +10,13 @@ Vue.use(Router);
 
 export default new Router({
   linkExactActiveClass: "active",
-  routes: [{
+  routes: [
+    {
       path: "/",
       redirect: "dashboard",
       component: DashboardLayout,
-      children: [{
+      children: [
+        {
           path: "/dashboard",
           name: "dashboard",
           component: () => import("./views/Dashboard.vue"),
@@ -33,7 +35,8 @@ export default new Router({
     {
       path: "/dashboard/:id",
       component: DashboardAppLayout,
-      children: [{
+      children: [
+        {
           path: "/",
           name: "Overview",
           component: () => import("./views/Dashboard/AppOverview.vue"),
@@ -52,7 +55,8 @@ export default new Router({
     {
       path: "/admin",
       component: () => import("./layout/AdminLayout.vue"),
-      children: [{
+      children: [
+        {
           path: "",
           name: "Admin",
           component: () => import("./views/Admin/AdminHome.vue"),
@@ -70,30 +74,36 @@ export default new Router({
       },
     },
     {
-      path: '/profile',
-      name: 'profile',
-      component: () => import('./views/UserProfile.vue')
+      path: "/profile",
+      name: "profile",
+      component: () => import("./views/UserProfile.vue"),
     },
     {
-      path: '/confirm',
-      name: 'confirmAccount',
-      component: () => import('./components/ConfirmUser.vue')
+      path: "/confirm",
+      name: "confirmAccount",
+      component: () => import("./components/ConfirmUser.vue"),
+    },
+    {
+      path: "/bills",
+      name: "bills",
+      component: () => import("./views/Bills.vue"),
     },
     {
       path: "/",
       redirect: "login",
       component: AuthLayout,
-      children: [{
+      children: [
+        {
           path: "/login",
           name: "login",
           component: () =>
-            import( /* webpackChunkName: "demo" */ "./views/Login.vue"),
+            import(/* webpackChunkName: "demo" */ "./views/Login.vue"),
         },
         {
           path: "/register",
           name: "register",
           component: () =>
-            import( /* webpackChunkName: "demo" */ "./views/Register.vue"),
+            import(/* webpackChunkName: "demo" */ "./views/Register.vue"),
         },
       ],
       beforeEnter: (to, from, next) => {

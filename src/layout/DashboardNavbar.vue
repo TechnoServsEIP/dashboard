@@ -1,14 +1,17 @@
 <template>
-  <base-nav class="navbar-top navbar-dark" id="navbar-main" :show-toggle-button="false" expand>
+  <base-nav
+    class="navbar-top navbar-dark"
+    id="navbar-main"
+    :show-toggle-button="false"
+    expand
+  >
     <ul class="navbar-nav align-items-center d-none d-md-flex ml-lg-auto">
       <li class="nav-item dropdown">
         <base-dropdown class="nav-link pr-0">
           <div class="media align-items-center" slot="title">
             <div class="media-body ml-2 d-none d-lg-block">
               <span class="mb-0 text-sm font-weight-bold">
-                {{
-                $store.state.user.email
-                }}
+                {{ $store.state.user.email }}
               </span>
             </div>
           </div>
@@ -21,7 +24,11 @@
               <i class="ni ni-app"></i>
               <span>Dashboard</span>
             </router-link>
-            <router-link v-if="$store.state.user.Role === 'admin'" :to="{name: 'Admin'}" class="dropdown-item">
+            <router-link
+              v-if="$store.state.user.Role === 'admin'"
+              :to="{ name: 'Admin' }"
+              class="dropdown-item"
+            >
               <i class="ni ni-spaceship"></i>
               <span>Admin Panel</span>
             </router-link>
@@ -29,9 +36,9 @@
               <i class="ni ni-single-02"></i>
               <span>My profile</span>
             </router-link>
-            <router-link to="/profile" class="dropdown-item">
-              <i class="ni ni-support-16"></i>
-              <span>Support</span>
+            <router-link to="/bills" class="dropdown-item">
+              <i class="ni ni-credit-card"></i>
+              <span>My bills</span>
             </router-link>
             <div class="dropdown-divider"></div>
             <router-link to="/logout" class="dropdown-item">
