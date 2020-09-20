@@ -68,7 +68,9 @@
                 style="width: 100%"
                 type="primary"
                 class="my-4"
-                @click.prevent="register()"
+                v-on:click.prevent="register()"
+                v-on:keyup.enter="register()"
+
               >
                 <half-circle-spinner
                   v-if="isRegisterLoading"
@@ -152,7 +154,6 @@ export default {
                 isError: true,
                 message: response.message,
               };
-              console.log(this.error);
               this.isRegisterLoading = false;
             } else {
               this.$notify({
@@ -166,9 +167,8 @@ export default {
           .catch((e) => {
             this.error = {
               isError: true,
-              message: e.message,
+              message: e._message,
             };
-            console.log(this.error);
             this.isRegisterLoading = false;
           });
       }

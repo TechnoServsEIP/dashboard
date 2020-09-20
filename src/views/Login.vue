@@ -125,10 +125,12 @@ export default {
         })
         .catch((e) => {
           this.isLoginLoading = false;
-          this.error = {
-            isError: true,
-            message: e._message.message,
-          };
+          if (e._message.message) {
+            this.error = {
+              isError: true,
+              message: e._message.message,
+            };
+          }
         });
     },
   },

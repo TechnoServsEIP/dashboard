@@ -15,7 +15,11 @@
       </div>
 
       <div class="col-4">
-        <stats-card title="Servers" subTitle="100" icon="ni ni-controller">
+        <stats-card
+          title="Servers"
+          :subTitle="totalServers.toString()"
+          icon="ni ni-controller"
+        >
         </stats-card>
       </div>
     </div>
@@ -43,10 +47,12 @@ export default {
   data() {
     return {
       users: [],
+      totalServers: 0,
     };
   },
   created() {
     this.getUsersFromApi();
+    this.getTotalServers();
   },
   computed: {
     getUsers() {
@@ -54,6 +60,20 @@ export default {
     },
   },
   methods: {
+    getTotalServers() {
+      this.$axios
+        .get("/docker/total", {
+          headers: {
+            authorization: `Bearer ${this.$store.state.user.token}`,
+          },
+        })
+        .then((response) => {
+          this.totalServers = response.data.total;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
     setUserNewRole(event) {
       this.users.forEach((elem) => {
         if (elem.ID == event.id) {

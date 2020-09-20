@@ -96,6 +96,7 @@ export default {
           this.serverName
         )
           .then((response) => {
+            console.log(response)
             this.isLoading = false;
             this.$router.push({ path: "/dashboard" });
             this.$notify({
