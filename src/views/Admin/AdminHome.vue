@@ -97,6 +97,16 @@ export default {
         })
         .then((response) => {
           this.users = response.data.res.Value;
+          this.users.forEach((elem) => {
+            elem.numberOfServers = 0;
+            this.$store.state.client.Docker.list(elem.ID.toString())
+              .then((response) => {
+                elem.numberOfServers = response.list.length;
+              })
+              .catch((e) => {
+                return e;
+              });
+          });
         })
         .catch((e) => {
           console.log(e);

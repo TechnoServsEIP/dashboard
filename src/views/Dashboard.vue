@@ -1,10 +1,16 @@
 <template>
   <div>
-    <base-header type="gradient-default" class="pb-6 pb-8 pt-5 pt-md-8"></base-header>
+    <base-header
+      type="gradient-default"
+      class="pb-6 pb-8 pt-5 pt-md-8"
+    ></base-header>
 
     <div class="container-fluid mt--7">
       <div class="row mt-5">
-        <table-servers-list></table-servers-list>
+        <table-servers-list
+          :user-id="userId"
+          create-button
+        ></table-servers-list>
       </div>
     </div>
   </div>
@@ -19,6 +25,11 @@ export default {
   },
   data() {
     return {};
+  },
+  computed: {
+    userId() {
+      return this.$store.state.user.ID.toString();
+    },
   },
   methods: {},
   mounted() {},

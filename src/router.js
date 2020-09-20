@@ -46,6 +46,11 @@ export default new Router({
           name: "Logs",
           component: () => import("./views/Dashboard/AppLogs.vue"),
         },
+        {
+          path: "environment",
+          name: "environment",
+          component: () => import("./views/Dashboard/AppEnvironment.vue"),
+        },
       ],
       beforeEnter: (to, from, next) => {
         if (store.state.user == null) next("/login");
@@ -65,6 +70,11 @@ export default new Router({
           path: "offers",
           name: "Offers",
           component: () => import("./views/Admin/AdminOffers.vue"),
+        },
+        {
+          path: "user/:id/servers",
+          name: "User Servers",
+          component: () => import("./views/Admin/User/AdminUserServers.vue"),
         },
       ],
       beforeEnter: (to, from, next) => {

@@ -1,12 +1,18 @@
 <template>
-  <div class="card shadow" style="width: 100%" :class="type === 'dark' ? 'bg-default' : ''">
+  <div
+    class="card shadow"
+    style="width: 100%"
+    :class="type === 'dark' ? 'bg-default' : ''"
+  >
     <div class="card-header" :class="type === 'dark' ? 'bg-transparent' : ''">
       <div class="row align-items-center">
         <div class="col">
-          <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">Servers</h3>
+          <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
+            Servers
+          </h3>
         </div>
 
-        <div class="col-md-auto">
+        <div class="col-md-auto" v-if="createButton">
           <router-link to="/create">
             <base-button type="primary" size="sm">Create a server</base-button>
           </router-link>
@@ -47,7 +53,7 @@
           </td>
 
           <td>
-            <badge class="badge-dot mr-4" :type="row.statusType">
+            <badge class="badge mr-4" :type="row.statusType">
               <i :class="`bg-${row.statusType}`"></i>
               <span class="status">{{ row.server_status }}</span>
             </badge>
@@ -62,7 +68,7 @@
       </base-table>
 
       <div v-else class="text-center mt-3">
-        <h4>You don't have a server yet, create one to see it appear here !</h4>
+        <h4>No servers</h4>
       </div>
     </div>
   </div>
@@ -75,6 +81,14 @@ export default {
       type: String,
     },
     title: String,
+    userId: {
+      type: String,
+      default: "2",
+    },
+    createButton: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -82,11 +96,12 @@ export default {
     };
   },
   created() {
-    this.$store.state.client.Docker.list(this.$store.state.user.ID.toString())
+    this.$store.state.client.Docker.list(this.userId)
       .then((response) => {
         this.tableData = response.list;
         for (var i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].server_status == "Stoped") {
+          console.log(this.tableData[i].server_status);
+          if (this.tableData[i].server_status == "Stopped") {
             this.tableData[i].statusType = "danger";
           } else if (this.tableData[i].server_status == "Started") {
             this.tableData[i].statusType = "success";
@@ -96,6 +111,16 @@ export default {
       .catch((e) => {
         console.log(e);
       });
+  },
+  methods: {
+    getPlayersOnlinePerServer(id) {
+      this.$axios.get("/docker/playeronline", {});
+    },
+  },
+  computed: {
+    getPlayersOnline(dockerId) {
+      return this.getPlayersOnlinePerServer(dockerId);
+    },
   },
 };
 </script>

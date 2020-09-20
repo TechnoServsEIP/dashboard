@@ -38,7 +38,6 @@
             <th>Role</th>
             <th>Activated</th>
             <th>Verified</th>
-            <th>Create</th>
             <th></th>
           </template>
           <template slot-scope="{ row }">
@@ -61,9 +60,14 @@
             <td>
               <div class="media align-items-center">
                 <div class="media-body">
-                  <span class="name mb-0 text-sm">{{
-                    row.Role.slice(0, 1).toUpperCase() + row.Role.slice(1)
-                  }}</span>
+                  <badge
+                    class="badge"
+                    :type="row.Role == 'admin' ? 'primary' : 'info'"
+                  >
+                    <span class="status">{{
+                      row.Role.slice(0, 1).toUpperCase() + row.Role.slice(1)
+                    }}</span>
+                  </badge>
                 </div>
               </div>
             </td>
@@ -88,13 +92,6 @@
               </div>
             </td>
 
-            <td>
-              <div class="media align-items-center">
-                <div class="media-body">
-                  <span class="name mb-0 text-sm">{{ row.CreatedAt }}</span>
-                </div>
-              </div>
-            </td>
             <td class="text-right">
               <el-dropdown trigger="click">
                 <span class="el-dropdown-link">
@@ -126,6 +123,11 @@
                         ? "Deactivate User"
                         : "Activate User"
                     }}
+                  </el-dropdown-item>
+                  <el-dropdown-item
+                    @click.native="toUserServers(row.ID.toString())"
+                  >
+                    See user servers
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -161,6 +163,20 @@ export default {
     this.usersLocal = this.users;
   },
   methods: {
+    // getNumberOfServer(id) {
+    //   this.$store.state.client.Docker.list(id.toString())
+    //     .then((response) => {
+    //       console.log(response);
+    //       return response.list.length;
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    //   return 0;
+    // },
+    toUserServers(id) {
+      this.$router.push(`/admin/user/${id}/servers`);
+    },
     updateActivateUser(value, id) {
       this.$axios
         .post(

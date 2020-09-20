@@ -1,12 +1,12 @@
 <template>
   <div class="container-fluid">
-    <div class="row pb-4">
+    <!-- <div class="row pb-4">
       <div class="col-6">
         <base-button class="m-0" size="sm" type="primary"
           >Invite people to join your server !</base-button
         >
       </div>
-    </div>
+    </div> -->
 
     <div class="row">
       <div
@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="row mb-3">
+          <div class="row mb-3 ml-0">
             <base-button
               v-if="serverInfos[0].server_status == 'Started'"
               size="sm"
@@ -72,28 +72,35 @@
             >
           </div>
           <div class="row mb-3">
-            <span
-              >Name: <strong>{{ serverInfos[0].server_name }}</strong></span
-            >
+            <div class="col-3">
+              <span>Name:</span>
+            </div>
+            <div class="col-9" style="left: -17%">
+              <strong>{{ serverInfos[0].server_name }}</strong>
+            </div>
           </div>
           <div class="row mb-3">
-            <span>
-              IP:
+            <div class="col-3">
+              <span>IP:</span>
+            </div>
+            <div class="col-9" style="left: -17%">
               <strong
                 >x2021alsablue1371139462001.northeurope.cloudapp.azure.com</strong
               >
-            </span>
+            </div>
           </div>
 
           <div class="row">
-            <span>
-              Port:
+            <div class="col-3">
+              <span>Port:</span>
+            </div>
+            <div class="col-9" style="left: -17%">
               <strong>{{
                 serverInfos[0].settings.HostConfig["PortBindings"][
                   "25565/tcp"
                 ][0]["HostPort"]
               }}</strong>
-            </span>
+            </div>
           </div>
         </div>
       </div>
