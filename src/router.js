@@ -75,6 +75,11 @@ export default new Router({
       component: () => import('./views/UserProfile.vue')
     },
     {
+      path: '/confirm',
+      name: 'confirmAccount',
+      component: () => import('./components/ConfirmUser.vue')
+    },
+    {
       path: "/",
       redirect: "login",
       component: AuthLayout,
