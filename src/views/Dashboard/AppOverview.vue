@@ -1,15 +1,17 @@
 <template>
   <div class="container-fluid">
-     <div class="row pb-4">
+    <div class="row pb-4">
       <div class="col-6">
-        <base-button class="m-0" size="sm" type="primary">Invite people to join your server !</base-button>
+        <base-button class="m-0" size="sm" type="primary"
+          >Invite people to join your server !</base-button
+        >
       </div>
     </div>
 
     <div class="row">
       <div
         v-if="serverInfos.length != 0"
-        class="card shadow mr-4 col-md-7"
+        class="card shadow"
         style="width: 100%"
         :class="type === 'dark' ? 'bg-default' : ''"
       >
@@ -36,70 +38,63 @@
           </div>
         </div>
         <div class="card-body">
-          <p>
-            Name:
-            <strong>{{ serverInfos[0].server_name }}</strong>
-          </p>
-          <p>
-            IP:
-            <strong
-              >x2021alsablue1371139462001.northeurope.cloudapp.azure.com</strong
+          <div class="row mb-3">
+            <base-button
+              v-if="serverInfos[0].server_status == 'Started'"
+              size="sm"
+              :disabled="isBtnLoading"
+              @click.prevent="restartServer()"
+              >Restart</base-button
             >
-          </p>
-          <p>
-            Port:
-            <strong>{{
-              serverInfos[0].settings.HostConfig["PortBindings"][
-                "25565/tcp"
-              ][0]["HostPort"]
-            }}</strong>
-          </p>
-        </div>
-      </div>
-
-      <div
-        v-if="serverInfos.length != 0"
-        class="card shadow col ml-auto"
-        :class="type === 'dark' ? 'bg-default' : ''"
-      >
-        <div
-          class="card-header"
-          :class="type === 'dark' ? 'bg-transparent' : ''"
-        >
-          <div class="row align-items-center">
-            <div class="col">
-              <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-                Actions
-              </h3>
-            </div>
+            <base-button
+              v-else
+              size="sm"
+              :disabled="isBtnLoading"
+              type="success"
+              @click.prevent="startServer"
+              >Start</base-button
+            >
+            <base-button
+              :disabled="
+                isBtnLoading || serverInfos[0].server_status == 'Stoped'
+              "
+              size="sm"
+              type="warning"
+              @click.prevent="stopServer()"
+              >Stop</base-button
+            >
+            <base-button
+              :disabled="isBtnLoading"
+              size="sm"
+              type="danger"
+              @click.prevent="deleteServer()"
+              >Delete</base-button
+            >
           </div>
-        </div>
-        <div class="card-body">
-          <base-button
-            v-if="serverInfos[0].server_status == 'Started'"
-            :disabled="isBtnLoading"
-            @click.prevent="restartServer()"
-            >Restart</base-button
-          >
-          <base-button
-            v-else
-            :disabled="isBtnLoading"
-            type="success"
-            @click.prevent="startServer"
-            >Start</base-button
-          >
-          <base-button
-            :disabled="isBtnLoading || serverInfos[0].server_status == 'Stoped'"
-            type="warning"
-            @click.prevent="stopServer()"
-            >Stop</base-button
-          >
-          <base-button
-            :disabled="isBtnLoading"
-            type="danger"
-            @click.prevent="deleteServer()"
-            >Delete</base-button
-          >
+          <div class="row mb-3">
+            <span
+              >Name: <strong>{{ serverInfos[0].server_name }}</strong></span
+            >
+          </div>
+          <div class="row mb-3">
+            <span>
+              IP:
+              <strong
+                >x2021alsablue1371139462001.northeurope.cloudapp.azure.com</strong
+              >
+            </span>
+          </div>
+
+          <div class="row">
+            <span>
+              Port:
+              <strong>{{
+                serverInfos[0].settings.HostConfig["PortBindings"][
+                  "25565/tcp"
+                ][0]["HostPort"]
+              }}</strong>
+            </span>
+          </div>
         </div>
       </div>
     </div>

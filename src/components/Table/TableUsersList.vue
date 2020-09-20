@@ -72,7 +72,7 @@
               <div class="media align-items-center">
                 <div class="media-body">
                   <span class="name mb-0 text-sm">{{
-                    row.Activate === true ? "Yes" : "No"
+                    row.Activate === true ? "✅" : "❌"
                   }}</span>
                 </div>
               </div>
@@ -82,7 +82,7 @@
               <div class="media align-items-center">
                 <div class="media-body">
                   <span class="name mb-0 text-sm">{{
-                    row.Verified === true ? "Yes" : "No"
+                    row.Verified === true ? "✅" : "❌"
                   }}</span>
                 </div>
               </div>
