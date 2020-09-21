@@ -29,7 +29,10 @@
       <dashboard-navbar></dashboard-navbar>
 
       <div @click="toggleSidebar">
-        <base-header type="gradient-default" class="pb-2 pb-4 pt-5 pt-md-5 mb-4"></base-header>
+        <base-header
+          type="gradient-default"
+          class="pb-2 pb-4 pt-5 pt-md-5 mb-4"
+        ></base-header>
         <fade-transition :duration="200" origin="center top" mode="out-in">
           <!-- your content here -->
           <router-view></router-view>
@@ -53,9 +56,6 @@ export default {
       sidebarBackground: "vue", //vue|blue|orange|green|red|primary
     };
   },
-  created() {
-    console.log(this.$store.state.user)
-  },
   methods: {
     toggleSidebar() {
       if (this.$sidebar.showSidebar) {
@@ -65,4 +65,5 @@ export default {
   },
 };
 </script>
+
 <style lang="scss"></style>
