@@ -33,7 +33,7 @@
                   placeholder="Your server name"
                   aria-label="Your server name"
                   aria-describedby="button-addon2"
-                  v-on:keyup.enter="createServer"
+                  v-on:keyup.enter="checkoutOrder"
                 />
               </div>
             </div>
@@ -53,7 +53,7 @@
                 <base-button
                   :disabled="!allFieldsCompleted || isLoading"
                   type="success"
-                  @click.prevent="checkoutOrder()"
+                  @click.prevent="checkoutOrder"
                 >
                   <half-circle-spinner
                     v-if="isLoading"
