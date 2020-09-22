@@ -89,6 +89,11 @@ export default new Router({
       component: () => import("./views/UserProfile.vue"),
     },
     {
+      path: "/feedback",
+      name: 'feedback',
+      component: () => import('./views/Feedback.vue')
+    },
+    {
       path: "/confirm",
       name: "confirmAccount",
       component: () => import("./components/ConfirmUser.vue"),

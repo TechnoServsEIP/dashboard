@@ -40,6 +40,10 @@
               <i class="ni ni-credit-card"></i>
               <span>My bills</span>
             </router-link>
+            <router-link to="/feedback" class="dropdown-item">
+              <i class="ni ni-support-16"></i>
+              <span>Feedback</span>
+            </router-link>
             <div class="dropdown-divider"></div>
             <router-link to="/logout" class="dropdown-item">
               <i class="ni ni-user-run"></i>
