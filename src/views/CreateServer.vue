@@ -53,7 +53,7 @@
                 <base-button
                   :disabled="!allFieldsCompleted || isLoading"
                   type="success"
-                  @click.prevent="createServer()"
+                  @click.prevent="checkoutOrder()"
                 >
                   <half-circle-spinner
                     v-if="isLoading"
@@ -75,7 +75,9 @@
 <script>
 import { HalfCircleSpinner } from "epic-spinners";
 import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+const stripePromise = loadStripe(
+  "pk_test_51HT2XlJMhPRLHhSBEPU2UITcS3hdbima1IEwq1SMqOB9ebJlpuF48kXHnozPzCf7jttmTBo7Te3lCsK42xJoI5gK00mZykg31c"
+);
 
 export default {
   components: {
@@ -96,54 +98,42 @@ export default {
   },
   methods: {
     async checkoutOrder() {
-      const stripe = await stripePromise;
-      // const response = await fetch(
-      //   "https://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096/payment/new",
-      //   {
-      //     method: "POST",
-      //   }
-      // );
+      if (this.allFieldsCompleted) {
+        this.isLoading = true;
+        const stripe = await stripePromise;
 
-      try {
-        const resp = await this.$axios.post(
-          "/payment/new",
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${this.$store.state.user.token}`,
-            },
+        try {
+          const resp = await this.$axios.post(
+            "/payment/new",
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${this.$store.state.user.token}`,
+              },
+            }
+          );
+
+          const result = await stripe.redirectToCheckout({
+            sessionId: resp.data.id,
+          });
+
+          if (result.error) {
+            console.log("ERROR =>", result);
+            this.$store.commit("setServerCreateInfo", null);
+          } else {
+            this.$store.commit("setServerCreateInfo", {
+              name: this.serverName,
+            });
+            console.log("SUCCESS =>", result);
           }
-        );
-        console.log(resp.data);
-      } catch (err) {
-        // Handle Error Here
-        console.error("error", err);
-      }
-      const response = await this.$axios.post(
-        "/payment/new",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${this.$store.state.user.token}`,
-          },
+        } catch (err) {
+          // Handle Error Here
+          console.error("error", err);
         }
-      );
-
-      // const session = await response.json();
-
-      // const result = await stripe.redirectToCheckout({
-      //   sessionId: session.id,
-      // });
-
-      // if (result.error) {
-      //   console.log("ERROR =>", result);
-      // } else {
-      //   console.log("SUCCESS =>", result);
-      // }
+      }
     },
     createServer() {
       if (this.allFieldsCompleted) {
-        this.isLoading = true;
         this.$store.state.client.Docker.create(
           this.$store.state.user.ID.toString(),
           "minecraft",
@@ -151,7 +141,6 @@ export default {
         )
           .then((response) => {
             console.log(response);
-            this.isLoading = false;
             this.$router.push({ path: "/dashboard" });
             this.$notify({
               type: "success",
@@ -159,7 +148,6 @@ export default {
             });
           })
           .catch((e) => {
-            this.isLoading = false;
             this.$notify({
               type: "danger",
               title: `Something went wrong: ${e._message.message}`,

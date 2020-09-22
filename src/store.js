@@ -8,6 +8,7 @@ const store = new Vuex.Store({
   state: {
     user: null,
     client: null,
+    serverCreateInfo: null
   },
   mutations: {
     setUser(state, user) {
@@ -16,6 +17,9 @@ const store = new Vuex.Store({
     setClient(state, client) {
       state.client = client;
     },
+    setServerCreateInfo(state, obj) {
+      state.serverCreateInfo = obj
+    }
   },
   plugins: [createPersistedState()],
 });
