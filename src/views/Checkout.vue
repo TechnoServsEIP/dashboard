@@ -37,6 +37,7 @@ export default {
         })
         .catch((e) => {
           this.$store.commit("setCreateServerInfo", null);
+          this.$router.push({ path: "/dashboard" });
           this.$notify({
             type: "danger",
             title: `Something went wrong: ${e._message.message}`,
