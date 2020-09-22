@@ -9,7 +9,7 @@
         <div class="row align-items-center">
           <div class="col">
             <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-              Offers
+              Users
             </h3>
           </div>
           <div>
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="table-responsive">
+      <div class="table-responsive" style="height: 50vh;">
         <base-table
           v-if="usersLocal.length > 0"
           class="table align-items-center table-flush"
@@ -163,17 +163,6 @@ export default {
     this.usersLocal = this.users;
   },
   methods: {
-    // getNumberOfServer(id) {
-    //   this.$store.state.client.Docker.list(id.toString())
-    //     .then((response) => {
-    //       console.log(response);
-    //       return response.list.length;
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-    //   return 0;
-    // },
     toUserServers(id) {
       this.$router.push(`/admin/user/${id}/servers`);
     },
