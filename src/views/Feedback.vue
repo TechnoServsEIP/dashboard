@@ -34,6 +34,7 @@
                   <div class="col-7">
                     <el-input
                       placeholder="Your email"
+                      disabled
                       type="email"
                       v-model="email"
                       name="_replyto"
@@ -80,6 +81,16 @@
                     <button class="submit-button" type="submit">Send</button>
                   </div>
                 </div>
+                <div class="row mt-3">
+                  <div class="col">
+                    <span>
+                      If you have further questions join our
+                      <a href="https://discord.gg/PBESq3c" target="_blank"
+                        >Discord server</a
+                      >
+                    </span>
+                  </div>
+                </div>
               </form>
             </template>
           </card>
@@ -101,9 +112,13 @@ export default {
   data() {
     return {
       message: "",
-      email: "",
       title: "",
     };
+  },
+  computed: {
+    email() {
+      return this.$store.state.user.email;
+    },
   },
 };
 </script>
