@@ -101,7 +101,9 @@ export default {
       if (this.allFieldsCompleted) {
         this.isLoading = true;
         const stripe = await stripePromise;
-
+        this.$store.commit("setServerCreateInfo", {
+          name: this.serverName,
+        });
         try {
           const resp = await this.$axios.post(
             "/payment/new",
@@ -116,7 +118,7 @@ export default {
           const result = await stripe.redirectToCheckout({
             sessionId: resp.data.id,
           });
-
+          console.log(result);
           if (result.error) {
             console.log("ERROR =>", result);
             this.$store.commit("setServerCreateInfo", null);
