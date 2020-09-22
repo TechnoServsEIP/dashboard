@@ -53,7 +53,7 @@
                 <base-button
                   :disabled="!allFieldsCompleted || isLoading"
                   type="success"
-                  @click.prevent="checkoutOrder()"
+                  @click.prevent="createServer()"
                 >
                   <half-circle-spinner
                     v-if="isLoading"
