@@ -1,6 +1,6 @@
 <template>
   <div>
-    Checkout
+    Checkout redirection, please wait...
   </div>
 </template>
 
