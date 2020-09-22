@@ -99,38 +99,43 @@ export default {
   methods: {
     async checkoutOrder() {
       if (this.allFieldsCompleted) {
-        this.isLoading = true;
-        const stripe = await stripePromise;
-        this.$store.commit("setServerCreateInfo", {
-          name: this.serverName,
-        });
-        try {
-          const resp = await this.$axios.post(
-            "/payment/new",
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${this.$store.state.user.token}`,
-              },
-            }
-          );
-
-          const result = await stripe.redirectToCheckout({
-            sessionId: resp.data.id,
+        if (this.$store.state.user.Role == "admin") {
+          this.isLoading = true;
+          this.createServer();
+        } else {
+          this.isLoading = true;
+          const stripe = await stripePromise;
+          this.$store.commit("setServerCreateInfo", {
+            name: this.serverName,
           });
-          console.log(result);
-          if (result.error) {
-            console.log("ERROR =>", result);
-            this.$store.commit("setServerCreateInfo", null);
-          } else {
-            this.$store.commit("setServerCreateInfo", {
-              name: this.serverName,
+          try {
+            const resp = await this.$axios.post(
+              "/payment/new",
+              {},
+              {
+                headers: {
+                  Authorization: `Bearer ${this.$store.state.user.token}`,
+                },
+              }
+            );
+
+            const result = await stripe.redirectToCheckout({
+              sessionId: resp.data.id,
             });
-            console.log("SUCCESS =>", result);
+            console.log(result);
+            if (result.error) {
+              console.log("ERROR =>", result);
+              this.$store.commit("setServerCreateInfo", null);
+            } else {
+              this.$store.commit("setServerCreateInfo", {
+                name: this.serverName,
+              });
+              console.log("SUCCESS =>", result);
+            }
+          } catch (err) {
+            // Handle Error Here
+            console.error("error", err);
           }
-        } catch (err) {
-          // Handle Error Here
-          console.error("error", err);
         }
       }
     },
@@ -142,7 +147,7 @@ export default {
           this.serverName
         )
           .then((response) => {
-            console.log(response);
+            this.isLoading = false;
             this.$router.push({ path: "/dashboard" });
             this.$notify({
               type: "success",
@@ -150,6 +155,7 @@ export default {
             });
           })
           .catch((e) => {
+            this.isLoading = false;
             this.$notify({
               type: "danger",
               title: `Something went wrong: ${e._message.message}`,
