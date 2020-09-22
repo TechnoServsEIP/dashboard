@@ -104,6 +104,11 @@ export default new Router({
       component: () => import("./views/Bills.vue"),
     },
     {
+      path: '/checkout',
+      name: "checkout",
+      component: () => import("./views/Checkout.vue")
+    },
+    {
       path: "/",
       redirect: "login",
       component: AuthLayout,

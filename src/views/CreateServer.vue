@@ -44,10 +44,16 @@
 
             <div class="row mb-4">
               <div class="col-md-6">
+                <strong>Plan:</strong> Standard - <strong>0€/month</strong>
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-md-6">
                 <base-button
                   :disabled="!allFieldsCompleted || isLoading"
                   type="success"
-                  @click.prevent="createServer()"
+                  @click.prevent="checkoutOrder()"
                 >
                   <half-circle-spinner
                     v-if="isLoading"
@@ -68,6 +74,8 @@
 
 <script>
 import { HalfCircleSpinner } from "epic-spinners";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 export default {
   components: {
@@ -87,6 +95,52 @@ export default {
     },
   },
   methods: {
+    async checkoutOrder() {
+      const stripe = await stripePromise;
+      // const response = await fetch(
+      //   "https://x2021alsablue1371139462001.northeurope.cloudapp.azure.com:9096/payment/new",
+      //   {
+      //     method: "POST",
+      //   }
+      // );
+
+      try {
+        const resp = await this.$axios.post(
+          "/payment/new",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          }
+        );
+        console.log(resp.data);
+      } catch (err) {
+        // Handle Error Here
+        console.error("error", err);
+      }
+      const response = await this.$axios.post(
+        "/payment/new",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${this.$store.state.user.token}`,
+          },
+        }
+      );
+
+      // const session = await response.json();
+
+      // const result = await stripe.redirectToCheckout({
+      //   sessionId: session.id,
+      // });
+
+      // if (result.error) {
+      //   console.log("ERROR =>", result);
+      // } else {
+      //   console.log("SUCCESS =>", result);
+      // }
+    },
     createServer() {
       if (this.allFieldsCompleted) {
         this.isLoading = true;
@@ -96,7 +150,7 @@ export default {
           this.serverName
         )
           .then((response) => {
-            console.log(response)
+            console.log(response);
             this.isLoading = false;
             this.$router.push({ path: "/dashboard" });
             this.$notify({
