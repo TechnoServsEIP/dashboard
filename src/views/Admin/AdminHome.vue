@@ -29,6 +29,7 @@
         :users="getUsers"
         @update-user="setUserNewRole"
         @update-activate-user="updateActivatedUser"
+        @update-verified-user="updateVerifiedUser"
       ></table-users-list>
     </div>
   </div>
@@ -60,6 +61,13 @@ export default {
     },
   },
   methods: {
+    updateVerifiedUser(event) {
+      this.users.forEach((elem) => {
+        if (elem.ID == event.id) {
+          elem.Verified = !event.verified;
+        }
+      });
+    },
     getTotalServers() {
       this.$axios
         .get("/docker/total", {

@@ -111,6 +111,7 @@ export default {
         .get("/offers/list")
         .then((response) => {
           this.offersList = response.data.result;
+          console.log(response)
           console.log(this.offersList[0].offer_types);
         })
         .catch((e) => {

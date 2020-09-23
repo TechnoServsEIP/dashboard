@@ -125,6 +125,17 @@
                     }}
                   </el-dropdown-item>
                   <el-dropdown-item
+                    @click.native="
+                      updateVerifiedUser(!row.Verified, row.ID.toString())
+                    "
+                  >
+                    {{
+                      row.Verified === false
+                        ? "Verify User"
+                        : "Remove Verified User"
+                    }}
+                  </el-dropdown-item>
+                  <el-dropdown-item
                     @click.native="toUserServers(row.ID.toString())"
                   >
                     See user servers
@@ -163,6 +174,43 @@ export default {
     this.usersLocal = this.users;
   },
   methods: {
+    updateVerifiedUser(verified, id) {
+      if (verified == false) {
+        this.$axios.post('user/verify', {
+          Id: id
+        }, {
+          headers: {
+            authorization: `Bearer ${this.$store.state.user.token}`
+          }
+        }).then(response => {
+          this.$emit("update-verified-user", { id: id, verified: !verified });
+          this.$notify({
+            type: "success",
+            title: `User correctly unverified`,
+          });
+          console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
+      } else if (verified == true) {
+         this.$axios.post('user/removeverification', {
+          Id: id
+        }, {
+          headers: {
+            authorization: `Bearer ${this.$store.state.user.token}`
+          }
+        }).then(response => {
+          this.$emit("update-verified-user", { id: id, verified: !verified });
+          this.$notify({
+            type: "success",
+            title: `User correctly unverified`,
+          });
+          console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
+      }
+    },
     toUserServers(id) {
       this.$router.push(`/admin/user/${id}/servers`);
     },
