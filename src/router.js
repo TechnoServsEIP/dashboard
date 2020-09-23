@@ -51,11 +51,21 @@ export default new Router({
           name: "environment",
           component: () => import("./views/Dashboard/AppEnvironment.vue"),
         },
+        {
+          path: "invite",
+          name: "invite",
+          component: () => import("./views/Dashboard/AppInvite.vue"),
+        },
       ],
       beforeEnter: (to, from, next) => {
         if (store.state.user == null) next("/login");
         else next();
       },
+    },
+    {
+      path: "/auth/github",
+      name: "Github",
+      component: () => import("./views/Github.vue"),
     },
     {
       path: "/admin",
@@ -90,8 +100,8 @@ export default new Router({
     },
     {
       path: "/feedback",
-      name: 'feedback',
-      component: () => import('./views/Feedback.vue')
+      name: "feedback",
+      component: () => import("./views/Feedback.vue"),
     },
     {
       path: "/confirm",
@@ -104,9 +114,9 @@ export default new Router({
       component: () => import("./views/Bills.vue"),
     },
     {
-      path: '/checkout',
+      path: "/checkout",
       name: "checkout",
-      component: () => import("./views/Checkout.vue")
+      component: () => import("./views/Checkout.vue"),
     },
     {
       path: "/",

@@ -7,6 +7,12 @@
             <small>Sign in to the dashboard</small>
           </div>
 
+          <div class="text-center mb-3">
+            <base-button type="secondary" @click.prevent="loginGithub()"
+              >Github</base-button
+            >
+          </div>
+
           <div v-if="error.isError">
             <base-alert type="danger" dismissible>
               <span class="alert-inner--text">
@@ -108,7 +114,16 @@ export default {
       minLength: minLength(6),
     },
   },
+  created() {
+    console.log(this.$store.state.user);
+  },
   methods: {
+    loginGithub() {
+      let githubClientID = "9e486adc90668a6818eb";
+      window.open(
+        `https://github.com/login/oauth/authorize?client_id=${githubClientID}&redirect_uri=https://technoservs.ichbinkour.eu/auth/github`
+      );
+    },
     loginUser() {
       this.isLoginLoading = true;
       const technoservs = require("technoservs.js");

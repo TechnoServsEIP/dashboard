@@ -23,6 +23,13 @@
             path: `/dashboard/${$route.params.id}/environment`,
           }"
         />
+         <sidebar-item
+          :link="{
+            name: 'Invite your friends',
+            icon: 'ni ni-send text-primary',
+            path: `/dashboard/${$route.params.id}/invite`,
+          }"
+        />
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">
