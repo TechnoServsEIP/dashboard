@@ -100,7 +100,7 @@
                 </div>
               </div>
 
-              <div v-for="card in creditCards" :key="card.id" class="pt-2">
+              <div v-for="card in getCreditCards" :key="card.id" class="pt-2">
                 <div class="row">
                   <div class="col-3">
                     <span>
@@ -292,6 +292,11 @@ export default {
       },
     };
   },
+  computed: {
+    getCreditCards() {
+      return this.creditCards
+    }
+  },
   methods: {
     openUpdateCardModal(card) {
       this.modals.update = true;
@@ -338,6 +343,7 @@ export default {
       this.creditCards = this.creditCards.filter((v) => {
         return v.id != this.selectedCardModal.id;
       });
+      console.log(this.creditCards)
       this.modals.delete = false;
       this.$notify({
         type: "success",
