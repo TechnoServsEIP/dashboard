@@ -252,25 +252,23 @@ export default {
     // },
     deleteServer(row) {
       console.log("Delete", row);
-      // this.$store.state.client.Docker.delete(
-      //   this.$store.state.user.ID.toString(),
-      //   this.serverInfos[0].id_docker
-      // )
-      //   .then((response) => {
-      //     console.log(response);
-      //     this.$router.push({ path: "/dashboard" });
-      //     this.$notify({
-      //       type: "success",
-      //       title: "Server correctly deleted",
-      //     });
-      //   })
-      //   .catch((e) => {
-      //     this.$notify({
-      //       type: "danger",
-      //       title: "An error occured while deleting server",
-      //     });
-      //     console.log(e._message);
-      //   });
+      this.$store.state.client.Docker.delete(
+        this.$store.state.user.ID.toString(),
+        row.id_docker
+      )
+      .then((response) => {
+        this.userServers = this.userServers.filter(function(el) { return el.id_docker != row.id_docker; })
+        this.$notify({
+          type: "success",
+          title: "Server correctly deleted",
+        });
+      })
+      .catch((e) => {
+        this.$notify({
+          type: "danger",
+          title: "An error occured while deleting server",
+        });
+      });
     },
   },
 };
