@@ -66,7 +66,10 @@
                       v-if="row.server_status === 'Stopped'"
                       @click.native="startServer(row.id_docker)"
                     >Start</el-dropdown-item>
-                    <el-dropdown-item @click.native="stopServer(row.id_docker)">Stop</el-dropdown-item>
+                    <el-dropdown-item v-if="row.server_status == 'Started'"
+                      @click.native="restartServer(row)">Restart</el-dropdown-item>
+                    <el-dropdown-item v-if="row.server_status == 'Started'"
+                      @click.native="stopServer(row.id_docker)">Stop</el-dropdown-item>
                     <el-dropdown-item @click.native="deleteServer(row)">Delete</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
@@ -220,36 +223,39 @@ export default {
       //     console.log(e._message);
       //   });
     },
-    // restartServer() {
-    //   this.$store.state.client.Docker.stop(
-    //     this.$store.state.user.ID.toString(),
-    //     this.serverInfos[0].id_docker
-    //   )
-    //     .then(() => {
-    //       this.$store.state.client.Docker.start(
-    //         this.$store.state.user.ID.toString(),
-    //         this.serverInfos[0].id_docker
-    //       )
-    //         .then((response) => {
-    //           this.serverInfos[0].server_status = "Started";
-    //           this.updateServerStatus(response.settings.State.Status);
-    //         })
-    //         .catch((e) => {
-    //           console.log(e._message);
-    //         });
-    //       this.$notify({
-    //         type: "success",
-    //         title: "Server correctly restared",
-    //       });
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //       this.$notify({
-    //         type: "danger",
-    //         title: "An error occured while restarting server",
-    //       });
-    //     });
-    // },
+    restartServer(row) {
+      this.isEditActionLoading = true;
+      this.updateTypeServer("Stopping", row.id_docker);
+      this.$store.state.client.Docker.stop(
+        this.$store.state.user.ID.toString(),
+        row.id_docker
+      )
+      .then(() => {
+        this.updateTypeServer("Starting", row.id_docker);
+        this.$store.state.client.Docker.start(
+          this.$store.state.user.ID.toString(),
+          row.id_docker
+        )
+          .then((response) => {
+            this.updateTypeServer("Started", row.id_docker);
+            this.isEditActionLoading = false;
+          })
+          .catch((e) => {
+            console.log(e._message);
+          });
+        this.$notify({
+          type: "success",
+          title: "Server correctly restared",
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+        this.$notify({
+          type: "danger",
+          title: "An error occured while restarting server",
+        });
+      });
+    },
     deleteServer(row) {
       console.log("Delete", row);
       this.$store.state.client.Docker.delete(
