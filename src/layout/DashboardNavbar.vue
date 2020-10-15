@@ -2,6 +2,7 @@
   <base-nav
     class="navbar-top navbar-dark"
     id="navbar-main"
+    type="primary"
     :show-toggle-button="false"
     expand
   >
@@ -10,9 +11,10 @@
         <base-dropdown class="nav-link pr-0">
           <div class="media align-items-center" slot="title">
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm font-weight-bold">
+              <span class="mb-0 text-sm font-weight-bold" style="cursor: pointer;">
                 {{ $store.state.user.email }}
               </span>
+              <i class="fas fa-caret-down"></i>
             </div>
           </div>
 

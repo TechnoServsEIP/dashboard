@@ -12,7 +12,8 @@
           </h3>
         </div>
 
-        <div class="col-md-auto" v-if="createButton">
+        <div v-if="tableData.length > 0 && createButton" 
+          class="col-md-auto">
           <router-link to="/create">
             <base-button type="primary" size="sm">Create a server</base-button>
           </router-link>
@@ -67,8 +68,14 @@
         </template>
       </base-table>
 
-      <div v-else class="text-center mt-3">
-        <h4>No servers</h4>
+      <div v-else class="text-center my-3">
+        <h4 class="my-3">You have no server yet</h4>
+        <div class="my-3">
+          <i class="fas fa-sad-tear fa-5x" />
+        </div>
+        <router-link to="/create">
+          <base-button type="primary" size="sm">Create here</base-button>
+        </router-link>        
       </div>
     </div>
   </div>
