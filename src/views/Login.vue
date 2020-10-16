@@ -48,7 +48,6 @@
                 v-on:
                 type="primary"
                 class="my-2 container"
-                icon="fas fa-sign-in-alt"
                 :disabled="$v.email.$invalid || $v.password.$invalid"
               >
                 <half-circle-spinner
@@ -57,12 +56,22 @@
                   :size="20"
                   color="white"
                 />
-                <strong v-else>Sign in</strong>
+                <strong v-else>
+                  <i
+                    class="fas fa-sign-in-alt"
+                    style="padding-right: 10px;"
+                  ></i>
+                  Sign in
+                </strong>
               </base-button>
             </div>
           </form>
           <div class="text-center mt-3">
-            <base-button type="secondary" icon="fab fa-github" @click.prevent="loginGithub()">
+            <base-button
+              type="secondary"
+              icon="fab fa-github"
+              @click.prevent="loginGithub()"
+            >
               Github
             </base-button>
           </div>
