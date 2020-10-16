@@ -2,15 +2,9 @@
   <div class="row justify-content-center">
     <div class="col-lg-5 col-md-7">
       <div class="card bg-secondary shadow border-0">
-        <div class="card-body px-lg-5 py-lg-5">
+        <div class="card-body px-lg-5 pt-lg-5">
           <div class="text-center text-muted mb-4">
             <small>Register to the dashboard</small>
-          </div>
-
-          <div class="text-center mb-3">
-            <base-button type="secondary" @click.prevent="loginGithub()"
-              >Github</base-button
-            >
           </div>
           
           <div v-if="error.isError">
@@ -74,6 +68,7 @@
                 style="width: 100%"
                 type="primary"
                 class="my-4"
+                icon="fas fa-sign-in-alt"
                 v-on:click.prevent="register()"
                 v-on:keyup.enter="register()"
 
@@ -86,20 +81,26 @@
                 />
                 <strong v-else>Create account</strong>
               </base-button>
+
+              <div class="text-center mb-3">
+                <base-button type="secondary" icon="fab fa-github" @click.prevent="loginGithub()">
+                  Github
+                </base-button>
+              </div>
             </div>
           </form>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-6">
-          <a href="#" class="text-light">
-            <small>Forgot password?</small>
-          </a>
-        </div>
-        <div class="col-6 text-right">
-          <router-link to="/login" class="text-light">
-            <small>Login into your account</small>
-          </router-link>
+          <div class="row mt-3">
+            <div class="col-6">
+              <a href="#" class="">
+                <small>Forgot password?</small>
+              </a>
+            </div>
+            <div class="col-6 text-right">
+              <router-link to="/login" class="">
+                <small>Login into your account</small>
+              </router-link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

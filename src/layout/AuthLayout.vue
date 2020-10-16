@@ -1,14 +1,14 @@
 <template>
   <div class="main-content bg-default" style="min-height: 100vh">
     <!-- Navbar -->
-    <base-nav
+    <!-- <base-nav
       class="navbar-top navbar-horizontal navbar-dark"
       containerClasses="px-4 container"
       expand
-    >
-      <template v-slot="{closeMenu}">
+    > -->
+      <!-- <template v-slot="{closeMenu}"> -->
         <!-- Collapse header -->
-        <div class="navbar-collapse-header d-md-none">
+        <!-- <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
               <router-link to="/">
@@ -27,9 +27,9 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- Navbar items -->
-        <ul class="navbar-nav ml-auto">
+        <!-- <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/register">
               <i class="ni ni-circle-08"></i>
@@ -42,20 +42,22 @@
               <span class="nav-link-inner--text">Login</span>
             </router-link>
           </li>
-        </ul>
-      </template>
-    </base-nav>
+        </ul> -->
+      <!-- </template> -->
+    <!-- </base-nav> -->
     <!-- Header -->
-    <div class="header bg-gradient-success py-7 py-lg-8">
+    <div class="header bg-gradient-success py-7 py-lg-7">
       <div class="container">
         <div class="header-body text-center mb-7">
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">Welcome!</h1>
+              <!-- <h1 class="text-white">Welcome!</h1>
               <p class="text-lead text-white">
                 Use these awesome forms to login or create new account in
                 your project for free.
-              </p>
+              </p> -->
+              <!-- Add icon technoservs -->
+              <img :src="logo" class="navbar-brand-img" alt="..." />
             </div>
           </div>
         </div>
@@ -91,8 +93,8 @@ export default {
   },
   data() {
     return {
-      year: new Date().getFullYear(),
       showMenu: false,
+      logo : require('@/assets/ts-logo-full.svg'),
     };
   },
   created() {
