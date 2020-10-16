@@ -6,13 +6,18 @@
     :show-toggle-button="false"
     expand
   >
-    <ul class="navbar-nav align-items-center d-none d-md-flex ml-lg-auto">
+    <ul class="navbar-nav align-items-center d-none d-md-flex ml-lg-auto mb-1">
       <li class="nav-item dropdown">
-        <base-dropdown class="nav-link pr-0">
+        <base-dropdown class="nav-link pr-0" position="right">
           <div class="media align-items-center" slot="title">
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm font-weight-bold" style="cursor: pointer;">
-                {{ $store.state.user.email }}
+              <span
+                class="mb-0 text-sm font-weight-bold"
+                style="cursor: pointer;"
+              >
+                <div class="icon icon-shape text-white rounded-circle shadow">
+                  <i class="ni ni-single-02"></i>
+                </div>
               </span>
               <i class="fas fa-caret-down"></i>
             </div>
