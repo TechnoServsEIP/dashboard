@@ -17,8 +17,8 @@
     <div class="container-fluid mt--7">
       <div class="row mb-3">
         <div class="col">
-          <router-link to="/" style="color: white;">
-            <i class="ni ni-bold-left"></i>
+          <router-link to="/" style="color: white; align-items:center; display:flex">
+            <i class="ni ni-bold-left mr-1"></i>
             Dashboard
           </router-link>
         </div>
