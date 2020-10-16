@@ -66,13 +66,14 @@
               </base-button>
             </div>
           </form>
-          <div class="text-center mt-3">
+          <div class="text-center mt-1">
             <base-button
               type="secondary"
+              class="my-2 container"
               icon="fab fa-github"
               @click.prevent="loginGithub()"
             >
-              Github
+              Sign in using Github
             </base-button>
           </div>
           <div class="row mt-3">

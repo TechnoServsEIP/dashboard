@@ -46,7 +46,7 @@
       <!-- </template> -->
     <!-- </base-nav> -->
     <!-- Header -->
-    <div class="header bg-gradient-success py-7 py-lg-7">
+    <div class="header bg-gradient-custom-auth py-7 py-lg-7">
       <div class="container">
         <div class="header-body text-center mb-7">
           <div class="row justify-content-center">
@@ -56,8 +56,7 @@
                 Use these awesome forms to login or create new account in
                 your project for free.
               </p> -->
-              <!-- Add icon technoservs -->
-              <img :src="logo" class="navbar-brand-img" alt="..." />
+              <img :src="require('@/assets/ts-logo-full.svg')" class="navbar-brand-img" alt="..." />
             </div>
           </div>
         </div>
@@ -94,7 +93,6 @@ export default {
   data() {
     return {
       showMenu: false,
-      logo : require('@/assets/ts-logo-full.svg'),
     };
   },
   created() {
@@ -106,5 +104,9 @@ export default {
   }
 };
 </script>
-<style>
+<style lang="scss">
+
+.bg-gradient-custom-auth {
+  background: linear-gradient(90deg, rgba(46,206,202,1) 0%, rgba(46,206,139,1) 100%);
+}
 </style>

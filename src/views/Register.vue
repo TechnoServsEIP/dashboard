@@ -67,7 +67,7 @@
                 "
                 style="width: 100%"
                 type="primary"
-                class="my-4"
+                class="mt-4"
                 v-on:click.prevent="register()"
                 v-on:keyup.enter="register()"
 
@@ -87,9 +87,9 @@
                 </strong>
               </base-button>
 
-              <div class="text-center mb-3">
-                <base-button type="secondary" icon="fab fa-github" @click.prevent="loginGithub()">
-                  Github
+              <div class="text-center mb-3 mt-2">
+                <base-button type="secondary" style="width: 100%" icon="fab fa-github" @click.prevent="loginGithub()">
+                  Create account using GitHub
                 </base-button>
               </div>
             </div>
