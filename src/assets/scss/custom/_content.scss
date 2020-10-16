@@ -11,6 +11,7 @@
         background-color: transparent;
         padding-left: 0 !important;
         padding-right: 0 !important;
+        height: 80px;
     }
 
     // Container
@@ -22,18 +23,12 @@
     }
 }
 
-
 // Offsets the main content depending on the sidebar positioning
 
 .navbar-vertical.navbar-expand {
-
-    @each $breakpoint,
-    $dimension in $grid-breakpoints {
-
+    @each $breakpoint, $dimension in $grid-breakpoints {
         &-#{$breakpoint} {
-
             @include media-breakpoint-up(#{$breakpoint}) {
-
                 // Left
                 &.fixed-left + .main-content {
                     margin-left: $navbar-vertical-width;

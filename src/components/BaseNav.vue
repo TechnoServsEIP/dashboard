@@ -4,16 +4,18 @@
     :class="[
       { 'navbar-expand-md': expand },
       { 'navbar-transparent': transparent },
-      { [`bg-${type}`]: type },
     ]"
   >
     <div :class="containerClasses">
       <slot name="brand">
-        <router-link
+        <!-- <router-link
           :to="$route.path"
           class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
         >
           {{ $route.name }}
+        </router-link> -->
+        <router-link class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" to="/">
+          <img :src="require('@/assets/ts-logo-full-white.svg')" class="navbar-brand-img" style="width: 10rem" alt="..." />
         </router-link>
       </slot>
       <navbar-toggle-button
