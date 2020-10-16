@@ -15,6 +15,14 @@
     </base-header>
 
     <div class="container-fluid mt--7">
+      <div class="row mb-3">
+        <div class="col">
+          <router-link to="/" style="color: white;">
+            <i class="ni ni-bold-left"></i>
+            Dashboard
+          </router-link>
+        </div>
+      </div>
       <div class="row">
         <div class="col">
           <card shadow type="secondary">

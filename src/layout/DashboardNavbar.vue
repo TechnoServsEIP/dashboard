@@ -19,7 +19,7 @@
                   <i class="ni ni-single-02"></i>
                 </div>
               </span>
-              <i class="fas fa-caret-down"></i>
+              <i class="fas fa-caret-down" style="padding-left: 10px;"></i>
             </div>
           </div>
 
