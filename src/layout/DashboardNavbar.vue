@@ -15,7 +15,10 @@
                 class="mb-0 text-sm font-weight-bold"
                 style="cursor: pointer;"
               >
-                <div class="icon icon-shape text-white rounded-circle shadow">
+                <div
+                  class="icon icon-shape rounded-circle shadow"
+                  style="background:white; color:#1d1c50"
+                >
                   <i class="ni ni-single-02"></i>
                 </div>
               </span>
@@ -84,3 +87,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.text-blue {
+  color: #1d1c50;
+}
+</style>
