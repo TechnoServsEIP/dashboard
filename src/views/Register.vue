@@ -68,7 +68,6 @@
                 style="width: 100%"
                 type="primary"
                 class="my-4"
-                icon="fas fa-sign-in-alt"
                 v-on:click.prevent="register()"
                 v-on:keyup.enter="register()"
 
@@ -79,7 +78,13 @@
                   :size="20"
                   color="white"
                 />
-                <strong v-else>Create account</strong>
+                <strong v-else>
+                  <i
+                    class="fas fa-sign-in-alt"
+                    style="padding-right: 10px;"
+                  ></i>
+                  Create account
+                </strong>
               </base-button>
 
               <div class="text-center mb-3">

@@ -15,13 +15,21 @@
     </base-header>
 
     <div class="container-fluid mt--7">
+      <div class="row mb-3">
+        <div class="col">
+          <router-link to="/" style="color: white;">
+            <i class="ni ni-bold-left"></i>
+            Dashboard
+          </router-link>
+        </div>
+      </div>
       <div class="row">
         <div class="col">
           <card shadow type="secondary">
             <div slot="header" class="bg-white border-0">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">My account</h3>
+                  <h1 class="mb-0">My account</h1>
                 </div>
               </div>
             </div>
@@ -31,7 +39,7 @@
                 <div>
                   <div class="row mt-4">
                     <div class="col-lg-6">
-                      <h5>Your email</h5>
+                      <h4>Your email</h4>
                       <el-input
                         :value="$store.state.user.email"
                         placeholder="Please input password"
@@ -41,7 +49,7 @@
                   </div>
                   <div class="row mt-4">
                     <div class="col-lg-6">
-                      <h5>Change your password</h5>
+                      <h4>Change your password</h4>
                       <el-input
                         placeholder="Please input password"
                         v-model="model.newPassword"
@@ -66,7 +74,7 @@
         </div>
       </div>
 
-      <div class="row mt-4">
+      <!-- <div class="row mt-4">
         <div class="col">
           <card shadow type="secondary">
             <div slot="header" class="bg-white border-0">
@@ -142,7 +150,7 @@
             </template>
           </card>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <modal :show.sync="modals.delete">
@@ -294,8 +302,8 @@ export default {
   },
   computed: {
     getCreditCards() {
-      return this.creditCards
-    }
+      return this.creditCards;
+    },
   },
   methods: {
     openUpdateCardModal(card) {
@@ -343,7 +351,7 @@ export default {
       this.creditCards = this.creditCards.filter((v) => {
         return v.id != this.selectedCardModal.id;
       });
-      console.log(this.creditCards)
+      console.log(this.creditCards);
       this.modals.delete = false;
       this.$notify({
         type: "success",
@@ -354,4 +362,8 @@ export default {
   },
 };
 </script>
-<style></style>
+<style lang="scss" scoped>
+.heading-small {
+  font-size: 1rem;
+}
+</style>
