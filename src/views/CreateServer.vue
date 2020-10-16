@@ -6,20 +6,28 @@
     ></base-header>
 
     <div class="container-fluid mt--7">
-      <div class="row mt-5">
+      <div class="row mb-3" style="align-items:center">
+        <div class="col">
+          <router-link to="/" style="color: white; align-items:center; display:flex">
+            <i class="ni ni-bold-left mr-1"></i>
+            Dashboard
+          </router-link>
+        </div>
+      </div>
+      <div class="row">
         <div class="card shadow" style="width: 100%">
           <div class="card-header border-0">
             <div class="row align-items-center">
               <div class="col">
                 <h3 class="mb-0">Create a server</h3>
               </div>
-              <div class="col-md-auto">
+              <!-- <div class="col-md-auto">
                 <router-link to="/dashboard">
                   <base-button type="primary" size="sm"
                     >Return to dashboard</base-button
                   >
                 </router-link>
-              </div>
+              </div> -->
             </div>
           </div>
 
