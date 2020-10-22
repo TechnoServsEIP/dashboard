@@ -12,8 +12,7 @@
           </h3>
         </div>
 
-        <div v-if="tableData.length > 0 && createButton" 
-          class="col-md-auto">
+        <div v-if="tableData.length > 0 && createButton" class="col-md-auto">
           <router-link to="/create">
             <base-button type="primary" size="sm">Create a server</base-button>
           </router-link>
@@ -75,7 +74,7 @@
         </div>
         <router-link to="/create">
           <base-button type="primary" size="sm">Create here</base-button>
-        </router-link>        
+        </router-link>
       </div>
     </div>
   </div>
@@ -85,26 +84,26 @@ export default {
   name: "projects-table",
   props: {
     type: {
-      type: String,
+      type: String
     },
     title: String,
     userId: {
       type: String,
-      default: "2",
+      default: "2"
     },
     createButton: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
-      tableData: [],
+      tableData: []
     };
   },
   created() {
     this.$store.state.client.Docker.list(this.userId)
-      .then((response) => {
+      .then(response => {
         this.tableData = response.list;
         for (var i = 0; i < this.tableData.length; i++) {
           console.log(this.tableData[i].server_status);
@@ -115,20 +114,20 @@ export default {
           }
         }
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
       });
   },
   methods: {
     getPlayersOnlinePerServer(id) {
       this.$axios.get("/docker/playeronline", {});
-    },
+    }
   },
   computed: {
     getPlayersOnline(dockerId) {
       return this.getPlayersOnlinePerServer(dockerId);
-    },
-  },
+    }
+  }
 };
 </script>
 <style></style>

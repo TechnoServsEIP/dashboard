@@ -6,14 +6,14 @@
           :link="{
             name: 'Home',
             icon: 'ni ni-app text-primary',
-            path: '/admin',
+            path: '/admin'
           }"
         />
         <sidebar-item
           :link="{
             name: 'Offers',
             icon: 'ni ni-cart text-primary',
-            path: '/admin/offers',
+            path: '/admin/offers'
           }"
         />
       </template>
@@ -46,12 +46,12 @@ export default {
   name: "AdminLayout",
   components: {
     DashboardNavbar,
-    FadeTransition,
+    FadeTransition
   },
   data() {
     return {
-      sidebarBackground: "vue", //vue|blue|orange|green|red|primary
+      sidebarBackground: "vue" //vue|blue|orange|green|red|primary
     };
-  },
+  }
 };
 </script>

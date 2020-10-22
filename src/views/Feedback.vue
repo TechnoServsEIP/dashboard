@@ -107,19 +107,19 @@ import axios from "axios";
 export default {
   name: "Feedback",
   components: {
-    DashboardNavbar,
+    DashboardNavbar
   },
   data() {
     return {
       message: "",
-      title: "",
+      title: ""
     };
   },
   computed: {
     email() {
       return this.$store.state.user.email;
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -160,14 +160,14 @@ export default {
   props: {
     users: Array,
     type: {
-      type: String,
-    },
+      type: String
+    }
   },
   data() {
     return {
       selectedUser: {},
       searchInput: "",
-      usersLocal: [],
+      usersLocal: []
     };
   },
   created() {
@@ -181,23 +181,23 @@ export default {
           .post(
             "user/verify",
             {
-              Id: id.toString(),
+              Id: id.toString()
             },
             {
               headers: {
-                authorization: `Bearer ${this.$store.state.user.token}`,
-              },
+                authorization: `Bearer ${this.$store.state.user.token}`
+              }
             }
           )
-          .then((response) => {
+          .then(response => {
             this.$emit("update-verified-user", { id: id, verified: !verified });
             this.$notify({
               type: "success",
-              title: `User correctly unverified`,
+              title: `User correctly unverified`
             });
             console.log(response);
           })
-          .catch((e) => {
+          .catch(e => {
             console.log(e);
           });
       } else if (!verified == true) {
@@ -205,23 +205,23 @@ export default {
           .post(
             "user/removeverification",
             {
-              Id: id.toString(),
+              Id: id.toString()
             },
             {
               headers: {
-                authorization: `Bearer ${this.$store.state.user.token}`,
-              },
+                authorization: `Bearer ${this.$store.state.user.token}`
+              }
             }
           )
-          .then((response) => {
+          .then(response => {
             this.$emit("update-verified-user", { id: id, verified: !verified });
             this.$notify({
               type: "success",
-              title: `User correctly unverified`,
+              title: `User correctly unverified`
             });
             console.log(response);
           })
-          .catch((e) => {
+          .catch(e => {
             console.log(e);
           });
       }
@@ -234,24 +234,24 @@ export default {
         .post(
           `/user/${value === false ? "deactivate" : "activate"}`,
           {
-            Id: id,
+            Id: id
           },
           {
             headers: {
-              authorization: `Bearer ${this.$store.state.user.token}`,
-            },
+              authorization: `Bearer ${this.$store.state.user.token}`
+            }
           }
         )
-        .then((response) => {
+        .then(response => {
           this.$emit("update-activate-user", { id: id, activate: value });
           this.$notify({
             type: "success",
             title: `User correctly ${
               value === false ? "deactivated" : "activated"
-            }`,
+            }`
           });
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
@@ -261,28 +261,28 @@ export default {
           "/user/update",
           {
             Id: id,
-            Role: role,
+            Role: role
           },
           {
             headers: {
-              authorization: `Bearer ${this.$store.state.user.token}`,
-            },
+              authorization: `Bearer ${this.$store.state.user.token}`
+            }
           }
         )
         .then(() => {
           this.$emit("update-user", { id: id, role: role });
           this.$notify({
             type: "success",
-            title: "User role updated",
+            title: "User role updated"
           });
         })
-        .catch((e) => {
+        .catch(e => {
           this.$notify({
             type: "danger",
-            title: e,
+            title: e
           });
         });
-    },
+    }
   },
   watch: {
     users() {
@@ -293,12 +293,12 @@ export default {
         this.usersLocal = this.users;
         return;
       } else {
-        this.usersLocal = this.users.filter((v) => {
+        this.usersLocal = this.users.filter(v => {
           return v.email.includes(this.searchInput);
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

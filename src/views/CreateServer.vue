@@ -8,7 +8,10 @@
     <div class="container-fluid mt--7">
       <div class="row mb-3" style="align-items:center">
         <div class="col">
-          <router-link to="/" style="color: white; align-items:center; display:flex">
+          <router-link
+            to="/"
+            style="color: white; align-items:center; display:flex"
+          >
             <i class="ni ni-bold-left mr-1"></i>
             Dashboard
           </router-link>
@@ -89,20 +92,20 @@ const stripePromise = loadStripe(
 
 export default {
   components: {
-    HalfCircleSpinner,
+    HalfCircleSpinner
   },
   data() {
     return {
       allFieldsCompleted: false,
       serverName: "",
-      isLoading: false,
+      isLoading: false
     };
   },
   watch: {
     serverName() {
       if (this.serverName != "") this.allFieldsCompleted = true;
       else this.allFieldsCompleted = false;
-    },
+    }
   },
   methods: {
     async checkoutOrder() {
@@ -114,7 +117,7 @@ export default {
           this.isLoading = true;
           const stripe = await stripePromise;
           this.$store.commit("setServerCreateInfo", {
-            name: this.serverName,
+            name: this.serverName
           });
           try {
             const resp = await this.$axios.post(
@@ -122,13 +125,13 @@ export default {
               {},
               {
                 headers: {
-                  Authorization: `Bearer ${this.$store.state.user.token}`,
-                },
+                  Authorization: `Bearer ${this.$store.state.user.token}`
+                }
               }
             );
 
             const result = await stripe.redirectToCheckout({
-              sessionId: resp.data.id,
+              sessionId: resp.data.id
             });
             console.log(result);
             if (result.error) {
@@ -136,7 +139,7 @@ export default {
               this.$store.commit("setServerCreateInfo", null);
             } else {
               this.$store.commit("setServerCreateInfo", {
-                name: this.serverName,
+                name: this.serverName
               });
               console.log("SUCCESS =>", result);
             }
@@ -154,24 +157,24 @@ export default {
           "minecraft",
           this.serverName
         )
-          .then((response) => {
+          .then(response => {
             this.isLoading = false;
             this.$router.push({ path: "/dashboard" });
             this.$notify({
               type: "success",
-              title: `Server ${this.serverName} correctly created`,
+              title: `Server ${this.serverName} correctly created`
             });
           })
-          .catch((e) => {
+          .catch(e => {
             this.isLoading = false;
             this.$notify({
               type: "danger",
-              title: `Something went wrong: ${e._message.message}`,
+              title: `Something went wrong: ${e._message.message}`
             });
           });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style></style>

@@ -1,11 +1,20 @@
 <template>
   <div>
     <div class="row ml-2 mr-2">
-      <div class="card shadow" style="width: 100%" :class="type === 'dark' ? 'bg-default' : ''">
-        <div class="card-header" :class="type === 'dark' ? 'bg-transparent' : ''">
+      <div
+        class="card shadow"
+        style="width: 100%"
+        :class="type === 'dark' ? 'bg-default' : ''"
+      >
+        <div
+          class="card-header"
+          :class="type === 'dark' ? 'bg-transparent' : ''"
+        >
           <div class="row align-items-center">
             <div class="col">
-              <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">Servers</h3>
+              <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
+                Servers
+              </h3>
             </div>
           </div>
         </div>
@@ -43,7 +52,10 @@
               </td>
 
               <td>
-                <badge class="badge mr-4" :type="getBadgeType(row.server_status) || 'primary'">
+                <badge
+                  class="badge mr-4"
+                  :type="getBadgeType(row.server_status) || 'primary'"
+                >
                   <span class="status">{{ row.server_status }}</span>
                 </badge>
               </td>
@@ -51,7 +63,11 @@
               <td class="text-right">
                 <el-dropdown trigger="click">
                   <span class="el-dropdown-link">
-                    <base-button type="dark" size="sm" :disabled="isEditActionLoading">
+                    <base-button
+                      type="dark"
+                      size="sm"
+                      :disabled="isEditActionLoading"
+                    >
                       <half-circle-spinner
                         v-if="isEditActionLoading"
                         :animation-duration="1000"
@@ -65,12 +81,21 @@
                     <el-dropdown-item
                       v-if="row.server_status === 'Stopped'"
                       @click.native="startServer(row.id_docker)"
-                    >Start</el-dropdown-item>
-                    <el-dropdown-item v-if="row.server_status == 'Started'"
-                      @click.native="restartServer(row)">Restart</el-dropdown-item>
-                    <el-dropdown-item v-if="row.server_status == 'Started'"
-                      @click.native="stopServer(row.id_docker)">Stop</el-dropdown-item>
-                    <el-dropdown-item @click.native="deleteServer(row)">Delete</el-dropdown-item>
+                      >Start</el-dropdown-item
+                    >
+                    <el-dropdown-item
+                      v-if="row.server_status == 'Started'"
+                      @click.native="restartServer(row)"
+                      >Restart</el-dropdown-item
+                    >
+                    <el-dropdown-item
+                      v-if="row.server_status == 'Started'"
+                      @click.native="stopServer(row.id_docker)"
+                      >Stop</el-dropdown-item
+                    >
+                    <el-dropdown-item @click.native="deleteServer(row)"
+                      >Delete</el-dropdown-item
+                    >
                   </el-dropdown-menu>
                 </el-dropdown>
                 <!-- <router-link :to="{ path: `/dashboard/${row.ID.toString()}` }">
@@ -98,22 +123,22 @@ export default {
   name: "AdminUserServers",
   components: {
     // TableServerList,
-    HalfCircleSpinner,
+    HalfCircleSpinner
   },
   props: {
-    type: String,
+    type: String
   },
   data() {
     return {
       userServers: [],
       isEditActionLoading: false,
-      badgeTypeLoading: null,
+      badgeTypeLoading: null
     };
   },
   computed: {
     userId() {
       return this.$route.params.id;
-    },
+    }
   },
   created() {
     this.getUserServers();
@@ -132,7 +157,7 @@ export default {
       }
     },
     updateTypeServer(type, id_docker) {
-      this.userServers.forEach((e) => {
+      this.userServers.forEach(e => {
         if (e.id_docker == id_docker) {
           e.server_status = type;
         }
@@ -140,7 +165,7 @@ export default {
     },
     getUserServers() {
       this.$store.state.client.Docker.list(this.userId.toString())
-        .then((response) => {
+        .then(response => {
           console.log("response =>", response);
           this.userServers = response.list;
           for (var i = 0; i < this.userServers.length; i++) {
@@ -152,7 +177,7 @@ export default {
             }
           }
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e._message);
         });
     },
@@ -163,19 +188,19 @@ export default {
         this.$store.state.user.ID.toString(),
         id_docker
       )
-        .then((response) => {
+        .then(response => {
           this.isEditActionLoading = false;
           this.updateTypeServer("Started", id_docker);
           this.$notify({
             type: "success",
-            title: "Server correctly started",
+            title: "Server correctly started"
           });
         })
-        .catch((e) => {
+        .catch(e => {
           this.isEditActionLoading = false;
           this.$notify({
             type: "danger",
-            title: "An error occured while starting server",
+            title: "An error occured while starting server"
           });
           console.log(e._message);
         });
@@ -187,19 +212,19 @@ export default {
         this.$route.params.id.toString(),
         id_docker
       )
-        .then((response) => {
+        .then(response => {
           this.isEditActionLoading = false;
           this.updateTypeServer("Stopped", id_docker);
           this.$notify({
             type: "success",
-            title: "Server correctly stoped",
+            title: "Server correctly stoped"
           });
         })
-        .catch((e) => {
+        .catch(e => {
           this.isEditActionLoading = false;
           this.$notify({
             type: "danger",
-            title: "An error occured while stoping server",
+            title: "An error occured while stoping server"
           });
           console.log(e._message);
         });
@@ -230,31 +255,31 @@ export default {
         this.$store.state.user.ID.toString(),
         row.id_docker
       )
-      .then(() => {
-        this.updateTypeServer("Starting", row.id_docker);
-        this.$store.state.client.Docker.start(
-          this.$store.state.user.ID.toString(),
-          row.id_docker
-        )
-          .then((response) => {
-            this.updateTypeServer("Started", row.id_docker);
-            this.isEditActionLoading = false;
-          })
-          .catch((e) => {
-            console.log(e._message);
+        .then(() => {
+          this.updateTypeServer("Starting", row.id_docker);
+          this.$store.state.client.Docker.start(
+            this.$store.state.user.ID.toString(),
+            row.id_docker
+          )
+            .then(response => {
+              this.updateTypeServer("Started", row.id_docker);
+              this.isEditActionLoading = false;
+            })
+            .catch(e => {
+              console.log(e._message);
+            });
+          this.$notify({
+            type: "success",
+            title: "Server correctly restared"
           });
-        this.$notify({
-          type: "success",
-          title: "Server correctly restared",
+        })
+        .catch(e => {
+          console.log(e);
+          this.$notify({
+            type: "danger",
+            title: "An error occured while restarting server"
+          });
         });
-      })
-      .catch((e) => {
-        console.log(e);
-        this.$notify({
-          type: "danger",
-          title: "An error occured while restarting server",
-        });
-      });
     },
     deleteServer(row) {
       console.log("Delete", row);
@@ -262,21 +287,23 @@ export default {
         this.$store.state.user.ID.toString(),
         row.id_docker
       )
-      .then((response) => {
-        this.userServers = this.userServers.filter(function(el) { return el.id_docker != row.id_docker; })
-        this.$notify({
-          type: "success",
-          title: "Server correctly deleted",
+        .then(response => {
+          this.userServers = this.userServers.filter(function(el) {
+            return el.id_docker != row.id_docker;
+          });
+          this.$notify({
+            type: "success",
+            title: "Server correctly deleted"
+          });
+        })
+        .catch(e => {
+          this.$notify({
+            type: "danger",
+            title: "An error occured while deleting server"
+          });
         });
-      })
-      .catch((e) => {
-        this.$notify({
-          type: "danger",
-          title: "An error occured while deleting server",
-        });
-      });
-    },
-  },
+    }
+  }
 };
 </script>
 

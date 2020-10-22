@@ -94,12 +94,12 @@ export default {
   name: "AdminOffers",
   props: {
     type: {
-      type: String,
-    },
+      type: String
+    }
   },
   data() {
     return {
-      offersList: [],
+      offersList: []
     };
   },
   created() {
@@ -109,15 +109,15 @@ export default {
     getOffersList() {
       this.$axios
         .get("/offers/list")
-        .then((response) => {
+        .then(response => {
           this.offersList = response.data.result;
-          console.log(response)
+          console.log(response);
           console.log(this.offersList[0].offer_types);
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
-    },
-  },
+    }
+  }
 };
 </script>

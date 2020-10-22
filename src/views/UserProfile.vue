@@ -17,7 +17,10 @@
     <div class="container-fluid mt--7">
       <div class="row mb-3">
         <div class="col">
-          <router-link to="/" style="color: white; align-items:center; display:flex">
+          <router-link
+            to="/"
+            style="color: white; align-items:center; display:flex"
+          >
             <i class="ni ni-bold-left mr-1"></i>
             Dashboard
           </router-link>
@@ -255,17 +258,17 @@ import DashboardNavbar from "../layout/DashboardNavbar";
 export default {
   name: "user-profile",
   components: {
-    DashboardNavbar,
+    DashboardNavbar
   },
   data() {
     return {
       model: {
-        newPassword: "",
+        newPassword: ""
       },
       modals: {
         delete: false,
         update: false,
-        create: false,
+        create: false
       },
       selectedCardModal: {},
       creditCards: [
@@ -274,36 +277,36 @@ export default {
           cardHolder: "Valentin Ichkour",
           cardNumber: "1234 5678 9123 4567",
           cvc: "404",
-          expDate: "09/2021",
+          expDate: "09/2021"
         },
         {
           id: 3,
           cardHolder: "Valentin Ichkour",
           cardNumber: "1234 5678 9123 4567",
           cvc: "404",
-          expDate: "09/2021",
+          expDate: "09/2021"
         },
         {
           id: 4,
           cardHolder: "Valentin Ichkour",
           cardNumber: "1234 5678 9123 4567",
           cvc: "404",
-          expDate: "09/2021",
-        },
+          expDate: "09/2021"
+        }
       ],
       newCreditCard: {
         id: Math.random(),
         cardHolder: "",
         cardNumber: "",
         cvc: "",
-        expDate: "",
-      },
+        expDate: ""
+      }
     };
   },
   computed: {
     getCreditCards() {
       return this.creditCards;
-    },
+    }
   },
   methods: {
     openUpdateCardModal(card) {
@@ -324,16 +327,16 @@ export default {
         cardHolder: "",
         cardNumber: "",
         cvc: "",
-        expDate: "",
+        expDate: ""
       };
       this.$notify({
         type: "success",
-        title: "Card correctly created",
+        title: "Card correctly created"
       });
       this.modals.create = false;
     },
     updateCard() {
-      this.creditCards.filter((v) => {
+      this.creditCards.filter(v => {
         if (v.id === this.selectedCardModal.id) {
           v.cardHolder = this.selectedCardModal.cardHolder;
           v.cardNumber = this.selectedCardModal.cardNumber;
@@ -343,23 +346,23 @@ export default {
       });
       this.$notify({
         type: "success",
-        title: "Card correctly updated",
+        title: "Card correctly updated"
       });
       this.modals.update = false;
     },
     deleteCard() {
-      this.creditCards = this.creditCards.filter((v) => {
+      this.creditCards = this.creditCards.filter(v => {
         return v.id != this.selectedCardModal.id;
       });
       console.log(this.creditCards);
       this.modals.delete = false;
       this.$notify({
         type: "success",
-        title: "Card correctly deleted",
+        title: "Card correctly deleted"
       });
       this.selectedCardModal = null;
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

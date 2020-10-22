@@ -19,18 +19,18 @@ export default new Router({
         {
           path: "/dashboard",
           name: "dashboard",
-          component: () => import("./views/Dashboard.vue"),
+          component: () => import("./views/Dashboard.vue")
         },
         {
           path: "/create",
           name: "create server",
-          component: () => import("./views/CreateServer.vue"),
-        },
+          component: () => import("./views/CreateServer.vue")
+        }
       ],
       beforeEnter: (to, from, next) => {
         if (store.state.user == null) next("/login");
         else next();
-      },
+      }
     },
     {
       path: "/dashboard/:id",
@@ -39,33 +39,33 @@ export default new Router({
         {
           path: "/",
           name: "Overview",
-          component: () => import("./views/Dashboard/AppOverview.vue"),
+          component: () => import("./views/Dashboard/AppOverview.vue")
         },
         {
           path: "logs",
           name: "Logs",
-          component: () => import("./views/Dashboard/AppLogs.vue"),
+          component: () => import("./views/Dashboard/AppLogs.vue")
         },
         {
           path: "environment",
           name: "environment",
-          component: () => import("./views/Dashboard/AppEnvironment.vue"),
+          component: () => import("./views/Dashboard/AppEnvironment.vue")
         },
         {
           path: "invite",
           name: "invite",
-          component: () => import("./views/Dashboard/AppInvite.vue"),
-        },
+          component: () => import("./views/Dashboard/AppInvite.vue")
+        }
       ],
       beforeEnter: (to, from, next) => {
         if (store.state.user == null) next("/login");
         else next();
-      },
+      }
     },
     {
       path: "/auth/github",
       name: "Github",
-      component: () => import("./views/Github.vue"),
+      component: () => import("./views/Github.vue")
     },
     {
       path: "/admin",
@@ -74,49 +74,49 @@ export default new Router({
         {
           path: "",
           name: "Admin",
-          component: () => import("./views/Admin/AdminHome.vue"),
+          component: () => import("./views/Admin/AdminHome.vue")
         },
         {
           path: "offers",
           name: "Offers",
-          component: () => import("./views/Admin/AdminOffers.vue"),
+          component: () => import("./views/Admin/AdminOffers.vue")
         },
         {
           path: "user/:id/servers",
           name: "User Servers",
-          component: () => import("./views/Admin/User/AdminUserServers.vue"),
-        },
+          component: () => import("./views/Admin/User/AdminUserServers.vue")
+        }
       ],
       beforeEnter: (to, from, next) => {
         if (store.state.user === null) next("/login");
         else if (store.state.user.Role !== "admin") next("/");
         else next();
-      },
+      }
     },
     {
       path: "/profile",
       name: "profile",
-      component: () => import("./views/UserProfile.vue"),
+      component: () => import("./views/UserProfile.vue")
     },
     {
       path: "/feedback",
       name: "feedback",
-      component: () => import("./views/Feedback.vue"),
+      component: () => import("./views/Feedback.vue")
     },
     {
       path: "/confirm",
       name: "confirmAccount",
-      component: () => import("./components/ConfirmUser.vue"),
+      component: () => import("./components/ConfirmUser.vue")
     },
     {
       path: "/bills",
       name: "bills",
-      component: () => import("./views/Bills.vue"),
+      component: () => import("./views/Bills.vue")
     },
     {
       path: "/checkout",
       name: "checkout",
-      component: () => import("./views/Checkout.vue"),
+      component: () => import("./views/Checkout.vue")
     },
     {
       path: "/",
@@ -127,19 +127,19 @@ export default new Router({
           path: "/login",
           name: "login",
           component: () =>
-            import(/* webpackChunkName: "demo" */ "./views/Login.vue"),
+            import(/* webpackChunkName: "demo" */ "./views/Login.vue")
         },
         {
           path: "/register",
           name: "register",
           component: () =>
-            import(/* webpackChunkName: "demo" */ "./views/Register.vue"),
-        },
+            import(/* webpackChunkName: "demo" */ "./views/Register.vue")
+        }
       ],
       beforeEnter: (to, from, next) => {
         if (store.state.user != null) next("/dashboard");
         else next();
-      },
+      }
     },
     {
       path: "/logout",
@@ -149,7 +149,7 @@ export default new Router({
         store.commit("setUser", null);
         store.commit("setClient", null);
         next("/login");
-      },
-    },
-  ],
+      }
+    }
+  ]
 });

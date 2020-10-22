@@ -102,7 +102,7 @@ import { HalfCircleSpinner } from "epic-spinners";
 export default {
   name: "login",
   components: {
-    HalfCircleSpinner,
+    HalfCircleSpinner
   },
   data() {
     return {
@@ -110,19 +110,19 @@ export default {
       password: "",
       error: {
         isError: false,
-        message: "",
+        message: ""
       },
-      isLoginLoading: false,
+      isLoginLoading: false
     };
   },
   validations: {
     email: {
-      required,
+      required
     },
     password: {
       required,
-      minLength: minLength(6),
-    },
+      minLength: minLength(6)
+    }
   },
   created() {
     console.log(this.$store.state.user);
@@ -139,7 +139,7 @@ export default {
       const technoservs = require("technoservs.js");
       technoservs
         .login(this.email, this.password)
-        .then((response) => {
+        .then(response => {
           this.$store.commit("setUser", response.account);
           this.$store.commit(
             "setClient",
@@ -148,17 +148,17 @@ export default {
           this.isLoginLoading = false;
           this.$router.push("/dashboard");
         })
-        .catch((e) => {
+        .catch(e => {
           this.isLoginLoading = false;
           if (e._message.message) {
             this.error = {
               isError: true,
-              message: e._message.message,
+              message: e._message.message
             };
           }
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style>

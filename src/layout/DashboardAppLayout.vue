@@ -6,28 +6,28 @@
           :link="{
             name: 'Overview',
             icon: 'ni ni-tv-2 text-primary',
-            path: `/dashboard/${$route.params.id}/`,
+            path: `/dashboard/${$route.params.id}/`
           }"
         />
         <sidebar-item
           :link="{
             name: 'Deployments',
             icon: 'ni ni-chart-bar-32 text-primary',
-            path: `/dashboard/${$route.params.id}/logs`,
+            path: `/dashboard/${$route.params.id}/logs`
           }"
         />
         <sidebar-item
           :link="{
             name: 'Environment',
             icon: 'ni ni-tv-2 text-primary',
-            path: `/dashboard/${$route.params.id}/environment`,
+            path: `/dashboard/${$route.params.id}/environment`
           }"
         />
-         <sidebar-item
+        <sidebar-item
           :link="{
             name: 'Invite your friends',
             icon: 'ni ni-send text-primary',
-            path: `/dashboard/${$route.params.id}/invite`,
+            path: `/dashboard/${$route.params.id}/invite`
           }"
         />
       </template>
@@ -56,11 +56,11 @@ import { FadeTransition } from "vue2-transitions";
 export default {
   components: {
     DashboardNavbar,
-    FadeTransition,
+    FadeTransition
   },
   data() {
     return {
-      sidebarBackground: "vue", //vue|blue|orange|green|red|primary
+      sidebarBackground: "vue" //vue|blue|orange|green|red|primary
     };
   },
   methods: {
@@ -68,8 +68,8 @@ export default {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.displaySidebar(false);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

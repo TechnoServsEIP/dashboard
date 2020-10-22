@@ -13,7 +13,7 @@ export default {
     } else if (this.$route.query.canceled === "true") {
       this.$notify({
         type: "danger",
-        title: "Couldn't create the server, please try again",
+        title: "Couldn't create the server, please try again"
       });
       this.$router.push("/");
       this.$store.commit("setCreateServerInfo", null);
@@ -26,24 +26,24 @@ export default {
         "minecraft",
         this.$store.state.serverCreateInfo.name
       )
-        .then((response) => {
+        .then(response => {
           this.$store.commit("setCreateServerInfo", null);
           console.log(response);
           this.$router.push({ path: "/dashboard" });
           this.$notify({
             type: "success",
-            title: `Server ${this.serverName} correctly created`,
+            title: `Server ${this.serverName} correctly created`
           });
         })
-        .catch((e) => {
+        .catch(e => {
           this.$store.commit("setCreateServerInfo", null);
           this.$router.push({ path: "/dashboard" });
           this.$notify({
             type: "danger",
-            title: `Something went wrong: ${e._message.message}`,
+            title: `Something went wrong: ${e._message.message}`
           });
         });
-    },
-  },
+    }
+  }
 };
 </script>

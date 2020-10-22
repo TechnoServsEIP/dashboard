@@ -70,10 +70,10 @@ import { HalfCircleSpinner } from "epic-spinners";
 export default {
   name: "AppInvite",
   props: {
-    type: String,
+    type: String
   },
   components: {
-    HalfCircleSpinner,
+    HalfCircleSpinner
   },
   data() {
     return {
@@ -82,13 +82,13 @@ export default {
       inviteCurrentList: [],
       inviteEmail: "",
       firstEmail: "",
-      submitLoading: false,
+      submitLoading: false
     };
   },
   created() {
     this.$store.state.client.Docker.list(this.$store.state.user.ID.toString())
-      .then((response) => {
-        this.containerId = response.list.filter((v) => {
+      .then(response => {
+        this.containerId = response.list.filter(v => {
           return v.ID == this.$route.params.id;
         })[0].id_docker;
         if (this.containerId != null) {
@@ -97,7 +97,7 @@ export default {
           throw "Error => no such container id";
         }
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
       });
   },
@@ -105,24 +105,24 @@ export default {
     addToListFirstEmail() {
       this.inviteList.push({
         id: this.inviteList.length + 1,
-        email: this.firstEmail,
+        email: this.firstEmail
       });
       this.inviteCurrentList.push({
         id: this.inviteCurrentList.length + 1,
-        email: "",
+        email: ""
       });
     },
     addToCurrentList() {
       this.inviteCurrentList.push({
         id: this.inviteCurrentList.length + 1,
-        email: this.inviteEmail,
+        email: this.inviteEmail
       });
       this.inviteEmail = "";
     },
     sendEmails() {
       this.submitLoading = true;
       let obj = [...this.inviteCurrentList, ...this.inviteList];
-      obj = obj.filter((v) => {
+      obj = obj.filter(v => {
         return v.email != "";
       });
 
@@ -132,31 +132,31 @@ export default {
           {
             user_id: this.$store.state.user.ID.toString(),
             container_id: this.containerId,
-            recipient: obj[0].email,
+            recipient: obj[0].email
           },
           {
             headers: {
-              authorization: `Bearer ${this.$store.state.user.token}`,
-            },
+              authorization: `Bearer ${this.$store.state.user.token}`
+            }
           }
         )
-        .then((response) => {
+        .then(response => {
           this.submitLoading = false;
           this.$notify({
             title: "Invitations sent !",
-            type: "success",
+            type: "success"
           });
           console.log(response);
         })
-        .catch((e) => {
+        .catch(e => {
           this.submitLoading = false;
           this.$notify({
             title: "Invitations failed !",
-            type: "danger",
+            type: "danger"
           });
           console.log(e);
         });
-    },
-  },
+    }
+  }
 };
 </script>

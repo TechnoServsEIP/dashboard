@@ -47,7 +47,7 @@ export default {
     return {
       serverInfos: [],
       serverLogs: null,
-      type: "",
+      type: ""
     };
   },
   methods: {
@@ -59,29 +59,29 @@ export default {
         this.$store.state.user.ID.toString(),
         this.serverInfos[0].id_docker
       )
-        .then((response) => {
+        .then(response => {
           this.serverLogs = response.logs;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
     getServerInfos() {
       this.$store.state.client.Docker.list(this.$store.state.user.ID.toString())
-        .then((response) => {
-          this.serverInfos = response.list.filter((v) => {
+        .then(response => {
+          this.serverInfos = response.list.filter(v => {
             return v.ID == this.$route.params.id;
           });
           this.getServerLogs();
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
-    },
+    }
   },
   created() {
     this.getServerInfos();
-  },
+  }
 };
 </script>
 

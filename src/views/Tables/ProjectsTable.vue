@@ -153,9 +153,9 @@ export default {
   name: "projects-table",
   props: {
     type: {
-      type: String,
+      type: String
     },
-    title: String,
+    title: String
   },
   data() {
     return {
@@ -166,7 +166,7 @@ export default {
           budget: "$2500 USD",
           status: "pending",
           statusType: "warning",
-          completion: 60,
+          completion: 60
         },
         {
           img: "img/theme/angular.jpg",
@@ -174,7 +174,7 @@ export default {
           budget: "$1800 USD",
           status: "completed",
           statusType: "success",
-          completion: 100,
+          completion: 100
         },
         {
           img: "img/theme/sketch.jpg",
@@ -182,7 +182,7 @@ export default {
           budget: "$3150 USD",
           status: "delayed",
           statusType: "danger",
-          completion: 72,
+          completion: 72
         },
         {
           img: "img/theme/react.jpg",
@@ -190,7 +190,7 @@ export default {
           budget: "$4400 USD",
           status: "on schedule",
           statusType: "info",
-          completion: 90,
+          completion: 90
         },
         {
           img: "img/theme/vue.jpg",
@@ -198,11 +198,11 @@ export default {
           budget: "$2200 USD",
           status: "completed",
           statusType: "success",
-          completion: 100,
-        },
-      ],
+          completion: 100
+        }
+      ]
     };
-  },
+  }
 };
 </script>
 <style></style>

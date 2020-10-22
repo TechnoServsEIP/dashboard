@@ -114,18 +114,18 @@ export default {
     return {
       serverInfos: [],
       type: "",
-      isBtnLoading: false,
+      isBtnLoading: false
     };
   },
   methods: {
     getServerInfo() {
       this.$store.state.client.Docker.list(this.$store.state.user.ID.toString())
-        .then((response) => {
-          this.serverInfos = response.list.filter((v) => {
+        .then(response => {
+          this.serverInfos = response.list.filter(v => {
             return v.ID == this.$route.params.id;
           });
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
@@ -138,19 +138,19 @@ export default {
         this.$store.state.user.ID.toString(),
         this.serverInfos[0].id_docker
       )
-        .then((response) => {
+        .then(response => {
           this.isBtnLoading = false;
           this.serverInfos[0].server_status = "Started";
           this.updateServerStatus(response.settings.State.Status);
           this.$notify({
             type: "success",
-            title: "Server correctly started",
+            title: "Server correctly started"
           });
         })
-        .catch((e) => {
+        .catch(e => {
           this.$notify({
             type: "danger",
-            title: "An error occured while starting server",
+            title: "An error occured while starting server"
           });
           console.log(e._message);
         });
@@ -161,20 +161,20 @@ export default {
         this.$store.state.user.ID.toString(),
         this.serverInfos[0].id_docker
       )
-        .then((response) => {
+        .then(response => {
           this.serverInfos[0].server_status = "Stoped";
           this.updateServerStatus("exited");
           this.isBtnLoading = false;
           this.$notify({
             type: "success",
-            title: "Server correctly stoped",
+            title: "Server correctly stoped"
           });
         })
-        .catch((e) => {
+        .catch(e => {
           this.isBtnLoading = false;
           this.$notify({
             type: "danger",
-            title: "An error occured while stoping server",
+            title: "An error occured while stoping server"
           });
           console.log(e._message);
         });
@@ -190,24 +190,24 @@ export default {
             this.$store.state.user.ID.toString(),
             this.serverInfos[0].id_docker
           )
-            .then((response) => {
+            .then(response => {
               this.serverInfos[0].server_status = "Started";
               this.updateServerStatus(response.settings.State.Status);
               this.isBtnLoading = false;
             })
-            .catch((e) => {
+            .catch(e => {
               console.log(e._message);
             });
           this.$notify({
             type: "success",
-            title: "Server correctly restared",
+            title: "Server correctly restared"
           });
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
           this.$notify({
             type: "danger",
-            title: "An error occured while restarting server",
+            title: "An error occured while restarting server"
           });
           this.isBtnLoading = false;
         });
@@ -218,30 +218,30 @@ export default {
         this.$store.state.user.ID.toString(),
         this.serverInfos[0].id_docker
       )
-        .then((response) => {
+        .then(response => {
           console.log(response);
           this.isBtnLoading = false;
           this.$router.push({ path: "/dashboard" });
           this.$notify({
             type: "success",
-            title: "Server correctly deleted",
+            title: "Server correctly deleted"
           });
           this.isBtnLoading = false;
         })
-        .catch((e) => {
+        .catch(e => {
           this.isBtnLoading = false;
           this.$notify({
             type: "danger",
-            title: "An error occured while deleting server",
+            title: "An error occured while deleting server"
           });
           this.isBtnLoading = false;
           console.log(e._message);
         });
-    },
+    }
   },
   created() {
     this.getServerInfo();
-  },
+  }
 };
 </script>
 <style></style>

@@ -18,10 +18,10 @@ const store = new Vuex.Store({
       state.client = client;
     },
     setServerCreateInfo(state, obj) {
-      state.serverCreateInfo = obj
+      state.serverCreateInfo = obj;
     }
   },
-  plugins: [createPersistedState()],
+  plugins: [createPersistedState()]
 });
 
 export default store;

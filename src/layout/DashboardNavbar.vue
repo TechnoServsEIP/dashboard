@@ -71,7 +71,7 @@ export default {
     return {
       activeNotifications: false,
       showMenu: false,
-      searchQuery: "",
+      searchQuery: ""
     };
   },
   methods: {
@@ -83,8 +83,8 @@ export default {
     },
     toggleMenu() {
       this.showMenu = !this.showMenu;
-    },
-  },
+    }
+  }
 };
 </script>
 

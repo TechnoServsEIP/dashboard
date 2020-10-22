@@ -6,7 +6,7 @@
           <div class="text-center text-muted mb-4">
             <small>Register to the dashboard</small>
           </div>
-          
+
           <div v-if="error.isError">
             <base-alert type="danger" dismissible>
               <span class="alert-inner--text">
@@ -70,7 +70,6 @@
                 class="mt-4"
                 v-on:click.prevent="register()"
                 v-on:keyup.enter="register()"
-
               >
                 <half-circle-spinner
                   v-if="isRegisterLoading"
@@ -88,7 +87,12 @@
               </base-button>
 
               <div class="text-center mb-3 mt-2">
-                <base-button type="secondary" style="width: 100%" icon="fab fa-github" @click.prevent="loginGithub()">
+                <base-button
+                  type="secondary"
+                  style="width: 100%"
+                  icon="fab fa-github"
+                  @click.prevent="loginGithub()"
+                >
                   Create account using GitHub
                 </base-button>
               </div>
@@ -119,7 +123,7 @@ import { Technoservs } from "technoservs.js";
 export default {
   name: "register",
   components: {
-    HalfCircleSpinner,
+    HalfCircleSpinner
   },
   data() {
     return {
@@ -130,18 +134,18 @@ export default {
       isRegisterLoading: false,
       error: {
         isError: false,
-        message: "",
-      },
+        message: ""
+      }
     };
   },
   validations: {
     email: {
-      required,
+      required
     },
     password: {
       required,
-      minLength: minLength(6),
-    },
+      minLength: minLength(6)
+    }
   },
   methods: {
     loginGithub() {
@@ -155,43 +159,43 @@ export default {
       if (this.email !== this.confEmail) {
         this.error = {
           isError: true,
-          message: "Emails needs to be the same",
+          message: "Emails needs to be the same"
         };
       } else if (this.password !== this.confPassword) {
         this.error = {
           isError: true,
-          message: "Passwords needs to be the same",
+          message: "Passwords needs to be the same"
         };
       } else {
         const technoservs = require("technoservs.js");
         technoservs
           .register(this.email, this.password)
-          .then((response) => {
+          .then(response => {
             if (response.status === false) {
               this.error = {
                 isError: true,
-                message: response.message,
+                message: response.message
               };
               this.isRegisterLoading = false;
             } else {
               this.$notify({
                 type: "success",
                 title:
-                  "Account correctly created ! Check your emails to activate your account 😊",
+                  "Account correctly created ! Check your emails to activate your account 😊"
               });
             }
             this.isRegisterLoading = false;
           })
-          .catch((e) => {
+          .catch(e => {
             this.error = {
               isError: true,
-              message: e._message,
+              message: e._message
             };
             this.isRegisterLoading = false;
           });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

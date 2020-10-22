@@ -114,7 +114,7 @@ import BTooltipDirective from "bootstrap-vue/esm/directives/tooltip";
 Vue.use(VueClipboard);
 export default {
   directives: {
-    "b-tooltip": BTooltipDirective,
+    "b-tooltip": BTooltipDirective
   },
   data() {
     return {
@@ -219,18 +219,18 @@ export default {
         { name: "ni ni-shop" },
         { name: "ni ni-ungroup" },
         { name: "ni ni-world-2" },
-        { name: "ni ni-ui-04" },
-      ],
+        { name: "ni ni-ui-04" }
+      ]
     };
   },
   methods: {
     onCopy() {
       this.$notify({
         type: "success",
-        title: "Copied to clipboard",
+        title: "Copied to clipboard"
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style></style>

@@ -48,7 +48,9 @@
               </router-link>
             </div>
             <div class="col-6 collapse-close">
-              <navbar-toggle-button @click.native="closeSidebar"></navbar-toggle-button>
+              <navbar-toggle-button
+                @click.native="closeSidebar"
+              ></navbar-toggle-button>
             </div>
           </div>
         </div>
@@ -66,24 +68,24 @@ import NavbarToggleButton from "@/components/NavbarToggleButton";
 export default {
   name: "sidebar",
   components: {
-    NavbarToggleButton,
+    NavbarToggleButton
   },
   data() {
     return {
-      logo: require('../../assets/ts-logo-full.svg')
-    }
+      logo: require("../../assets/ts-logo-full.svg")
+    };
   },
   props: {
     autoClose: {
       type: Boolean,
       default: true,
       description:
-        "Whether sidebar should autoclose on mobile when clicking an item",
-    },
+        "Whether sidebar should autoclose on mobile when clicking an item"
+    }
   },
   provide() {
     return {
-      autoClose: this.autoClose,
+      autoClose: this.autoClose
     };
   },
   methods: {
@@ -92,12 +94,12 @@ export default {
     },
     showSidebar() {
       this.$sidebar.displaySidebar(true);
-    },
+    }
   },
   beforeDestroy() {
     if (this.$sidebar.showSidebar) {
       this.$sidebar.showSidebar = false;
     }
-  },
+  }
 };
 </script>

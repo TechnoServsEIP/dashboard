@@ -120,7 +120,7 @@ import { HalfCircleSpinner } from "epic-spinners";
 export default {
   name: "AppEnvironment",
   components: {
-    HalfCircleSpinner,
+    HalfCircleSpinner
   },
   data() {
     return {
@@ -131,19 +131,19 @@ export default {
       values: {
         gamemode: "",
         difficulty: "",
-        levelType: "",
+        levelType: ""
       },
       switchValues: {},
       stringValues: {},
       isLoading: false,
       emptyTextValue: "No server properties",
-      rawServerProperties: {},
+      rawServerProperties: {}
     };
   },
   created() {
     this.$store.state.client.Docker.list(this.$store.state.user.ID.toString())
-      .then((response) => {
-        this.containerId = response.list.filter((v) => {
+      .then(response => {
+        this.containerId = response.list.filter(v => {
           return v.ID == this.$route.params.id;
         })[0].id_docker;
         if (this.containerId != null) {
@@ -152,19 +152,19 @@ export default {
           throw "Error => no such container id";
         }
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
       });
   },
   watch: {
     serverProperties() {
       console.log("Change");
-    },
+    }
   },
   computed: {
     serverPropertiesLocal() {
       return this.serverProperties;
-    },
+    }
   },
   methods: {
     resetProperties() {
@@ -187,56 +187,56 @@ export default {
           {
             container_id: this.containerId,
             user_id: this.$store.state.user.ID.toString(),
-            ...obj,
+            ...obj
           },
           {
             headers: {
-              Authorization: `Bearer ${this.$store.state.user.token}`,
-            },
+              Authorization: `Bearer ${this.$store.state.user.token}`
+            }
           }
         )
-        .then((response) => {
+        .then(response => {
           this.isLoading = false;
           this.$notify({
             title: "Server properties has been correctly updated",
-            type: "success",
+            type: "success"
           });
           console.log(response);
         })
-        .catch((e) => {
+        .catch(e => {
           this.isLoading = false;
           this.$notify({
             title: "Error while updating server properties",
-            type: "danger",
+            type: "danger"
           });
           console.log(e);
         });
     },
     getCorrectChoicesOptions(id) {
-      return this.selectOptions.filter((v) => {
+      return this.selectOptions.filter(v => {
         return v.id == id;
       })[0];
     },
     setSelectOptions(options) {
       let opt = [];
-      options.forEach((elem) => {
+      options.forEach(elem => {
         let choices = [];
-        elem.Choices.forEach((value) => {
+        elem.Choices.forEach(value => {
           choices.push({
             value: value,
-            label: value,
+            label: value
           });
         });
         let obj = {
           id: elem.id,
-          choices: choices,
+          choices: choices
         };
         this.selectOptions.push(obj);
         this.selectValues.push({ [obj.id]: elem.Value });
       });
     },
     updateValues() {
-      this.serverProperties.forEach((e) => {
+      this.serverProperties.forEach(e => {
         switch (e.Name) {
           case "gamemode":
             this.values.gamemode = e.Value;
@@ -253,20 +253,20 @@ export default {
     getGameServerProperties() {
       var data = {
         user_id: this.$store.state.user.ID.toString(),
-        container_id: this.containerId,
+        container_id: this.containerId
       };
 
       var config = {
         headers: {
           Authorization: `Bearer ${this.$store.state.user.token}`,
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        data: data,
+        data: data
       };
 
       this.$axios
         .post("/minecraft/getserverproperties", data, config)
-        .then((response) => {
+        .then(response => {
           response.data.properties["WhitLlist"].Value = "true";
           console.log(
             "server properties from api =>",
@@ -282,17 +282,17 @@ export default {
           }
 
           this.setSelectOptions(
-            this.serverProperties.filter((v) => {
+            this.serverProperties.filter(v => {
               return v.Choices.length > 0;
             })
           );
           this.updateValues();
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

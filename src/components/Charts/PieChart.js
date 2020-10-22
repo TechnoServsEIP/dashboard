@@ -1,8 +1,8 @@
-import { Pie, mixins } from 'vue-chartjs';
+import { Pie, mixins } from "vue-chartjs";
 import globalOptionsMixin from "@/components/Charts/globalOptionsMixin";
 
 export default {
-  name: 'pie-chart',
+  name: "pie-chart",
   extends: Pie,
   mixins: [mixins.reactiveProp, globalOptionsMixin],
   props: {
@@ -18,7 +18,7 @@ export default {
   },
   mounted() {
     this.$watch(
-      'chartData',
+      "chartData",
       (newVal, oldVal) => {
         if (!oldVal) {
           this.renderChart(this.chartData, this.extraOptions);

@@ -6,9 +6,9 @@
       containerClasses="px-4 container"
       expand
     > -->
-      <!-- <template v-slot="{closeMenu}"> -->
-        <!-- Collapse header -->
-        <!-- <div class="navbar-collapse-header d-md-none">
+    <!-- <template v-slot="{closeMenu}"> -->
+    <!-- Collapse header -->
+    <!-- <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
               <router-link to="/">
@@ -28,8 +28,8 @@
             </div>
           </div>
         </div> -->
-        <!-- Navbar items -->
-        <!-- <ul class="navbar-nav ml-auto">
+    <!-- Navbar items -->
+    <!-- <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/register">
               <i class="ni ni-circle-08"></i>
@@ -43,7 +43,7 @@
             </router-link>
           </li>
         </ul> -->
-      <!-- </template> -->
+    <!-- </template> -->
     <!-- </base-nav> -->
     <!-- Header -->
     <div class="header bg-gradient-custom-auth py-7 py-lg-7">
@@ -56,7 +56,11 @@
                 Use these awesome forms to login or create new account in
                 your project for free.
               </p> -->
-              <img :src="require('@/assets/ts-logo-full.svg')" class="navbar-brand-img" alt="..." />
+              <img
+                :src="require('@/assets/ts-logo-full.svg')"
+                class="navbar-brand-img"
+                alt="..."
+              />
             </div>
           </div>
         </div>
@@ -88,25 +92,31 @@ import { SlideYUpTransition } from "vue2-transitions";
 export default {
   name: "auth-layout",
   components: {
-    SlideYUpTransition,
+    SlideYUpTransition
   },
   data() {
     return {
-      showMenu: false,
+      showMenu: false
     };
   },
   created() {
-    this.$axios.get('/').then(response => {
-      console.log(response)
-    }).catch(e => {
-      console.log("Server is down")
-    })
+    this.$axios
+      .get("/")
+      .then(response => {
+        console.log(response);
+      })
+      .catch(e => {
+        console.log("Server is down");
+      });
   }
 };
 </script>
 <style lang="scss">
-
 .bg-gradient-custom-auth {
-  background: linear-gradient(90deg, rgba(46,206,202,1) 0%, rgba(46,206,139,1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(46, 206, 202, 1) 0%,
+    rgba(46, 206, 139, 1) 100%
+  );
 }
 </style>

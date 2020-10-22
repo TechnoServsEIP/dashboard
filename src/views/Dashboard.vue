@@ -21,7 +21,7 @@ import TableServersList from "../components/Technoservs/Tables/TableServerList";
 
 export default {
   components: {
-    TableServersList,
+    TableServersList
   },
   data() {
     return {};
@@ -29,10 +29,10 @@ export default {
   computed: {
     userId() {
       return this.$store.state.user.ID.toString();
-    },
+    }
   },
   methods: {},
-  mounted() {},
+  mounted() {}
 };
 </script>
 <style></style>

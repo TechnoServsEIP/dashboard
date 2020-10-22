@@ -26,7 +26,7 @@ import axios from "./plugins/axios";
 
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-import Zendesk from '@dansmaculotte/vue-zendesk'
+import Zendesk from "@dansmaculotte/vue-zendesk";
 
 Vue.use(ElementUI);
 
@@ -38,16 +38,16 @@ Vue.use(ArgonDashboard);
 Vue.prototype.$axios = axios;
 
 Vue.use(Zendesk, {
-  key: '573edfc1-1877-4773-a7fa-35d87583fa46',
+  key: "573edfc1-1877-4773-a7fa-35d87583fa46",
   disabled: false,
   settings: {
     webWidget: {
       color: {
-        theme: '#18194d'
+        theme: "#18194d"
       }
     }
   }
-})
+});
 
 if (store.state.user != null) {
   store.commit("setClient", new Technoservs(store.state.user.token));
@@ -56,5 +56,5 @@ if (store.state.user != null) {
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: h => h(App)
 }).$mount("#app");

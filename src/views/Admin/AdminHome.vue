@@ -43,12 +43,12 @@ export default {
   name: "AdminHome",
   components: {
     StatsCard,
-    TableUsersList,
+    TableUsersList
   },
   data() {
     return {
       users: [],
-      totalServers: 0,
+      totalServers: 0
     };
   },
   created() {
@@ -58,11 +58,11 @@ export default {
   computed: {
     getUsers() {
       return this.users;
-    },
+    }
   },
   methods: {
     updateVerifiedUser(event) {
-      this.users.forEach((elem) => {
+      this.users.forEach(elem => {
         if (elem.ID == event.id) {
           elem.Verified = !event.verified;
         }
@@ -72,25 +72,25 @@ export default {
       this.$axios
         .get("/docker/total", {
           headers: {
-            authorization: `Bearer ${this.$store.state.user.token}`,
-          },
+            authorization: `Bearer ${this.$store.state.user.token}`
+          }
         })
-        .then((response) => {
+        .then(response => {
           this.totalServers = response.data.total;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
     setUserNewRole(event) {
-      this.users.forEach((elem) => {
+      this.users.forEach(elem => {
         if (elem.ID == event.id) {
           elem.Role = event.role;
         }
       });
     },
     updateActivatedUser(event) {
-      this.users.forEach((elem) => {
+      this.users.forEach(elem => {
         if (elem.ID == event.id) {
           elem.Activate = event.activate;
         }
@@ -100,17 +100,17 @@ export default {
       this.$axios
         .get("/user/", {
           headers: {
-            authorization: `Bearer ${this.$store.state.user.token}`,
-          },
+            authorization: `Bearer ${this.$store.state.user.token}`
+          }
         })
-        .then((response) => {
+        .then(response => {
           this.users = response.data.res.Value;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

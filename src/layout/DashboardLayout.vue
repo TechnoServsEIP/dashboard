@@ -20,11 +20,11 @@ import { FadeTransition } from "vue2-transitions";
 export default {
   components: {
     DashboardNavbar,
-    FadeTransition,
+    FadeTransition
   },
   data() {
     return {
-      sidebarBackground: "vue", //vue|blue|orange|green|red|primary
+      sidebarBackground: "vue" //vue|blue|orange|green|red|primary
     };
   },
   methods: {
@@ -32,8 +32,8 @@ export default {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.displaySidebar(false);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss"></style>

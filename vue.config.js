@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const webpack = require("webpack");
 const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
@@ -11,14 +11,14 @@ module.exports = {
     ]
   },
   pwa: {
-    name: 'TechnoServs Dashboard',
-    themeColor: '#172b4d',
-    msTileColor: '#172b4d',
-    appleMobileWebAppCapable: 'yes',
-    appleMobileWebAppStatusBarStyle: '#172b4d'
+    name: "TechnoServs Dashboard",
+    themeColor: "#172b4d",
+    msTileColor: "#172b4d",
+    appleMobileWebAppCapable: "yes",
+    appleMobileWebAppStatusBarStyle: "#172b4d"
   },
   css: {
     // Enable CSS source maps.
-    sourceMap: process.env.NODE_ENV !== 'production'
+    sourceMap: process.env.NODE_ENV !== "production"
   }
 };

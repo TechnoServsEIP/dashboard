@@ -118,12 +118,12 @@ import DashboardNavbar from "../layout/DashboardNavbar";
 export default {
   name: "Bills",
   components: {
-    DashboardNavbar,
+    DashboardNavbar
   },
   props: {
     type: {
-      type: String,
-    },
+      type: String
+    }
   },
   data() {
     return {
@@ -133,31 +133,31 @@ export default {
           number: "123982",
           date: "23/06/2020",
           payed: true,
-          amount: 23,
+          amount: 23
         },
         {
           id: "2",
           number: "2938893",
           date: "23/07/2020",
           payed: true,
-          amount: 5.13,
+          amount: 5.13
         },
         {
           id: "3",
           number: "2233211",
           date: "23/08/2020",
           payed: true,
-          amount: 2,
+          amount: 2
         },
         {
           id: "4",
           number: "112987",
           date: "23/09/2020",
           payed: false,
-          amount: 100,
-        },
-      ],
+          amount: 100
+        }
+      ]
     };
-  },
+  }
 };
 </script>
