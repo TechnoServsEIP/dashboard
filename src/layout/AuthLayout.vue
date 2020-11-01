@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content bg-default" style="min-height: 100vh">
+  <div class="main-content bg-gradient-custom-auth" style="min-height: 100vh">
     <!-- Navbar -->
     <!-- <base-nav
       class="navbar-top navbar-horizontal navbar-dark"
@@ -46,7 +46,7 @@
     <!-- </template> -->
     <!-- </base-nav> -->
     <!-- Header -->
-    <div class="header bg-gradient-custom-auth py-7 py-lg-7">
+    <div class="header py-7 py-lg-7">
       <div class="container">
         <div class="header-body text-center mb-7">
           <div class="row justify-content-center">
@@ -57,7 +57,7 @@
                 your project for free.
               </p> -->
               <img
-                :src="require('@/assets/ts-logo-full.svg')"
+                :src="require('@/assets/ts-logo-full-white.svg')"
                 class="navbar-brand-img"
                 alt="..."
               />
@@ -65,7 +65,7 @@
           </div>
         </div>
       </div>
-      <div class="separator separator-bottom separator-skew zindex-100">
+      <!-- <div class="separator separator-bottom separator-skew zindex-100">
         <svg
           x="0"
           y="0"
@@ -76,7 +76,7 @@
         >
           <polygon class="fill-default" points="2560 0 2560 100 0 100" />
         </svg>
-      </div>
+      </div> -->
     </div>
     <!-- Page content -->
     <div class="container mt--8 pb-5">
@@ -107,16 +107,17 @@ export default {
       })
       .catch(e => {
         console.log("Server is down");
+        this.$notify({
+          type: "danger",
+          title: "The server is currently out of service. Please try later."
+        });
       });
   }
 };
 </script>
 <style lang="scss">
 .bg-gradient-custom-auth {
-  background: linear-gradient(
-    90deg,
-    rgba(46, 206, 202, 1) 0%,
-    rgba(46, 206, 139, 1) 100%
-  );
+  background-color: #172b4d;
+  background-image: url("../assets/circuit-board.svg");
 }
 </style>
