@@ -10,16 +10,16 @@
       <li class="nav-item dropdown">
         <base-dropdown class="nav-link pr-0" position="right">
           <div class="media align-items-center" slot="title">
-            <div class="media-body ml-2 d-none d-lg-block">
+            <div class="media-body ml-2 d-none d-lg-block" style="display:flex; align-items:center; justify-content:center">
               <span
                 class="mb-0 text-sm font-weight-bold"
-                style="cursor: pointer;"
+                style="cursor: pointer"
               >
                 <div
-                  class="icon icon-shape rounded-circle shadow"
-                  style="background:white; color:#1d1c50"
+                  class="icon-shape"
+                  style="background:white; color:#1d1c50;"
                 >
-                  <i class="ni ni-single-02"></i>
+                  <i style="witdh: 10px; height: 20px" class="ni ni-single-02"></i>
                 </div>
               </span>
               <i class="fas fa-caret-down" style="padding-left: 10px;"></i>
