@@ -1,63 +1,35 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col-4">
-        <stats-card
-          title="Users"
-          :subTitle="getUsers.length.toString()"
-          icon="fas fa-users"
-        >
-        </stats-card>
-      </div>
-      <div class="col-4">
-        <stats-card title="Users online" subTitle="0" icon="ni ni-laptop">
-        </stats-card>
-      </div>
-
-      <div class="col-4">
-        <stats-card
-          title="Servers"
-          :subTitle="totalServers.toString()"
-          icon="ni ni-controller"
-        >
-        </stats-card>
-      </div>
-    </div>
-
     <div class="mt-4">
-      <table-users-list
-        :users="getUsers"
+      <table-servers-list
+        :servers="getServers"
         @update-user="setUserNewRole"
         @update-activate-user="updateActivatedUser"
         @update-verified-user="updateVerifiedUser"
-      ></table-users-list>
+      ></table-servers-list>
     </div>
   </div>
 </template>
 
 <script>
-import StatsCard from "@/components/StatsCard";
-import TableUsersList from "@/components/Table/TableUsersList";
+import TableServersList from "@/components/Table/TableServersList";
 
 export default {
-  name: "AdminHome",
+  name: "AdminServer",
   components: {
-    StatsCard,
-    TableUsersList
+    TableServersList
   },
   data() {
     return {
-      users: [],
-      totalServers: 0
+      servers: [],
     };
   },
   created() {
-    this.getUsersFromApi();
-    this.getTotalServers();
+    this.getServersFromApi();
   },
   computed: {
-    getUsers() {
-      return this.users;
+    getServers() {
+      return this.servers;
     }
   },
   methods: {
@@ -96,7 +68,7 @@ export default {
         }
       });
     },
-    getUsersFromApi() {
+    getServersFromApi() {
       this.$axios
         .get("/user/", {
           headers: {

@@ -9,13 +9,13 @@
         <div class="row align-items-center">
           <div class="col">
             <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-              Users
+              Servers
             </h3>
           </div>
           <div>
             <div class="col mr-auto">
               <el-input
-                placeholder="Search a user"
+                placeholder="Search a server"
                 v-model="searchInput"
               ></el-input>
             </div>
@@ -25,12 +25,12 @@
 
       <div class="table-responsive">
         <base-table
-          v-if="usersLocal.length > 0"
+          v-if="serversLocal.length > 0"
           class="table align-items-center table-flush"
           :class="type === 'dark' ? 'table-dark' : ''"
           :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
           tbody-classes="list"
-          :data="usersLocal"
+          :data="serversLocal"
         >
           <template slot="columns">
             <th>ID</th>
@@ -153,7 +153,7 @@
         </base-table>
 
         <div v-else class="text-center mt-3">
-          <h4>No users</h4>
+          <h4>No servers</h4>
         </div>
       </div>
     </div>
@@ -162,22 +162,22 @@
 
 <script>
 export default {
-  name: "TableUsersList",
+  name: "TableServersList",
   props: {
-    users: Array,
+    servers: Array,
     type: {
       type: String
     }
   },
   data() {
     return {
-      selectedUser: {},
+      selectedServers: {},
       searchInput: "",
-      usersLocal: []
+      serversLocal: []
     };
   },
   created() {
-    this.usersLocal = this.users;
+    this.serversLocal = this.servers;
   },
   methods: {
     updateVerifiedUser(verified, id) {
@@ -291,15 +291,15 @@ export default {
     }
   },
   watch: {
-    users() {
-      this.usersLocal = this.users;
+    servers() {
+      this.serversLocal = this.servers;
     },
     searchInput() {
       if (this.searchInput == "") {
-        this.usersLocal = this.users;
+        this.serversLocal = this.servers;
         return;
       } else {
-        this.usersLocal = this.users.filter(v => {
+        this.serversLocal = this.servers.filter(v => {
           return v.email.includes(this.searchInput);
         });
       }

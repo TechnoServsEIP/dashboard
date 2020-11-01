@@ -82,6 +82,16 @@ export default new Router({
           component: () => import("./views/Admin/AdminOffers.vue")
         },
         {
+          path: "users",
+          name: "Users",
+          component: () => import("./views/Admin/AdminUser.vue")
+        },
+        {
+          path: "servers",
+          name: "Servers",
+          component: () => import("./views/Admin/AdminServer.vue")
+        },
+        {
           path: "user/:id/servers",
           name: "User Servers",
           component: () => import("./views/Admin/User/AdminUserServers.vue")

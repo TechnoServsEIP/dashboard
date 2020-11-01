@@ -11,6 +11,20 @@
         />
         <sidebar-item
           :link="{
+            name: 'Servers',
+            icon: 'ni ni-controller text-primary',
+            path: '/admin/servers'
+          }"
+        />
+        <sidebar-item
+          :link="{
+            name: 'Users',
+            icon: 'fas fa-users text-primary',
+            path: '/admin/users'
+          }"
+        />
+        <sidebar-item
+          :link="{
             name: 'Offers',
             icon: 'ni ni-cart text-primary',
             path: '/admin/offers'
