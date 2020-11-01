@@ -70,7 +70,12 @@
       <div v-else class="text-center my-3">
         <h4 class="my-3">You have no server yet</h4>
         <div class="my-3">
-          <i class="fas fa-sad-tear fa-5x" />
+          <!-- https://lottiefiles.com/16701-launch-qualibrate -->
+          <lottie-animation
+            path="https://assets5.lottiefiles.com/packages/lf20_yNhVL9.json"
+            width="300"
+            height="300"
+          />
         </div>
         <router-link to="/create">
           <base-button type="primary" size="sm">Create here</base-button>
@@ -79,9 +84,15 @@
     </div>
   </div>
 </template>
+
 <script>
+import LottieAnimation from "@/components/LottieAnimation.vue";
+
 export default {
   name: "projects-table",
+  components: {
+      LottieAnimation
+  },
   props: {
     type: {
       type: String
