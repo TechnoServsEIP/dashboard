@@ -33,18 +33,17 @@
           :data="serversLocal"
         >
           <template slot="columns">
-            <th>ID</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Activated</th>
-            <th>Verified</th>
+            <th>Server ID</th>
+            <th>Server name</th>
+            <th>User email</th>
+            <th>Server Status</th>
             <th></th>
           </template>
           <template slot-scope="{ row }">
             <th scope="row">
               <div class="media align-items-center">
                 <div class="media-body">
-                  <span class="name mb-0 text-sm">{{ row.ID }}</span>
+                  <span class="name mb-0 text-sm">{{ row.server.ID }}</span>
                 </div>
               </div>
             </th>
@@ -52,7 +51,7 @@
             <td>
               <div class="media align-items-center">
                 <div class="media-body">
-                  <span class="name mb-0 text-sm">{{ row.email }}</span>
+                  <span class="name mb-0 text-sm">{{ row.server.server_name }}</span>
                 </div>
               </div>
             </td>
@@ -60,19 +59,64 @@
             <td>
               <div class="media align-items-center">
                 <div class="media-body">
-                  <badge
-                    class="badge"
-                    :type="row.Role == 'admin' ? 'primary' : 'info'"
-                  >
-                    <span class="status">{{
-                      row.Role.slice(0, 1).toUpperCase() + row.Role.slice(1)
-                    }}</span>
-                  </badge>
+                  <span class="name mb-0 text-sm">{{ row.user.email }}</span>
                 </div>
               </div>
             </td>
 
             <td>
+                <badge
+                  class="badge mr-4"
+                  :type="getBadgeType(row.server.server_status) || 'primary'"
+                >
+                  <span class="status">{{ row.server.server_status }}</span>
+                </badge>
+              </td>
+
+              <td class="text-right">
+                <el-dropdown trigger="click">
+                  <span class="el-dropdown-link">
+                    <base-button
+                      type="dark"
+                      size="sm"
+                      :disabled="checkEditActionLoader(row.server)"
+                    >
+                      <half-circle-spinner
+                        v-if="checkEditActionLoader(row.server)"
+                        :animation-duration="1000"
+                        :size="20"
+                        color="white"
+                      />
+                      <span v-else>Edit</span>
+                    </base-button>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item
+                      v-if="row.server.server_status === 'Stopped'"
+                      @click.native="startServer(row.server)"
+                      >Start</el-dropdown-item
+                    >
+                    <el-dropdown-item
+                      v-if="row.server.server_status == 'Started'"
+                      @click.native="restartServer(row.server)"
+                      >Restart</el-dropdown-item
+                    >
+                    <el-dropdown-item
+                      v-if="row.server.server_status == 'Started'"
+                      @click.native="stopServer(row.server)"
+                      >Stop</el-dropdown-item
+                    >
+                    <el-dropdown-item @click.native="deleteServer(row.server)"
+                      >Delete</el-dropdown-item
+                    >
+                  </el-dropdown-menu>
+                </el-dropdown>
+                <!-- <router-link :to="{ path: `/dashboard/${row.ID.toString()}` }">
+                  <base-button type="dark" size="sm">Edit</base-button>
+                </router-link>-->
+              </td>
+
+            <!-- <td>
               <div class="media align-items-center">
                 <div class="media-body">
                   <span v-if="row.Activate" class="icon icon-shape text-white rounded-circle shadow">
@@ -148,7 +192,7 @@
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-            </td>
+            </td> -->
           </template>
         </base-table>
 
@@ -161,6 +205,8 @@
 </template>
 
 <script>
+import { HalfCircleSpinner } from "epic-spinners";
+
 export default {
   name: "TableServersList",
   props: {
@@ -169,127 +215,192 @@ export default {
       type: String
     }
   },
+  components: {
+    HalfCircleSpinner
+  },
+
   data() {
     return {
       selectedServers: {},
       searchInput: "",
-      serversLocal: []
+      serversLocal: [],
+      editActionLoading: []
     };
   },
+
   created() {
     this.serversLocal = this.servers;
+    this.initEditActionLoading();
+    
+    // Set all loading button of servers to false
   },
+
   methods: {
-    updateVerifiedUser(verified, id) {
-      console.log(verified);
-      if (!verified == false) {
-        this.$axios
-          .post(
-            "user/verify",
-            {
-              Id: id.toString()
-            },
-            {
-              headers: {
-                authorization: `Bearer ${this.$store.state.user.token}`
-              }
-            }
-          )
-          .then(response => {
-            this.$emit("update-verified-user", { id: id, verified: !verified });
-            this.$notify({
-              type: "success",
-              title: `User correctly unverified`
-            });
-            console.log(response);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      } else if (!verified == true) {
-        this.$axios
-          .post(
-            "user/removeverification",
-            {
-              Id: id.toString()
-            },
-            {
-              headers: {
-                authorization: `Bearer ${this.$store.state.user.token}`
-              }
-            }
-          )
-          .then(response => {
-            this.$emit("update-verified-user", { id: id, verified: !verified });
-            this.$notify({
-              type: "success",
-              title: `User correctly unverified`
-            });
-            console.log(response);
-          })
-          .catch(e => {
-            console.log(e);
-          });
+    initEditActionLoading() {
+      let element;
+
+      for (let index = 0; index < this.servers.length; index++) {
+        this.editActionLoading.push({ id: this.servers[index].server.ID, loading: false })
       }
     },
-    toUserServers(id) {
-      this.$router.push(`/admin/user/${id}/servers`);
+
+    checkEditActionLoader(server) {
+      // Return true if is loading
+      if (this.editActionLoading) {
+        const d = this.editActionLoading.find(x => x.id === server.ID)
+      }
     },
-    updateActivateUser(value, id) {
-      this.$axios
-        .post(
-          `/user/${value === false ? "deactivate" : "activate"}`,
-          {
-            Id: id
-          },
-          {
-            headers: {
-              authorization: `Bearer ${this.$store.state.user.token}`
-            }
-          }
-        )
+
+    setEditActionLoader(server, bool) {
+      this.editActionLoading.find(x => x.id === server.ID).loading = bool
+    },
+
+    getBadgeType(type) {
+      switch (type) {
+        case "Started":
+          return "success";
+        case "Stopped":
+          return "danger";
+        case "Starting":
+          return "warning";
+        case "Stopping":
+          return "warning";
+      }
+    },
+
+    updateTypeServer(type, id_docker) {
+      this.servers.forEach(e => {
+        if (e.server.id_docker == id_docker) {
+          e.server.server_status = type;
+        }
+      });
+    },
+
+    startServer(server) {
+      this.setEditActionLoader(server, true);
+      this.updateTypeServer("Starting", server.id_docker);
+      this.$store.state.client.Docker.start(
+        this.$store.state.user.ID.toString(),
+        server.id_docker
+      )
         .then(response => {
-          this.$emit("update-activate-user", { id: id, activate: value });
+          this.setEditActionLoader(server, false);
+          this.updateTypeServer("Started", server.id_docker);
           this.$notify({
             type: "success",
-            title: `User correctly ${
-              value === false ? "deactivated" : "activated"
-            }`
+            title: "Server correctly started"
+          });
+        })
+        .catch(e => {
+          this.setEditActionLoader(server, false);
+          this.$notify({
+            type: "danger",
+            title: "An error occured while starting server"
+          });
+          console.log(e._message);
+        });
+    },
+    stopServer(server) {
+      this.setEditActionLoader(server, true);
+      this.updateTypeServer("Stopping", server.id_docker);
+      this.$store.state.client.Docker.stop(
+        this.$store.state.user.ID.toString(),
+        server.id_docker
+      )
+        .then(response => {
+          this.setEditActionLoader(server, false);
+          this.updateTypeServer("Stopped", server.id_docker);
+          this.$notify({
+            type: "success",
+            title: "Server correctly stoped"
+          });
+        })
+        .catch(e => {
+          this.setEditActionLoader(server, false);
+          this.$notify({
+            type: "danger",
+            title: "An error occured while stoping server"
+          });
+          console.log(e._message);
+        });
+      // this.$store.state.client.Docker.stop(
+      //   this.$store.state.user.ID.toString(),
+      //   this.serverInfos[0].id_docker
+      // )
+      //   .then((response) => {
+      //     this.serverInfos[0].server_status = "Stoped";
+      //     this.updateServerStatus("exited");
+      //     this.$notify({
+      //       type: "success",
+      //       title: "Server correctly stoped",
+      //     });
+      //   })
+      //   .catch((e) => {
+      //     this.$notify({
+      //       type: "danger",
+      //       title: "An error occured while stoping server",
+      //     });
+      //     console.log(e._message);
+      //   });
+    },
+    restartServer(server) {
+      this.setEditActionLoader(server, true);
+      this.updateTypeServer("Stopping", server.id_docker);
+      this.$store.state.client.Docker.stop(
+        this.$store.state.user.ID.toString(),
+        server.id_docker
+      )
+        .then(() => {
+          this.updateTypeServer("Starting", server.id_docker);
+          this.$store.state.client.Docker.start(
+            this.$store.state.user.ID.toString(),
+            server.id_docker
+          )
+            .then(response => {
+              this.updateTypeServer("Started", server.id_docker);
+              this.setEditActionLoader(server, false);
+            })
+            .catch(e => {
+              this.setEditActionLoader(server, false);
+              console.log(e._message);
+            });
+          this.$notify({
+            type: "success",
+            title: "Server correctly restared"
           });
         })
         .catch(e => {
           console.log(e);
+          this.$notify({
+            type: "danger",
+            title: "An error occured while restarting server"
+          });
         });
     },
-    updateUser(id, role) {
-      this.$axios
-        .post(
-          "/user/update",
-          {
-            Id: id,
-            Role: role
-          },
-          {
-            headers: {
-              authorization: `Bearer ${this.$store.state.user.token}`
-            }
-          }
-        )
-        .then(() => {
-          this.$emit("update-user", { id: id, role: role });
+    deleteServer(server) {
+      console.log("Delete", server);
+      this.$store.state.client.Docker.delete(
+        this.$store.state.user.ID.toString(),
+        server.id_docker
+      )
+        .then(response => {
+          this.userServers = this.userServers.filter(function(el) {
+            return el.id_docker != server.id_docker;
+          });
           this.$notify({
             type: "success",
-            title: "User role updated"
+            title: "Server correctly deleted"
           });
         })
         .catch(e => {
           this.$notify({
             type: "danger",
-            title: e
+            title: "An error occured while deleting server"
           });
         });
     }
   },
+
   watch: {
     servers() {
       this.serversLocal = this.servers;
