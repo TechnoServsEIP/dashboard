@@ -1,9 +1,16 @@
 module.exports = {
   root: true,
 
+  parser: "babel-eslint",
   parserOptions: {
-    parser: "babel-eslint",
-    sourceType: "module"
+    sourceType: "module",
+    allowImportExportEverywhere: false,
+    ecmaFeatures: {
+      globalReturn: false,
+    },
+    babelOptions: {
+      configFile: "babel.config.js",
+    },
   },
 
   env: {
@@ -12,7 +19,11 @@ module.exports = {
 
   // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
   // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-  extends: ["plugin:vue/essential", "@vue/prettier"],
+  extends: [
+    // add more generic rulesets here, such as:
+    'eslint:recommended',
+    'plugin:vue/vue3-recommended'
+  ],
 
   // required to lint *.vue files
   plugins: ["vue"],
