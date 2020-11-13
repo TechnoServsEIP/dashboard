@@ -15,7 +15,7 @@
           <div>
             <div class="col mr-auto">
               <el-input
-                placeholder="Search a server"
+                placeholder="Search by user"
                 v-model="searchInput"
               ></el-input>
             </div>
@@ -412,7 +412,7 @@ export default {
         return;
       } else {
         this.serversLocal = this.servers.filter(v => {
-          return v.email.includes(this.searchInput);
+          return v.user.email.includes(this.searchInput);
         });
       }
     }
