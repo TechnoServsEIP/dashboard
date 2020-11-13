@@ -384,9 +384,10 @@ export default {
         server.id_docker
       )
         .then(response => {
-          this.userServers = this.userServers.filter(function(el) {
-            return el.id_docker != server.id_docker;
+          const newServers = this.servers.filter(function(el) {
+            return el.server.id_docker != server.id_docker;
           });
+          this.$emit('update-server', newServers)
           this.$notify({
             type: "success",
             title: "Server correctly deleted"

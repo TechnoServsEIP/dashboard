@@ -47,6 +47,7 @@ export default {
   },
   methods: {
     updateServer(event) {
+      this.servers = event
       // this.users.forEach(elem => {
       //   if (elem.ID == event.id) {
       //     elem.Verified = !event.verified;
