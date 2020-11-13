@@ -75,10 +75,10 @@
             <td>
               <div class="media align-items-center">
                 <div class="media-body">
-                  <span v-if="row.Activate" class="icon icon-shape text-white rounded-circle shadow">
+                  <span v-if="row.Activate" class="icon icon-shape">
                     <i class="fas fa-check" style="color:green"></i>
                   </span>
-                  <span v-else class="icon icon-shape text-white rounded-circle shadow">
+                  <span v-else class="icon icon-shape">
                     <i class="fas fa-times" style="color:red"></i>
                   </span>
                 </div>
@@ -88,10 +88,10 @@
             <td>
               <div class="media align-items-center">
                 <div class="media-body">
-                  <span v-if="row.Verified" class="icon icon-shape text-white rounded-circle shadow">
+                  <span v-if="row.Verified" class="icon icon-shape">
                     <i class="fas fa-check" style="color:green"></i>
                   </span>
-                  <span v-else class="icon icon-shape text-white rounded-circle shadow">
+                  <span v-else class="icon icon-shape">
                     <i class="fas fa-times" style="color:red"></i>
                   </span>
                 </div>
