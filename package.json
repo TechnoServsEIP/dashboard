@@ -1,68 +1,75 @@
 {
-  "name": "technoservs-dashboard",
-  "version": "0.0.1",
-  "description": "The TechnoServs Dashboard",
-  "productName": "TechnoServs Dashboard",
-  "cordovaId": "fr.technoservs.dashboard.app",
-  "capacitorId": "",
-  "author": "TechnoServs <dev@technoservs.fr>",
+  "name": "vue-argon-dashboard",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "quasar dev",
-    "dev:spa": "quasar dev",
-    "dev:cordova:android": "quasar dev -m cordova -T android",
-    "dev:cordova:ios": "quasar dev -m cordova -T ios",
-    "build": "quasar build",
-    "build:spa": "quasar build",
-    "build:cordova:android": "quasar build -m cordova -T android",
-    "build:cordova:ios": "quasar build -m cordova -T ios",
-    "lint": "eslint --ext .js,.vue src",
-    "lint:fix": "eslint --ext .js,.vue src --fix",
-    "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
-    "test:unit": "jest --updateSnapshot",
-    "test:unit:coverage": "jest --coverage",
-    "test:unit:watch": "jest --watch",
-    "test:unit:watchAll": "jest --watchAll",
-    "serve:test:coverage": "quasar serve test/jest/coverage/lcov-report/ --port 8788",
-    "concurrently:dev:jest": "concurrently \"quasar dev\" \"jest --watch\"",
-    "test:unit:ui": "majestic --debug --noOpen"
+    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@dansmaculotte/vue-zendesk": "^0.4.1",
-    "@quasar/extras": "^1.0.0",
-    "apexcharts": "^3.10.0",
-    "axios": "^0.18.1",
-    "js-sha512": "^0.8.0",
-    "node-fetch": "^2.6.0",
-    "quasar": "^1.0.0",
-    "technoservs": "^1.0.15",
-    "technoservs.js": "^1.0.0",
-    "vue-apexcharts": "^1.5.0",
-    "vue-axios": "^2.1.5",
-    "vue-country-flag": "^2.0.0",
-    "vue-i18n": "^8.0.0",
-    "vue-moment": "^4.0.0",
-    "vuelidate": "^0.7.4",
-    "vuex-persistedstate": "^2.7.1",
-    "vuex-router-sync": "^5.0.0"
+    "@stripe/stripe-js": "^1.9.0",
+    "axios": "^0.19.2",
+    "bootstrap": "4.5.0",
+    "bootstrap-vue": "2.15.0",
+    "chart.js": "2.9.3",
+    "core-js": "3.6.5",
+    "element-ui": "^2.13.2",
+    "epic-spinners": "^1.1.0",
+    "flatpickr": "4.6.3",
+    "node-mailjet": "^3.3.1",
+    "nouislider": "14.6.0",
+    "register-service-worker": "1.7.1",
+    "technoservs.js": "^1.0.10",
+    "vue": "2.6.11",
+    "vue-chartjs": "3.5.0",
+    "vue-clipboard2": "0.3.1",
+    "vue-flatpickr-component": "8.1.5",
+    "vue-notification": "^1.3.20",
+    "vue-router": "3.3.4",
+    "vue2-transitions": "0.3.0",
+    "vuelidate": "^0.7.5",
+    "vuex": "^3.5.1",
+    "vuex-persistedstate": "^3.1.0"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0",
-    "@quasar/quasar-app-extension-testing": "^1.0.0",
-    "@quasar/quasar-app-extension-testing-unit-jest": "^1.0.0",
-    "@vue/eslint-config-prettier": "^4.0.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.10.0",
-    "eslint-loader": "^2.1.1",
-    "eslint-plugin-vue": "^5.0.0",
-    "majestic": "^1.6.0"
+    "@vue/cli-plugin-babel": "^4.4.6",
+    "@vue/cli-plugin-eslint": "^4.4.6",
+    "@vue/cli-plugin-pwa": "^4.4.6",
+    "@vue/cli-service": "^4.4.6",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.3.1",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "2.6.11"
   },
-  "engines": {
-    "node": ">= 8.9.0",
-    "npm": ">= 5.6.0",
-    "yarn": ">= 1.6.0"
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {
+      "no-unused-vars": "off"
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
   },
   "browserslist": [
-    "> 1%, last 2 versions, not dead, ie >= 11"
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
   ]
 }

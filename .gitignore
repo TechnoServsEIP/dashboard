@@ -30,8 +30,6 @@ test/jest/coverage/
 # NPM
 node_modules/
 # We use Yarn as a package manager, there is no package-lock.json with Yarn
-package-lock.json
 
 # Other files
-.DS_Store
-.thumbs.db
+.vscode/

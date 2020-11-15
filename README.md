@@ -36,7 +36,6 @@ Others informations :
 
 ```
 /!\ WARNING : You need to run this service with the dev stack !
-
 The api and auth server is not started on this micro-service.
 You need to start the API and Authentication micro-service first.
 ```
