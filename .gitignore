@@ -32,3 +32,4 @@ node_modules/
 # We use Yarn as a package manager, there is no package-lock.json with Yarn
 
 # Other files
+.vscode/
