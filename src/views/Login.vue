@@ -39,16 +39,16 @@
               addon-left-icon="ni ni-lock-circle-open"
               v-model="password"
               v-on:keyup.enter="loginUser"
+              :error="errorMsg"
             ></base-input>
 
             <div class="text-center">
               <base-button
                 v-on:click.prevent="loginUser"
                 v-on:keyup.enter="loginUser"
-                v-on:
                 type="primary"
                 class="my-2 container"
-                :disabled="$v.email.$invalid || $v.password.$invalid"
+                :disabled="$v.email.$invalid"
               >
                 <half-circle-spinner
                   v-if="isLoginLoading"
@@ -112,7 +112,8 @@ export default {
         isError: false,
         message: ""
       },
-      isLoginLoading: false
+      isLoginLoading: false,
+      errorMsg: null
     };
   },
   validations: {
@@ -135,6 +136,11 @@ export default {
       );
     },
     loginUser() {
+      if (this.password && this.password.length < 6) {
+        this.errorMsg = "Password must be 6 characters long";
+        return;
+      }
+      this.errorMsg = "";
       this.isLoginLoading = true;
       const technoservs = require("technoservs.js");
       technoservs
