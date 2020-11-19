@@ -1,29 +1,5 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col-4">
-        <stats-card
-          title="Users"
-          :subTitle="getUsers.length.toString()"
-          icon="fas fa-users"
-        >
-        </stats-card>
-      </div>
-      <div class="col-4">
-        <stats-card title="Users online" subTitle="0" icon="ni ni-laptop">
-        </stats-card>
-      </div>
-
-      <div class="col-4">
-        <stats-card
-          title="Servers"
-          :subTitle="totalServers.toString()"
-          icon="ni ni-controller"
-        >
-        </stats-card>
-      </div>
-    </div>
-
     <div class="mt-4">
       <table-users-list
         :users="getUsers"
@@ -36,13 +12,11 @@
 </template>
 
 <script>
-import StatsCard from "@/components/StatsCard";
 import TableUsersList from "@/components/Table/TableUsersList";
 
 export default {
-  name: "AdminHome",
+  name: "AdminUser",
   components: {
-    StatsCard,
     TableUsersList
   },
   data() {

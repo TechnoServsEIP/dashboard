@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="table-responsive" style="height: 50vh;">
+      <div class="table-responsive">
         <base-table
           v-if="usersLocal.length > 0"
           class="table align-items-center table-flush"
@@ -75,9 +75,12 @@
             <td>
               <div class="media align-items-center">
                 <div class="media-body">
-                  <span class="name mb-0 text-sm">{{
-                    row.Activate === true ? "✅" : "❌"
-                  }}</span>
+                  <span v-if="row.Activate" class="icon icon-shape">
+                    <i class="fas fa-check" style="color:green"></i>
+                  </span>
+                  <span v-else class="icon icon-shape">
+                    <i class="fas fa-times" style="color:red"></i>
+                  </span>
                 </div>
               </div>
             </td>
@@ -85,9 +88,12 @@
             <td>
               <div class="media align-items-center">
                 <div class="media-body">
-                  <span class="name mb-0 text-sm">{{
-                    row.Verified === true ? "✅" : "❌"
-                  }}</span>
+                  <span v-if="row.Verified" class="icon icon-shape">
+                    <i class="fas fa-check" style="color:green"></i>
+                  </span>
+                  <span v-else class="icon icon-shape">
+                    <i class="fas fa-times" style="color:red"></i>
+                  </span>
                 </div>
               </div>
             </td>
