@@ -21,8 +21,15 @@
     </div>
 
     <div class="table-responsive">
+      <div v-if="isLoading" class="my-3"  style="display: flex; justify-content: center; align-items: center">
+        <half-circle-spinner
+          :animation-duration="1000"
+          :size="20"
+          color="black"
+        />
+      </div>
       <base-table
-        v-if="tableData.length > 0"
+        v-else-if="tableData.length > 0"
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
@@ -73,8 +80,8 @@
           <!-- https://lottiefiles.com/16701-launch-qualibrate -->
           <lottie-animation
             path="https://assets5.lottiefiles.com/packages/lf20_yNhVL9.json"
-            width="300"
-            height="300"
+            :width="300"
+            :height="300"
           />
         </div>
         <router-link to="/create">
@@ -87,11 +94,13 @@
 
 <script>
 import LottieAnimation from "@/components/LottieAnimation.vue";
+import { HalfCircleSpinner } from "epic-spinners";
 
 export default {
   name: "projects-table",
   components: {
-      LottieAnimation
+      LottieAnimation,
+      HalfCircleSpinner
   },
   props: {
     type: {
@@ -109,23 +118,26 @@ export default {
   },
   data() {
     return {
-      tableData: []
+      tableData: [],
+      isLoading: false,
     };
   },
   created() {
+    this.isLoading = true
     this.$store.state.client.Docker.list(this.userId)
       .then(response => {
         this.tableData = response.list;
         for (var i = 0; i < this.tableData.length; i++) {
-          console.log(this.tableData[i].server_status);
           if (this.tableData[i].server_status == "Stopped") {
             this.tableData[i].statusType = "danger";
           } else if (this.tableData[i].server_status == "Started") {
             this.tableData[i].statusType = "success";
           }
         }
+        this.isLoading = false
       })
       .catch(e => {
+        this.isLoading = false
         console.log(e);
       });
   },
