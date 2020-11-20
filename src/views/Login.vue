@@ -122,7 +122,7 @@ export default {
     },
     password: {
       required,
-      minLength: minLength(6)
+      minLength: minLength(8)
     }
   },
   created() {

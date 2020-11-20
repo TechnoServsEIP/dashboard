@@ -34,7 +34,7 @@
             ></base-input>
 
             <base-input
-              class="input-group-alternative mb-3"
+              class="input-group-alternative"
               placeholder="Confirm your email"
               type="email"
               addon-left-icon="ni ni-email-83"
@@ -42,7 +42,7 @@
             ></base-input>
 
             <base-input
-              class="input-group-alternative"
+              class="input-group-alternative mb-3"
               placeholder="Password"
               type="password"
               addon-left-icon="ni ni-lock-circle-open"
@@ -50,12 +50,21 @@
             ></base-input>
 
             <base-input
-              class="input-group-alternative"
+              class="input-group-alternative mb-3"
               placeholder="Confirm your password"
               type="password"
               addon-left-icon="ni ni-lock-circle-open"
               v-model="confPassword"
             ></base-input>
+
+            <div class="mt-2 ml-1 row" style="align-items: center">
+              <BaseCheckbox v-model="isTermsOfUseAccepted" inline :checked="isTermsOfUseAccepted" />
+              <small>Please accept our 
+                <router-link to="/terms-of-use" class="">
+                  <span class="text-underline">terms of use</span>
+                </router-link>
+              </small>
+            </div>
 
             <div class="text-center">
               <base-button
@@ -98,17 +107,17 @@
               </div>
             </div>
           </form>
-          <div class="row mt-3">
-            <div class="col-6">
+          <div class="text-center mt-3">
+            <!-- <div class="col-6">
               <a href="#" class="">
                 <small>Forgot password?</small>
               </a>
-            </div>
-            <div class="col-6 text-right">
+            </div> -->
+            <!-- <div class="col-6 text-right"> -->
               <router-link to="/login" class="">
                 <small>Login into your account</small>
               </router-link>
-            </div>
+            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -120,10 +129,13 @@ import { required, minLength } from "vuelidate/lib/validators";
 import { HalfCircleSpinner } from "epic-spinners";
 import { Technoservs } from "technoservs.js";
 
+import BaseCheckbox from '@/components/BaseCheckbox'
+
 export default {
   name: "register",
   components: {
-    HalfCircleSpinner
+    HalfCircleSpinner,
+    BaseCheckbox
   },
   data() {
     return {
@@ -132,6 +144,7 @@ export default {
       password: "",
       confPassword: "",
       isRegisterLoading: false,
+      isTermsOfUseAccepted: false,
       error: {
         isError: false,
         message: ""
@@ -144,7 +157,7 @@ export default {
     },
     password: {
       required,
-      minLength: minLength(6)
+      minLength: minLength(8)
     }
   },
   methods: {
