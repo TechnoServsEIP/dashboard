@@ -222,31 +222,31 @@ export default {
       } else {
         this.isRegisterLoading = true
         const technoservs = require("technoservs.js");
-        // technoservs
-        //   .register(this.email, this.password)
-        //   .then(response => {
-        //     if (response.status === false) {
-        //       this.error = {
-        //         isError: true,
-        //         message: response.message
-        //       };
-        //       this.isRegisterLoading = false;
-        //     } else {
-        //       this.$notify({
-        //         type: "success",
-        //         title:
-        //           "Account correctly created ! Check your emails to activate your account 😊"
-        //       });
-        //     }
-        //     this.isRegisterLoading = false;
-        //   })
-        //   .catch(e => {
-        //     this.error = {
-        //       isError: true,
-        //       message: e._message
-        //     };
-        //     this.isRegisterLoading = false;
-        //   });
+        technoservs
+          .register(this.email, this.password)
+          .then(response => {
+            if (response.status === false) {
+              this.error = {
+                isError: true,
+                message: response.message
+              };
+              this.isRegisterLoading = false;
+            } else {
+              this.$notify({
+                type: "success",
+                title:
+                  "Account correctly created ! Check your emails to activate your account 😊"
+              });
+            }
+            this.isRegisterLoading = false;
+          })
+          .catch(e => {
+            this.error = {
+              isError: true,
+              message: e._message
+            };
+            this.isRegisterLoading = false;
+          });
       }
     }
   }
