@@ -25,8 +25,11 @@
           </div>
 
           <form role="form">
+
+            <small class="error" v-if="email && !$v.email.required">Email is required.</small>
             <base-input
               class="input-group-alternative mb-3"
+              :class="{ 'form-group--error': $v.email.$error }"
               placeholder="Email"
               type="email"
               addon-left-icon="ni ni-email-83"
@@ -41,8 +44,29 @@
               v-model="confEmail"
             ></base-input>
 
+            <div v-if="password && (!$v.password.minLength || !$v.password.containsUppercase
+              || !$v.password.containsLowercase || !$v.password.containsNumber || !$v.password.containsSpecial)"
+              class="list-group-heading">
+              <small  :class="{'text-red': !$v.password.minLength, 'text-green': $v.password.minLength}">
+                Password must have at least {{$v.password.$params.minLength.min}} letters.
+              </small>
+              <small :class="{'text-red': !$v.password.containsUppercase, 'text-green': $v.password.containsUppercase}">
+                Password must contain at least 1 upper letter.
+              </small>
+              <small :class="{'text-red': !$v.password.containsLowercase, 'text-green': $v.password.containsLowercase}">
+                Password must contain at least 1 lower letter.
+              </small>
+              <small :class="{'text-red': !$v.password.containsNumber, 'text-green': $v.password.containsNumber}">
+                Password must have at least 1 number.
+              </small>
+              <small :class="{'text-red': !$v.password.containsSpecial, 'text-green': $v.password.containsSpecial}">
+                Password must have at least 1 special character.
+              </small>
+            </div>
+
             <base-input
               class="input-group-alternative mb-3"
+              :class="{ 'form-group--error': $v.password.$error }"
               placeholder="Password"
               type="password"
               addon-left-icon="ni ni-lock-circle-open"
@@ -157,7 +181,19 @@ export default {
     },
     password: {
       required,
-      minLength: minLength(8)
+      minLength: minLength(8),
+      containsUppercase: function(value) {
+        return /[A-Z]/.test(value)
+      },
+      containsLowercase: function(value) {
+        return /[a-z]/.test(value)
+      },
+      containsNumber: function(value) {
+        return /[0-9]/.test(value)
+      },
+      containsSpecial: function(value) {
+        return /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/.test(value)
+      }
     }
   },
   methods: {
@@ -168,7 +204,6 @@ export default {
       );
     },
     register() {
-      this.isRegisterLoading = true;
       if (this.email !== this.confEmail) {
         this.error = {
           isError: true,
@@ -179,33 +214,39 @@ export default {
           isError: true,
           message: "Passwords needs to be the same"
         };
+      } else if (!this.isTermsOfUseAccepted) {
+        this.error = {
+          isError: true,
+          message: "You need to validate our terms of use"
+        };
       } else {
+        this.isRegisterLoading = true
         const technoservs = require("technoservs.js");
-        technoservs
-          .register(this.email, this.password)
-          .then(response => {
-            if (response.status === false) {
-              this.error = {
-                isError: true,
-                message: response.message
-              };
-              this.isRegisterLoading = false;
-            } else {
-              this.$notify({
-                type: "success",
-                title:
-                  "Account correctly created ! Check your emails to activate your account 😊"
-              });
-            }
-            this.isRegisterLoading = false;
-          })
-          .catch(e => {
-            this.error = {
-              isError: true,
-              message: e._message
-            };
-            this.isRegisterLoading = false;
-          });
+        // technoservs
+        //   .register(this.email, this.password)
+        //   .then(response => {
+        //     if (response.status === false) {
+        //       this.error = {
+        //         isError: true,
+        //         message: response.message
+        //       };
+        //       this.isRegisterLoading = false;
+        //     } else {
+        //       this.$notify({
+        //         type: "success",
+        //         title:
+        //           "Account correctly created ! Check your emails to activate your account 😊"
+        //       });
+        //     }
+        //     this.isRegisterLoading = false;
+        //   })
+        //   .catch(e => {
+        //     this.error = {
+        //       isError: true,
+        //       message: e._message
+        //     };
+        //     this.isRegisterLoading = false;
+        //   });
       }
     }
   }
