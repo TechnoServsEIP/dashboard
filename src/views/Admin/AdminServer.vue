@@ -77,18 +77,9 @@ export default {
             for (let index = 0; index < servers.length; index++) {
               const server = JSON.parse(JSON.stringify(servers[index]));
               const element = { user, server }
-              console.log(element)
               this.servers.push(element)
             }
           }
-          // for (var i = 0; i < this.userServers.length; i++) {
-          //   console.log(this.userServers[i].server_status);
-          //   if (this.userServers[i].server_status == "Stopped") {
-          //     this.userServers[i].statusType = "danger";
-          //   } else if (this.userServers[i].server_status == "Started") {
-          //     this.userServers[i].statusType = "success";
-          //   }
-          // }
         })
         .catch(e => {
           console.log(e._message);
