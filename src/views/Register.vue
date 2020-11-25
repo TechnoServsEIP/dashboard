@@ -46,7 +46,7 @@
 
             <div v-if="password && (!$v.password.minLength || !$v.password.containsUppercase
               || !$v.password.containsLowercase || !$v.password.containsNumber || !$v.password.containsSpecial)"
-              class="list-group-heading">
+              class="list-group-heading mb-8">
               <small  :class="{'text-red': !$v.password.minLength, 'text-green': $v.password.minLength}">
                 Password must have at least {{$v.password.$params.minLength.min}} letters.
               </small>
@@ -65,7 +65,7 @@
             </div>
 
             <base-input
-              class="input-group-alternative mb-3"
+              class="input-group-alternative my-3"
               :class="{ 'form-group--error': $v.password.$error }"
               placeholder="Password"
               type="password"
