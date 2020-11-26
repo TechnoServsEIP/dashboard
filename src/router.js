@@ -248,26 +248,23 @@ router.beforeEach(async (to, from, next) => {
   // Check token validity
   if (store.state.user) {
     var token = store.state.user.token
-    if (token) {
-      var decoded = jwt.decode(token, {
-        complete: true,
-      })
+    var decoded = jwt.decode(token, { complete: true })
 
-      if (decoded.payload.exp * 1000 <= Date.now()) {
-        const response = await axios.post(
-          '/token/refresh',
-          {},
-          {
-            data: {
-              access_token: token,
-              refresh_token: store.state.user.refresh_token,
-            },
+    if (decoded.payload.exp * 1000 <= Date.now()) {
+      const response = await axios.post(
+        '/token/refresh',
+        {},
+        {
+          data: {
+            access_token: token,
+            refresh_token: store.state.user.refresh_token,
           },
-        )
-        store.state.user.refresh_token = response.data.refresh_token
-        store.state.client._token = response.data.access_token
-        store.state.user.token = response.data.access_token
-      }
+        },
+      )
+      console.log('token refreshed', response.data)
+      store.state.user.refresh_token = response.data.refresh_token
+      store.state.client._token = response.data.access_token
+      store.state.user.token = response.data.access_token
     }
   }
 
