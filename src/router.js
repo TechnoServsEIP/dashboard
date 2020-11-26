@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import store from "./store";
+import jwt from "jsonwebtoken";
+import axios from "./plugins/axios";
 
 import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
@@ -226,7 +228,18 @@ const router = new Router({
   ]
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+  // Check token validity
+  var token = store.state.user.token;
+  var decoded = jwt.decode(token, { complete: true });
+  
+  if (decoded.payload.exp * 1000 <= Date.now()) {
+    const response = await axios.get('/token/refresh', {},
+      { data: { access_token: token, refresh_token: store.state.user.refresh_token } }
+    )
+    store.state.user = { ...response.data };
+  }
+
   // This goes through the matched routes from last to first, finding the closest route with a title.
   // eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's will be chosen.
   const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
