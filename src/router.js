@@ -234,10 +234,12 @@ router.beforeEach(async (to, from, next) => {
   var decoded = jwt.decode(token, { complete: true });
   
   if (decoded.payload.exp * 1000 <= Date.now()) {
-    const response = await axios.get('/token/refresh', {},
+    const response = await axios.post('/token/refresh', {},
       { data: { access_token: token, refresh_token: store.state.user.refresh_token } }
     )
-    store.state.user = { ...response.data };
+    store.state.user.refresh_token = response.data.refresh_token;
+    store.state.client._token = response.data.access_token;
+    store.state.user.access_token = response.data.access_token;
   }
 
   // This goes through the matched routes from last to first, finding the closest route with a title.
