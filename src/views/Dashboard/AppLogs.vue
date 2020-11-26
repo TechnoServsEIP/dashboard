@@ -29,7 +29,9 @@
           </div>
           <div v-else>
             <code>
-              <pre class="ts-pre" id="server-logs">{{ serverLogs }}</pre>
+              <pre class="ts-pre" id="server-logs">
+                <div v-for="(log, index) in serverLogs" :key="index">{{log}}</div>
+              </pre>
             </code>
             <div class="row mr-3 ml-1 mb-3">
               <el-input
@@ -173,8 +175,7 @@ export default {
     serverLogs() {
       var div = document.getElementById('server-logs')
       if (div !== null) {
-        console.log(div)
-        div.scrollTop = div.scrollHeight - div.clientHeight
+        div.scrollTop(div.prop('scrollHeight'))
       }
     },
   },
@@ -183,7 +184,7 @@ export default {
 
 <style lang="scss">
 .ts-pre {
-  max-height: 600px;
+  max-height: 70vh;
 }
 code {
   pre {
