@@ -11,7 +11,7 @@
         />
         <sidebar-item
           :link="{
-            name: 'Deployments',
+            name: 'Logs',
             icon: 'ni ni-chart-bar-32 text-primary',
             path: `/dashboard/${$route.params.id}/logs`,
           }"

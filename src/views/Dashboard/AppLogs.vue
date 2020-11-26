@@ -6,12 +6,8 @@
           v-if="serverInfos.length > 0"
           class="card shadow"
           style="width: 100%"
-          :class="type === 'dark' ? 'bg-default' : ''"
         >
-          <div
-            class="card-header"
-            :class="type === 'dark' ? 'bg-transparent' : ''"
-          >
+          <div class="card-header">
             <div class="row">
               <div class="col">
                 <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
@@ -21,21 +17,48 @@
             </div>
           </div>
 
-          <div class="card-body">
+          <div
+            class="d-flex py-4 align-items-center justify-content-center"
+            v-if="isLogsLoading"
+          >
+            <half-circle-spinner
+              :animation-duration="1000"
+              :size="50"
+              color="black"
+            />
+          </div>
+          <div v-else>
             <code>
-              <pre>
-                <div v-for="(log, index) in serverLogs" :key="index">{{ log }}</div>
-              </pre>
+              <pre class="ts-pre" id="server-logs">{{ serverLogs }}</pre>
             </code>
+            <div class="row mr-3 ml-1 mb-3">
+              <el-input
+                class="col-9"
+                v-model="commandInput"
+                @keyup.enter.native="sendCommand"
+              ></el-input>
+              <el-button
+                class="col-3"
+                type="primary"
+                @click.prevent="sendCommand"
+                >Send</el-button
+              >
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
+import { HalfCircleSpinner } from 'epic-spinners'
+
 export default {
-  components: {},
+  name: 'Logs',
+  components: {
+    HalfCircleSpinner,
+  },
   data() {
     return {
       serverInfos: [],
@@ -43,9 +66,44 @@ export default {
       filterLogs: true,
       countLog: 0,
       type: '',
+      isLogsLoading: false,
+      commandInput: '',
     }
   },
+  created() {
+    this.isLogsLoading = true
+    this.getServerInfos()
+  },
   methods: {
+    sendCommand() {
+      var command = this.commandInput.replace(/\s+/g, '')
+      if (command.length > 0) {
+        this.$axios
+          .post(
+            '/Command',
+            {
+              user_id: this.$store.state.user.ID,
+              docker_id: this.serverInfos[0].id_docker,
+              command: command,
+            },
+            {
+              headers: {
+                authorization: `Bearer ${this.$store.state.user.token}`,
+              },
+            },
+          )
+          .then((response) => {
+            console.log(response.data.message)
+            this.commandInput = ''
+          })
+          .catch((e) => {
+            this.$notify({
+              type: 'danger',
+              title: `Wrong command`,
+            })
+          })
+      }
+    },
     refreshServerLogs() {
       this.getServerLogs()
     },
@@ -111,10 +169,22 @@ export default {
   created() {
     this.getServerInfos()
   },
+  watch: {
+    serverLogs() {
+      var div = document.getElementById('server-logs')
+      if (div !== null) {
+        console.log(div)
+        div.scrollTop = div.scrollHeight - div.clientHeight
+      }
+    },
+  },
 }
 </script>
 
 <style lang="scss">
+.ts-pre {
+  max-height: 600px;
+}
 code {
   pre {
     max-height: calc(100vh - 240px);
