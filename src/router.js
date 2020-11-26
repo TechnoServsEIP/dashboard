@@ -198,6 +198,15 @@ const router = new Router({
           },
           component: () =>
             import(/* webpackChunkName: "demo" */ "./views/Register.vue")
+        },
+        {
+          path: "/terms-of-use",
+          name: "terms-of-use",
+          meta : {
+            title: 'TechnoServs - Terms of use'
+          },
+          component: () =>
+            import(/* webpackChunkName: "demo" */ "./views/TermsOfUse.vue")
         }
       ],
       beforeEnter: (to, from, next) => {
