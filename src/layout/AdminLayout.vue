@@ -30,6 +30,13 @@
             path: '/admin/offers'
           }"
         />
+        <sidebar-item
+          :link="{
+            name: 'Bills',
+            icon: 'ni ni-credit-card text-primary',
+            path: '/admin/bills'
+          }"
+        />
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">

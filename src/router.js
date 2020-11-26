@@ -131,6 +131,14 @@ const router = new Router({
           meta : {
             title: 'TechnoServs Admin - User Servers'
           },
+        },
+        {
+          path: 'bills',
+          name: 'Bills',
+          component: () => import("./views/Admin/Bills/Bills.vue"),
+          meta: {
+            title: 'TechnoServs Admin - Bills'
+          }
         }
       ],
       beforeEnter: (to, from, next) => {
