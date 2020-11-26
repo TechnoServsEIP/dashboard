@@ -171,14 +171,6 @@ export default {
   created() {
     this.getServerInfos()
   },
-  watch: {
-    serverLogs() {
-      var div = document.getElementById('server-logs')
-      if (div !== null) {
-        div.scrollTop(div.prop('scrollHeight'))
-      }
-    },
-  },
 }
 </script>
 
