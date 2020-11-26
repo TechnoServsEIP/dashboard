@@ -65,7 +65,6 @@ export default {
   },
   created() {
     this.adminRoutes = this.$route.matched.filter(v => {
-      console.log(v.path);
       return v.path == "/admin" || v.path == "/dashboard/:id/";
     });
   },
