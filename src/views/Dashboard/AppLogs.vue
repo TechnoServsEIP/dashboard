@@ -76,6 +76,10 @@ export default {
     this.isLogsLoading = true
     this.getServerInfos()
   },
+  created() {
+    this.isLogsLoading = true
+    this.getServerInfos()
+  },
   methods: {
     sendCommand() {
       var command = this.commandInput.replace(/\s+/g, '')
