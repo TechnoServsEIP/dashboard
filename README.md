@@ -1,133 +1,47 @@
-# TechnoServs Dashboard
+
+# [TechnoServs Dashboard](https://technoservs.ichbinkour.eu)
 
 The TechnoServs Dashboard
 
-Available in `SPA` (Single Page Application) and `Mobile App` on `Android` and `iOS`.
+## Table of Contents
 
-## Informations about the project
+* [Quick Start](#quick-start)
+* [Documentation](#documentation)
+* [Browser Support](#browser-support)
+* [Resources](#resources)
+* [Licensing](#licensing)
+* [Useful Links](#useful-links)
 
-### Docker Compose for local development
-
-2 services (docker containers) :
-
-- web : Runs the web interface server on port 8080 in development mode with live reload
-- test : Runs the test web interface on port 4000
-
-### Base project setup
-
-- Package manager : `Yarn`
-- Linter : `ESLint`
-- ESLint preset : `Prettier`
-- Testing framework : `Jest`
-- CSS preprocessor : `Sass with SCSS Syntax`
-
-Others informations :
-
-- Cordova app id : `fr.technoservs.dashboard.app`
-- Quasar import strategy : `Auto-import in-use Quasar components & directive`
-
-### Version informations
-
-- NPM version : `6.9.0 (LTS)` => `dc run --rm web npm --version`
-- Node version : `v10.16.3 (LTS)` => `dc run --rm web node --version`
-- Yarn version : `1.17.3` => `dc run --rm web yarn --version`
-
-## Instructions
-
-```
-/!\ WARNING : You need to run this service with the dev stack !
-The api and auth server is not started on this micro-service.
-You need to start the API and Authentication micro-service first.
-```
-
-
-### Installing the project locally (the first time)
+## Quick start
 
 ```bash
-docker-compose build
-docker-compose run --rm web yarn install
+npm install
+npm run serve
 ```
 
-### Starting the project locally
-
-Start the project in development mode (hot-code reloading, error reporting, etc.)
-
-```bash
-docker-compose up
-```
-
-### Development commands
-
-#### Yarn
-
-##### Install the dependencies
-
-```bash
-docker-compose run --rm web yarn install
-```
-
-#### Lint with ESLint and Prettier
-
-##### Lint the files
-
-```bash
-docker-compose run --rm web yarn run lint
-```
-
-##### Lint and fix files
-
-```bash
-docker-compose run --rm web yarn run lint:fix
-```
-
-#### Unit tests and coverage with JEST
-
-##### Execute unit tests with coverage
-
-```bash
-docker-compose run --rm test yarn run test:unit
-```
-
-##### Execute only coverage
-
-```bash
-docker-compose run --rm test yarn run test:unit:coverage
-```
-
-##### Live execute unit tests on files modified
-
-```bash
-docker-compose run --rm test yarn run test:unit:watch
-```
-
-##### Live execute unit tests on all files
-
-```bash
-docker-compose run --rm test yarn run test:unit:watchAll
-```
-
-#### Quasar
-
-##### Get informations from Quasar current setup
-
-```bash
-docker-compose run --rm web quasar info
-```
-
-##### Upgrade Quasar packages
-
-Check for upgradable packages :
-```bash
-docker-compose run --rm web quasar upgrade
-```
-
-Do the actual upgrade :
-```bash
-docker-compose run --rm web quasar upgrade --install
-```
-
-## Documentation links
-
-- [Quasar documentation](https://quasar.dev/introduction-to-quasar)
+## Documentation
+- [Design Argon](https://demos.creative-tim.com/vue-argon-dashboard/documentation/#/tutorial?ref=ada-github-readme)
 - [VueJS documentation](https://vuejs.org/v2/guide/)
-- [Jest documentation](https://jestjs.io/en/)
+
+
+## Browser Support
+
+At present, we officially aim to support the last two versions of the following browsers:
+
+<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/chrome-logo.png?raw=true" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/firefox-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/edge-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/safari-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/opera-logo.png" width="64" height="64">
+
+## Resources
+- Documentation Design: <https://demos.creative-tim.com/vue-argon-dashboard/documentation/#/tutorial?ref=ada-github-readme>
+- Prod : <https://technoservs.ichbinkour.eu/>
+
+## Licensing
+
+- Copyright 2018 Creative Tim (https://www.creative-tim.com/?ref=ada-github-readme)
+
+- Licensed under MIT (https://github.com/creativetimofficial/vue-argon-dashboard/blob/master/LICENSE.md)
+
+## Useful Links
+
+- [Tutorials Argon](https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w?ref=creativetim)
+- [VueJS Products](https://www.creative-tim.com/bootstrap-themes/vuejs-themes?ref=ada-github-readme) from Creative Tim
+
