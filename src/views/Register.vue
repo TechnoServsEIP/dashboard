@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-5 col-md-7">
       <div class="card bg-secondary shadow border-0">
-        <div class="card-body px-lg-5 pt-lg-5">
+        <div class="card-body card-login px-lg-5 pt-lg-5">
           <div class="text-center text-muted mb-4">
             <small>Register to the dashboard</small>
           </div>
