@@ -54,7 +54,7 @@
           <td>
             <div class="media align-items-center">
               <div class="media-body">
-                <span class="name mb-0 text-sm">0/100</span>
+                <span class="name mb-0 text-sm">{{ getOnlinePlayersFormatted(row.id_docker) || 'Loading...' }}</span>
               </div>
             </div>
           </td>
@@ -120,6 +120,7 @@ export default {
     return {
       tableData: [],
       isLoading: false,
+      connectedPlayers: []
     };
   },
   created() {
@@ -128,6 +129,7 @@ export default {
       .then(response => {
         this.tableData = response.list;
         for (var i = 0; i < this.tableData.length; i++) {
+          this.getPlayersOnlinePerServer(this.tableData[i].id_docker);
           if (this.tableData[i].server_status == "Stopped") {
             this.tableData[i].statusType = "danger";
           } else if (this.tableData[i].server_status == "Started") {
@@ -143,14 +145,28 @@ export default {
   },
   methods: {
     getPlayersOnlinePerServer(id) {
-      this.$axios.get("/docker/playeronline", {});
+      this.$axios.post('/docker/playersonline', {
+        user_id: this.$store.state.user.ID.toString(),
+        container_id: id
+      }, {
+        headers: {
+          authorization: `Bearer ${this.$store.state.user.token}`
+        }
+      }).then(response => {
+        this.connectedPlayers.push({id, info: response.data.playersOnline})
+      }).catch(e => {
+        console.log(e)
+      })
+    },
+    getOnlinePlayersFormatted(id) {
+      if (this.connectedPlayers.length > 0) {
+        const players = this.connectedPlayers.filter((v) => {
+          return v.id == id;
+        })
+        return `${players[0].info.connectedPlayers}/${players[0].info.maxPlayers}`;
+      }
     }
   },
-  computed: {
-    getPlayersOnline(dockerId) {
-      return this.getPlayersOnlinePerServer(dockerId);
-    }
-  }
 };
 </script>
 <style></style>
