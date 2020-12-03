@@ -140,7 +140,6 @@ export default {
       })
       .catch(e => {
         this.isLoading = false
-        console.log(e);
       });
   },
   methods: {
@@ -163,7 +162,8 @@ export default {
         const players = this.connectedPlayers.filter((v) => {
           return v.id == id;
         })
-        return `${players[0].info.connectedPlayers}/${players[0].info.maxPlayers}`;
+        if (players[0] !== undefined)
+          return `${players[0].info.connectedPlayers}/${players[0].info.maxPlayers}`;
       }
     }
   },
