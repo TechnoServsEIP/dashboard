@@ -78,9 +78,9 @@
           </div>
           <div class="row mt-3">
             <div class="col-6">
-              <a href="#" class="">
+              <router-link to="/reset-password">
                 <small>Forgot password?</small>
-              </a>
+              </router-link>
             </div>
             <div class="col-6 text-right">
               <router-link to="/register" class="">
@@ -124,9 +124,6 @@ export default {
       required,
       minLength: minLength(8)
     }
-  },
-  created() {
-    console.log(this.$store.state.user);
   },
   methods: {
     loginGithub() {

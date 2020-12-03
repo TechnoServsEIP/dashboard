@@ -209,6 +209,14 @@ const router = new Router({
           },
           component: () =>
             import(/* webpackChunkName: "demo" */ "./views/TermsOfUse.vue")
+        },
+        {
+          path: 'reset-password',
+          name: 'reset-password',
+          meta: {
+            title: 'TechnoServs - Reset password'
+          },
+          component: () => import('./views/ResetPassword.vue')
         }
       ],
       beforeEnter: (to, from, next) => {

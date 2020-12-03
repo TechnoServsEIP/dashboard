@@ -96,7 +96,8 @@
                   $v.email.$invalid ||
                     $v.password.$invalid ||
                     this.email !== this.confEmail ||
-                    this.password !== this.confPassword
+                    this.password !== this.confPassword || 
+                    !isTermsOfUseAccepted
                 "
                 style="width: 100%"
                 type="primary"
@@ -132,16 +133,9 @@
             </div>
           </form>
           <div class="text-center mt-3">
-            <!-- <div class="col-6">
-              <a href="#" class="">
-                <small>Forgot password?</small>
-              </a>
-            </div> -->
-            <!-- <div class="col-6 text-right"> -->
-              <router-link to="/login" class="">
-                <small>Login into your account</small>
-              </router-link>
-            <!-- </div> -->
+            <router-link to="/login" class="">
+              <small>Login into your account</small>
+            </router-link>
           </div>
         </div>
       </div>
@@ -149,7 +143,7 @@
   </div>
 </template>
 <script>
-import { required, minLength } from "vuelidate/lib/validators";
+import { required, minLength, email } from "vuelidate/lib/validators";
 import { HalfCircleSpinner } from "epic-spinners";
 import { Technoservs } from "technoservs.js";
 
@@ -177,7 +171,8 @@ export default {
   },
   validations: {
     email: {
-      required
+      required,
+      email
     },
     password: {
       required,
