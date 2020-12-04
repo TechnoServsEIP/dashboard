@@ -2,7 +2,7 @@
   <div>
     <div>
       <div
-        class="card shadow"
+        class="card shadow mt-4"
         style="width: 100%"
         :class="type === 'dark' ? 'bg-default' : ''"
         v-for="offers in offersList"
@@ -36,7 +36,9 @@
                 <th>Name</th>
                 <th>Auto backups</th>
                 <th>Custom domain</th>
-                <th>Price</th>
+                <th>Monthly Price</th>
+                <th>Hourly Price</th>
+                <th></th>
               </template>
               <template slot-scope="{ row }">
                 <th scope="row">
@@ -76,6 +78,26 @@
                     </div>
                   </div>
                 </td>
+
+                <td scope="row">
+                  <div class="media align-items-center">
+                    <div class="media-body">
+                      <span class="name mb-0 text-sm"
+                        >{{ row.hourly_price }}€</span
+                      >
+                    </div>
+                  </div>
+                </td>
+
+                <td scope="row">
+                  <base-button
+                    type="dark" 
+                    size="sm"
+                    @click.prevent="openModal(row)"
+                  >
+                    More infos
+                  </base-button>
+                </td>
               </template>
             </base-table>
 
@@ -86,10 +108,23 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal Info -->
+    <modal :show.sync="isModalOpen" v-if="modalData"
+      modal-classes="modal-dialog-centered">
+      <template slot="header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ modalData.name }}</h5>
+      </template>
+      <div class="">
+        <pre>{{JSON.stringify(modalData, undefined, 2)}}</pre>
+      </div>
+    </modal>
   </div>
 </template>
 
 <script>
+import Offers from '../../../offers-beta'
+
 export default {
   name: "AdminOffers",
   props: {
@@ -97,15 +132,30 @@ export default {
       type: String
     }
   },
+
   data() {
     return {
-      offersList: []
+      offersList: Offers.Offers,
+      modalData: null,
+      isModalOpen: false,
     };
   },
+  
   created() {
-    this.getOffersList();
+    // this.getOffersList();
+    console.log(this.offersList)
   },
+
   methods: {
+    toogleModal() {
+      this.isModalOpen = !this.isModalOpen
+    },
+
+    openModal(row) {
+      this.isModalOpen = true
+      this.modalData = row
+    },
+
     getOffersList() {
       this.$axios
         .get("/offers/list")
