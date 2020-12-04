@@ -21,7 +21,11 @@
     </div>
 
     <div class="table-responsive">
-      <div v-if="isLoading" class="my-3"  style="display: flex; justify-content: center; align-items: center">
+      <div
+        v-if="isLoading"
+        class="my-3"
+        style="display: flex; justify-content: center; align-items: center"
+      >
         <half-circle-spinner
           :animation-duration="1000"
           :size="20"
@@ -54,7 +58,9 @@
           <td>
             <div class="media align-items-center">
               <div class="media-body">
-                <span class="name mb-0 text-sm">{{ getOnlinePlayersFormatted(row.id_docker) || 'Loading...' }}</span>
+                <span class="name mb-0 text-sm">{{
+                  getOnlinePlayersFormatted(row.id_docker) || 'Loading...'
+                }}</span>
               </div>
             </div>
           </td>
@@ -93,80 +99,88 @@
 </template>
 
 <script>
-import LottieAnimation from "@/components/LottieAnimation.vue";
-import { HalfCircleSpinner } from "epic-spinners";
+import LottieAnimation from '@/components/LottieAnimation.vue'
+import { HalfCircleSpinner } from 'epic-spinners'
 
 export default {
-  name: "projects-table",
+  name: 'projects-table',
   components: {
-      LottieAnimation,
-      HalfCircleSpinner
+    LottieAnimation,
+    HalfCircleSpinner,
   },
   props: {
     type: {
-      type: String
+      type: String,
     },
     title: String,
     userId: {
       type: String,
-      default: "2"
+      default: '2',
     },
     createButton: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       tableData: [],
       isLoading: false,
-      connectedPlayers: []
-    };
+      connectedPlayers: [],
+    }
   },
   created() {
     this.isLoading = true
     this.$store.state.client.Docker.list(this.userId)
-      .then(response => {
-        this.tableData = response.list;
+      .then((response) => {
+        this.tableData = response.list
         for (var i = 0; i < this.tableData.length; i++) {
-          this.getPlayersOnlinePerServer(this.tableData[i].id_docker);
-          if (this.tableData[i].server_status == "Stopped") {
-            this.tableData[i].statusType = "danger";
-          } else if (this.tableData[i].server_status == "Started") {
-            this.tableData[i].statusType = "success";
+          this.getPlayersOnlinePerServer(this.tableData[i].id_docker)
+          if (this.tableData[i].server_status == 'Stopped') {
+            this.tableData[i].statusType = 'danger'
+          } else if (this.tableData[i].server_status == 'Started') {
+            this.tableData[i].statusType = 'success'
           }
         }
+        this.$emit('change', response.list)
         this.isLoading = false
       })
-      .catch(e => {
+      .catch((e) => {
         this.isLoading = false
-      });
+      })
   },
   methods: {
     getPlayersOnlinePerServer(id) {
-      this.$axios.post('/docker/playersonline', {
-        user_id: this.$store.state.user.ID.toString(),
-        container_id: id
-      }, {
-        headers: {
-          authorization: `Bearer ${this.$store.state.user.token}`
-        }
-      }).then(response => {
-        this.connectedPlayers.push({id, info: response.data.playersOnline})
-      }).catch(e => {
-        console.log(e)
-      })
+      this.$axios
+        .post(
+          '/docker/playersonline',
+          {
+            user_id: this.$store.state.user.ID.toString(),
+            container_id: id,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          },
+        )
+        .then((response) => {
+          this.connectedPlayers.push({ id, info: response.data.playersOnline })
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     },
     getOnlinePlayersFormatted(id) {
       if (this.connectedPlayers.length > 0) {
         const players = this.connectedPlayers.filter((v) => {
-          return v.id == id;
+          return v.id == id
         })
         if (players[0] !== undefined)
-          return `${players[0].info.connectedPlayers}/${players[0].info.maxPlayers}`;
+          return `${players[0].info.connectedPlayers}/${players[0].info.maxPlayers}`
       }
-    }
+    },
   },
-};
+}
 </script>
 <style></style>

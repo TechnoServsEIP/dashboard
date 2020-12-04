@@ -101,7 +101,7 @@ export default {
   data() {
     return {
       showMenu: false,
-      serverDown: true
+      serverDown: false
     };
   },
   created() {
