@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-5 col-md-7">
       <div class="card bg-secondary shadow border-0">
-        <div class="card-body card-login px-lg-5 pt-lg-5">
+        <div class="card-body px-lg-5 pt-lg-5">
           <div class="text-center text-muted mb-4">
             <small>Sign in to the dashboard</small>
           </div>
@@ -75,12 +75,12 @@
           </div>
           <div class="row mt-3">
             <div class="col-6">
-              <a href="#" class="">
+              <router-link to="/reset-password">
                 <small>Forgot password?</small>
-              </a>
+              </router-link>
             </div>
             <div class="col-6 text-right">
-              <router-link to="/register" class="">
+              <router-link to="/register">
                 <small>No account yet ?</small>
               </router-link>
             </div>

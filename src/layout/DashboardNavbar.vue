@@ -10,19 +10,29 @@
       <li class="nav-item dropdown">
         <base-dropdown class="nav-link pr-0" position="right">
           <div class="media align-items-center" slot="title">
-            <div class="media-body ml-2 d-none d-lg-block" style="display:flex; align-items:center; justify-content:center">
+            <div
+              class="media-body ml-2 d-none d-lg-block"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
               <span
                 class="mb-0 text-sm font-weight-bold"
                 style="cursor: pointer"
               >
                 <div
                   class="icon-shape"
-                  style="background:white; color:#1d1c50;"
+                  style="background: white; color: #1d1c50"
                 >
-                  <i style="witdh: 10px; height: 20px" class="ni ni-single-02"></i>
+                  <i
+                    style="witdh: 10px; height: 20px"
+                    class="ni ni-single-02"
+                  ></i>
                 </div>
               </span>
-              <i class="fas fa-caret-down" style="padding-left: 10px;"></i>
+              <i class="fas fa-caret-down" style="padding-left: 10px"></i>
             </div>
           </div>
 
@@ -71,21 +81,21 @@ export default {
     return {
       activeNotifications: false,
       showMenu: false,
-      searchQuery: ""
-    };
+      searchQuery: '',
+    }
   },
   methods: {
     toggleSidebar() {
-      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
     },
     hideSidebar() {
-      this.$sidebar.displaySidebar(false);
+      this.$sidebar.displaySidebar(false)
     },
     toggleMenu() {
-      this.showMenu = !this.showMenu;
-    }
-  }
-};
+      this.showMenu = !this.showMenu
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

@@ -6,8 +6,8 @@
     ></base-header>
 
     <div class="container-fluid mt--7">
-      <div v-if="isServers" class="mt-5 row">
-        <div class="col-xl-3 col-lg-6">
+      <div v-if="isServers" class="mt-5 row justify-content-center">
+        <div class="col-xl-3 col-lg-4">
           <stats-card
             v-loading="isUserConsomationLoading"
             title="Total uptime"
@@ -19,7 +19,7 @@
           </stats-card>
         </div>
 
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-xl-3 col-lg-4">
           <stats-card
             v-loading="isUserConsomationLoading"
             title="Monthly price"

@@ -14,26 +14,26 @@
   </div>
 </template>
 <script>
-import DashboardNavbar from "./DashboardNavbar.vue";
-import { FadeTransition } from "vue2-transitions";
+import DashboardNavbar from './DashboardNavbar.vue'
+import { FadeTransition } from 'vue2-transitions'
 
 export default {
   components: {
     DashboardNavbar,
-    FadeTransition
+    FadeTransition,
   },
   data() {
     return {
-      sidebarBackground: "vue" //vue|blue|orange|green|red|primary
-    };
+      sidebarBackground: 'vue', //vue|blue|orange|green|red|primary
+    }
   },
   methods: {
     toggleSidebar() {
       if (this.$sidebar.showSidebar) {
-        this.$sidebar.displaySidebar(false);
+        this.$sidebar.displaySidebar(false)
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 <style lang="scss"></style>
