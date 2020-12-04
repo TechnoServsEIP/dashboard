@@ -47,42 +47,42 @@ export default {
     return {
       serverInfos: [],
       serverLogs: null,
-      type: ""
-    };
+      type: '',
+    }
   },
   methods: {
     refreshServerLogs() {
-      this.getServerLogs();
+      this.getServerLogs()
     },
     getServerLogs() {
       this.$store.state.client.Docker.logs(
         this.$store.state.user.ID.toString(),
-        this.serverInfos[0].id_docker
+        this.serverInfos[0].id_docker,
       )
-        .then(response => {
-          this.serverLogs = response.logs;
+        .then((response) => {
+          this.serverLogs = response.logs
         })
-        .catch(e => {
-          console.log(e);
-        });
+        .catch((e) => {
+          console.log(e)
+        })
     },
     getServerInfos() {
       this.$store.state.client.Docker.list(this.$store.state.user.ID.toString())
-        .then(response => {
-          this.serverInfos = response.list.filter(v => {
-            return v.ID == this.$route.params.id;
-          });
-          this.getServerLogs();
+        .then((response) => {
+          this.serverInfos = response.list.filter((v) => {
+            return v.ID == this.$route.params.id
+          })
+          this.getServerLogs()
         })
-        .catch(e => {
-          console.log(e);
-        });
-    }
+        .catch((e) => {
+          console.log(e)
+        })
+    },
   },
   created() {
-    this.getServerInfos();
-  }
-};
+    this.getServerInfos()
+  },
+}
 </script>
 
 <style lang="scss">
