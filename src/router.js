@@ -12,20 +12,18 @@ Vue.use(Router);
 
 const router = new Router({
   linkExactActiveClass: "active",
-  routes: [
-    {
+  routes: [{
       path: "/",
       redirect: "dashboard",
       component: DashboardLayout,
-      meta : {
+      meta: {
         title: 'TechnoServs - Dashboard'
       },
-      children: [
-        {
+      children: [{
           path: "/dashboard",
           name: "dashboard",
           component: () => import("./views/Dashboard.vue"),
-          meta : {
+          meta: {
             title: 'TechnoServs - Dashboard'
           },
         },
@@ -33,7 +31,7 @@ const router = new Router({
           path: "/create",
           name: "create server",
           component: () => import("./views/CreateServer.vue"),
-          meta : {
+          meta: {
             title: 'TechnoServs - Create Server'
           },
         }
@@ -46,12 +44,11 @@ const router = new Router({
     {
       path: "/dashboard/:id",
       component: DashboardAppLayout,
-      children: [
-        {
+      children: [{
           path: "/",
           name: "Overview",
           component: () => import("./views/Dashboard/AppOverview.vue"),
-          meta : {
+          meta: {
             title: 'TechnoServs - Overview'
           },
         },
@@ -59,7 +56,7 @@ const router = new Router({
           path: "logs",
           name: "Logs",
           component: () => import("./views/Dashboard/AppLogs.vue"),
-          meta : {
+          meta: {
             title: 'TechnoServs - Logs'
           },
         },
@@ -67,7 +64,7 @@ const router = new Router({
           path: "environment",
           name: "environment",
           component: () => import("./views/Dashboard/AppEnvironment.vue"),
-          meta : {
+          meta: {
             title: 'TechnoServs - Environment'
           },
         },
@@ -75,7 +72,7 @@ const router = new Router({
           path: "invite",
           name: "invite",
           component: () => import("./views/Dashboard/AppInvite.vue"),
-          meta : {
+          meta: {
             title: 'TechnoServs - Invite Friends'
           },
         }
@@ -93,11 +90,10 @@ const router = new Router({
     {
       path: "/admin",
       component: () => import("./layout/AdminLayout.vue"),
-      meta : {
+      meta: {
         title: 'TechnoServs Admin'
       },
-      children: [
-        {
+      children: [{
           path: "",
           name: "Admin",
           component: () => import("./views/Admin/AdminHome.vue"),
@@ -106,7 +102,7 @@ const router = new Router({
           path: "offers",
           name: "Offers",
           component: () => import("./views/Admin/AdminOffers.vue"),
-          meta : {
+          meta: {
             title: 'TechnoServs Admin - Offers'
           },
         },
@@ -114,7 +110,7 @@ const router = new Router({
           path: "users",
           name: "Users",
           component: () => import("./views/Admin/AdminUser.vue"),
-          meta : {
+          meta: {
             title: 'TechnoServs Admin - Users'
           },
         },
@@ -122,7 +118,7 @@ const router = new Router({
           path: "servers",
           name: "Servers",
           component: () => import("./views/Admin/AdminServer.vue"),
-          meta : {
+          meta: {
             title: 'TechnoServs Admin - Servers'
           },
         },
@@ -130,7 +126,7 @@ const router = new Router({
           path: "user/:id/servers",
           name: "User Servers",
           component: () => import("./views/Admin/User/AdminUserServers.vue"),
-          meta : {
+          meta: {
             title: 'TechnoServs Admin - User Servers'
           },
         }
@@ -145,70 +141,93 @@ const router = new Router({
       path: "/profile",
       name: "profile",
       component: () => import("./views/UserProfile.vue"),
-      meta : {
+      meta: {
         title: 'TechnoServs - Profile'
       },
+      beforeEnter: (to, from, next) => {
+        if (store.state.user == null) next("/login");
+        else next();
+      }
+
     },
     {
       path: "/feedback",
       name: "feedback",
       component: () => import("./views/Feedback.vue"),
-      meta : {
+      meta: {
         title: 'TechnoServs - Feedback'
       },
+      beforeEnter: (to, from, next) => {
+        if (store.state.user == null) next("/login");
+        else next();
+      }
     },
     {
       path: "/confirm",
       name: "confirmAccount",
-      component: () => import("./components/ConfirmUser.vue")
+      meta: {
+        title: 'TechnoServs - Confirm account'
+      },
+      component: () => import("./components/ConfirmUser.vue"),
+      beforeEnter: (to, from, next) => {
+        if (store.state.user == null) next("/login");
+        else next();
+      }
     },
     {
       path: "/bills",
       name: "bills",
       component: () => import("./views/Bills.vue"),
-      meta : {
+      meta: {
         title: 'TechnoServs - Bills'
       },
+      beforeEnter: (to, from, next) => {
+        if (store.state.user == null) next("/login");
+        else next();
+      }
     },
     {
       path: "/checkout",
       name: "checkout",
       component: () => import("./views/Checkout.vue"),
-      meta : {
+      meta: {
         title: 'TechnoServs - Checkout'
       },
+      beforeEnter: (to, from, next) => {
+        if (store.state.user == null) next("/login");
+        else next();
+      }
     },
     {
       path: "/",
       redirect: "login",
       component: AuthLayout,
-      children: [
-        {
+      children: [{
           path: "/login",
           name: "login",
-          meta : {
+          meta: {
             title: 'TechnoServs - Login'
           },
           component: () =>
-            import(/* webpackChunkName: "demo" */ "./views/Login.vue")
+            import( /* webpackChunkName: "demo" */ "./views/Login.vue")
         },
         {
           path: "/register",
           name: "register",
-          meta : {
+          meta: {
             title: 'TechnoServs - Register'
           },
           component: () =>
-            import(/* webpackChunkName: "demo" */ "./views/Register.vue")
+            import( /* webpackChunkName: "demo" */ "./views/Register.vue")
         },
         {
           path: "/terms-of-use",
           name: "terms-of-use",
-          meta : {
+          meta: {
             title: 'TechnoServs - Terms of use'
           },
           component: () =>
-            import(/* webpackChunkName: "demo" */ "./views/TermsOfUse.vue")
+            import( /* webpackChunkName: "demo" */ "./views/TermsOfUse.vue")
         }
       ],
       beforeEnter: (to, from, next) => {
@@ -233,12 +252,17 @@ router.beforeEach(async (to, from, next) => {
   if (store.state.user) {
     var token = store.state.user.token;
     if (token) {
-      var decoded = jwt.decode(token, { complete: true });
-      
+      var decoded = jwt.decode(token, {
+        complete: true
+      });
+
       if (decoded.payload.exp * 1000 <= Date.now()) {
-        const response = await axios.post('/token/refresh', {},
-          { data: { access_token: token, refresh_token: store.state.user.refresh_token } }
-        )
+        const response = await axios.post('/token/refresh', {}, {
+          data: {
+            access_token: token,
+            refresh_token: store.state.user.refresh_token
+          }
+        })
         store.state.user.refresh_token = response.data.refresh_token;
         store.state.client._token = response.data.access_token;
         store.state.user.access_token = response.data.access_token;
@@ -255,29 +279,29 @@ router.beforeEach(async (to, from, next) => {
   const previousNearestWithMeta = from.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
 
   // If a route with a title was found, set the document (page) title to that value.
-  if(nearestWithTitle) document.title = nearestWithTitle.meta.title;
+  if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
 
   // Remove any stale meta tags from the document using the key attribute we set below.
   Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el));
 
   // Skip rendering meta tags if there are none.
-  if(!nearestWithMeta) return next();
+  if (!nearestWithMeta) return next();
 
   // Turn the meta tag definitions into actual elements in the head.
   nearestWithMeta.meta.metaTags.map(tagDef => {
-    const tag = document.createElement('meta');
+      const tag = document.createElement('meta');
 
-    Object.keys(tagDef).forEach(key => {
-      tag.setAttribute(key, tagDef[key]);
-    });
+      Object.keys(tagDef).forEach(key => {
+        tag.setAttribute(key, tagDef[key]);
+      });
 
-    // We use this to track which meta tags we create, so we don't interfere with other ones.
-    tag.setAttribute('data-vue-router-controlled', '');
+      // We use this to track which meta tags we create, so we don't interfere with other ones.
+      tag.setAttribute('data-vue-router-controlled', '');
 
-    return tag;
-  })
-  // Add the meta tags to the document head.
-  .forEach(tag => document.head.appendChild(tag));
+      return tag;
+    })
+    // Add the meta tags to the document head.
+    .forEach(tag => document.head.appendChild(tag));
 
   next();
 });
