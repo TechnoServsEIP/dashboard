@@ -80,6 +80,7 @@
     </div>
     <!-- Page content -->
     <div class="container mt--8 pb-5">
+      <base-alert v-if="serverDown" type="danger">The server is currently out of service. Please try later.</base-alert>
       <slide-y-up-transition mode="out-in" origin="center top">
         <router-view></router-view>
       </slide-y-up-transition>
@@ -96,21 +97,15 @@ export default {
   },
   data() {
     return {
-      showMenu: false
+      showMenu: false,
+      serverDown: true
     };
   },
   created() {
     this.$axios
       .get("/")
-      .then(response => {
-        console.log(response);
-      })
       .catch(e => {
-        console.log("Server is down");
-        this.$notify({
-          type: "danger",
-          title: "The server is currently out of service. Please try later."
-        });
+        this.serverDown = true;
       });
   }
 };
