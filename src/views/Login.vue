@@ -57,10 +57,7 @@
                   color="white"
                 />
                 <strong v-else>
-                  <i
-                    class="fas fa-sign-in-alt"
-                    style="padding-right: 10px;"
-                  ></i>
+                  <i class="fas fa-sign-in-alt" style="padding-right: 10px"></i>
                   Sign in
                 </strong>
               </base-button>
@@ -95,77 +92,74 @@
 </template>
 
 <script>
-import { Technoservs } from "technoservs.js";
-import { required, minLength } from "vuelidate/lib/validators";
-import { HalfCircleSpinner } from "epic-spinners";
+import { Technoservs } from 'technoservs.js'
+import { required, minLength } from 'vuelidate/lib/validators'
+import { HalfCircleSpinner } from 'epic-spinners'
 
 export default {
-  name: "login",
+  name: 'login',
   components: {
-    HalfCircleSpinner
+    HalfCircleSpinner,
   },
   data() {
     return {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       error: {
         isError: false,
-        message: ""
+        message: '',
       },
       isLoginLoading: false,
-      errorMsg: null
-    };
+      errorMsg: null,
+    }
   },
   validations: {
     email: {
-      required
+      required,
     },
     password: {
       required,
-      minLength: minLength(8)
-    }
-  },
-  created() {
-    console.log(this.$store.state.user);
+      minLength: minLength(8),
+    },
   },
   methods: {
     loginGithub() {
-      let githubClientID = "9e486adc90668a6818eb";
+      let githubClientID = '9e486adc90668a6818eb'
       window.open(
-        `https://github.com/login/oauth/authorize?client_id=${githubClientID}&redirect_uri=https://technoservs.ichbinkour.eu/auth/github`
-      );
+        `https://github.com/login/oauth/authorize?client_id=${githubClientID}&redirect_uri=https://technoservs.ichbinkour.eu/auth/github`,
+      )
     },
     loginUser() {
       if (this.password && this.password.length < 6) {
-        this.errorMsg = "Password must be 6 characters long";
-        return;
+        this.errorMsg = 'Password must be 6 characters long'
+        return
       }
-      this.errorMsg = "";
-      this.isLoginLoading = true;
-      const technoservs = require("technoservs.js");
+      this.errorMsg = ''
+      this.isLoginLoading = true
+      const technoservs = require('technoservs.js')
       technoservs
         .login(this.email, this.password)
-        .then(response => {
-          this.$store.commit("setUser", response.account);
+        .then((response) => {
+          this.$store.commit('setUser', response.account)
           this.$store.commit(
-            "setClient",
-            new Technoservs(response.account.token)
-          );
-          this.isLoginLoading = false;
-          this.$router.push("/dashboard");
+            'setClient',
+            new Technoservs(response.account.token),
+          )
+          this.isLoginLoading = false
+          this.$router.push('/dashboard')
         })
-        .catch(e => {
-          this.isLoginLoading = false;
+        .catch((e) => {
+          this.isLoginLoading = false
           if (e._message.message) {
             this.error = {
               isError: true,
-              message: e._message.message
-            };
+              message: e._message.message,
+            }
           }
-        });
-    }
-  }
-};
+        })
+    },
+  },
+}
 </script>
 <style>
 .half-circle-spinner {
