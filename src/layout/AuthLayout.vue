@@ -46,8 +46,12 @@
     <!-- </template> -->
     <!-- </base-nav> -->
     <!-- Header -->
+    <div class="container pt-4">
+      <base-alert v-if="serverDown" type="danger">The server is currently out of service. Please try later.</base-alert>
+    </div>
     <div class="header py-7 py-lg-7">
       <div class="container">
+       
         <div class="header-body text-center mb-7">
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
@@ -80,7 +84,6 @@
     </div>
     <!-- Page content -->
     <div class="container mt--8 pb-5">
-      <base-alert v-if="serverDown" type="danger">The server is currently out of service. Please try later.</base-alert>
       <slide-y-up-transition mode="out-in" origin="center top">
         <router-view></router-view>
       </slide-y-up-transition>
