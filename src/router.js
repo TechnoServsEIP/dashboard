@@ -148,7 +148,6 @@ const router = new Router({
         if (store.state.user == null) next("/login");
         else next();
       }
-
     },
     {
       path: "/feedback",
@@ -161,6 +160,7 @@ const router = new Router({
         if (store.state.user == null) next("/login");
         else next();
       }
+
     },
     {
       path: "/confirm",
