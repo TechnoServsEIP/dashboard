@@ -13,8 +13,8 @@ export default
             {
               "uuid":1,
               "name":"Starter-2048",
-              "players_slots":64000,
-              "plugins_limit":64000,
+              "players_slots":10,
+              "plugins_limit":10,
               "ram_memory":2048,
               "disk_space":{
                 "current_disk_space":0,
@@ -42,7 +42,7 @@ export default
               "prioritized_support":false,
               "sla":99.95,
               "monthly_price":1.99,
-              "hourly_price":0.00035
+              "hourly_price":0.0035
             }
           ]
         }
