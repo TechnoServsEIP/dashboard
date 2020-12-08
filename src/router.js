@@ -12,14 +12,16 @@ Vue.use(Router)
 
 const router = new Router({
   linkExactActiveClass: 'active',
-  routes: [{
+  routes: [
+    {
       path: '/',
       redirect: 'dashboard',
       component: DashboardLayout,
       meta: {
         title: 'TechnoServs - Dashboard',
       },
-      children: [{
+      children: [
+        {
           path: '/dashboard',
           name: 'dashboard',
           component: () => import('./views/Dashboard.vue'),
@@ -44,7 +46,8 @@ const router = new Router({
     {
       path: '/dashboard/:id',
       component: DashboardAppLayout,
-      children: [{
+      children: [
+        {
           path: '/',
           name: 'Overview',
           component: () => import('./views/Dashboard/AppOverview.vue'),
@@ -93,7 +96,8 @@ const router = new Router({
       meta: {
         title: 'TechnoServs Admin',
       },
-      children: [{
+      children: [
+        {
           path: '',
           name: 'Admin',
           component: () => import('./views/Admin/AdminHome.vue'),
@@ -194,14 +198,15 @@ const router = new Router({
       path: '/',
       redirect: 'login',
       component: AuthLayout,
-      children: [{
+      children: [
+        {
           path: '/login',
           name: 'login',
           meta: {
             title: 'TechnoServs - Login',
           },
           component: () =>
-            import( /* webpackChunkName: "demo" */ './views/Login.vue'),
+            import(/* webpackChunkName: "demo" */ './views/Login.vue'),
         },
         {
           path: '/register',
@@ -210,7 +215,7 @@ const router = new Router({
             title: 'TechnoServs - Register',
           },
           component: () =>
-            import( /* webpackChunkName: "demo" */ './views/Register.vue'),
+            import(/* webpackChunkName: "demo" */ './views/Register.vue'),
         },
         {
           path: '/terms-of-use',
@@ -219,7 +224,7 @@ const router = new Router({
             title: 'TechnoServs - Terms of use',
           },
           component: () =>
-            import( /* webpackChunkName: "demo" */ './views/TermsOfUse.vue'),
+            import(/* webpackChunkName: "demo" */ './views/TermsOfUse.vue'),
         },
       ],
       beforeEnter: (to, from, next) => {
@@ -250,7 +255,9 @@ router.beforeEach(async (to, from, next) => {
 
       if (decoded.payload.exp * 1000 <= Date.now()) {
         const response = await axios.post(
-          '/token/refresh', {}, {
+          '/token/refresh',
+          {},
+          {
             data: {
               access_token: token,
               refresh_token: store.state.user.refresh_token,
