@@ -5,7 +5,7 @@
 <script>
 export default {
   name: 'Checkout',
-  mounted() {
+  created() {
     if (this.$route.query.success === 'true') {
       this.createServer()
     } else if (this.$route.query.canceled === 'true') {
