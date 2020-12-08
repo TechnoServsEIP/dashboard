@@ -17,50 +17,50 @@
   </div>
 </template>
 <script>
-import { randomString } from "./stringUtils";
+import { randomString } from './stringUtils'
 export default {
-  name: "base-radio",
+  name: 'base-radio',
   props: {
     name: {
       type: [String, Number],
-      description: "Radio label"
+      description: 'Radio label',
     },
     disabled: {
       type: Boolean,
-      description: "Whether radio is disabled"
+      description: 'Whether radio is disabled',
     },
     value: {
       type: [String, Boolean],
-      description: "Radio value"
+      description: 'Radio value',
     },
     inline: {
       type: Boolean,
-      description: "Whether radio is inline"
-    }
+      description: 'Whether radio is inline',
+    },
   },
   data() {
     return {
-      cbId: ""
-    };
+      cbId: '',
+    }
   },
   computed: {
     model: {
       get() {
-        return this.value;
+        return this.value
       },
       set(value) {
-        this.$emit("input", value);
-      }
+        this.$emit('input', value)
+      },
     },
     inlineClass() {
       if (this.inline) {
-        return `form-check-inline`;
+        return `form-check-inline`
       }
-      return "";
-    }
+      return ''
+    },
   },
   mounted() {
-    this.cbId = randomString();
-  }
-};
+    this.cbId = randomString()
+  },
+}
 </script>

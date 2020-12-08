@@ -7,7 +7,7 @@
     </div>
     <base-header
       class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
-      style="min-height: 200px;"
+      style="min-height: 200px"
     >
       <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
@@ -101,26 +101,26 @@
 </template>
 
 <script>
-import DashboardNavbar from "../layout/DashboardNavbar";
-import axios from "axios";
+import DashboardNavbar from '../layout/DashboardNavbar'
+import axios from 'axios'
 
 export default {
-  name: "Feedback",
+  name: 'Feedback',
   components: {
-    DashboardNavbar
+    DashboardNavbar,
   },
   data() {
     return {
-      message: "",
-      title: ""
-    };
+      message: '',
+      title: '',
+    }
   },
   computed: {
     email() {
-      return this.$store.state.user.email;
-    }
-  }
-};
+      return this.$store.state.user.email
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

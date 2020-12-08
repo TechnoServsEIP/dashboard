@@ -76,10 +76,10 @@
               <div class="media align-items-center">
                 <div class="media-body">
                   <span v-if="row.Activate" class="icon icon-shape">
-                    <i class="fas fa-check" style="color:green"></i>
+                    <i class="fas fa-check" style="color: green"></i>
                   </span>
                   <span v-else class="icon icon-shape">
-                    <i class="fas fa-times" style="color:red"></i>
+                    <i class="fas fa-times" style="color: red"></i>
                   </span>
                 </div>
               </div>
@@ -89,10 +89,10 @@
               <div class="media align-items-center">
                 <div class="media-body">
                   <span v-if="row.Verified" class="icon icon-shape">
-                    <i class="fas fa-check" style="color:green"></i>
+                    <i class="fas fa-check" style="color: green"></i>
                   </span>
                   <span v-else class="icon icon-shape">
-                    <i class="fas fa-times" style="color:red"></i>
+                    <i class="fas fa-times" style="color: red"></i>
                   </span>
                 </div>
               </div>
@@ -108,14 +108,14 @@
                     @click.native="
                       updateUser(
                         row.ID.toString(),
-                        row.Role === 'admin' ? 'user' : 'admin'
+                        row.Role === 'admin' ? 'user' : 'admin',
                       )
                     "
                   >
                     {{
-                      row.Role === "admin"
-                        ? "Change to user"
-                        : "Change to admin"
+                      row.Role === 'admin'
+                        ? 'Change to user'
+                        : 'Change to admin'
                     }}
                   </el-dropdown-item>
 
@@ -126,8 +126,8 @@
                   >
                     {{
                       row.Activate === true
-                        ? "Deactivate User"
-                        : "Activate User"
+                        ? 'Deactivate User'
+                        : 'Activate User'
                     }}
                   </el-dropdown-item>
                   <el-dropdown-item
@@ -137,8 +137,8 @@
                   >
                     {{
                       row.Verified === false
-                        ? "Verify User"
-                        : "Remove Verified User"
+                        ? 'Verify User'
+                        : 'Remove Verified User'
                     }}
                   </el-dropdown-item>
                   <el-dropdown-item
@@ -162,150 +162,150 @@
 
 <script>
 export default {
-  name: "TableUsersList",
+  name: 'TableUsersList',
   props: {
     users: Array,
     type: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
       selectedUser: {},
-      searchInput: "",
-      usersLocal: []
-    };
+      searchInput: '',
+      usersLocal: [],
+    }
   },
   created() {
-    this.usersLocal = this.users;
+    this.usersLocal = this.users
   },
   methods: {
     updateVerifiedUser(verified, id) {
-      console.log(verified);
+      console.log(verified)
       if (!verified == false) {
         this.$axios
           .post(
-            "user/verify",
+            'user/verify',
             {
-              Id: id.toString()
+              Id: id.toString(),
             },
             {
               headers: {
-                authorization: `Bearer ${this.$store.state.user.token}`
-              }
-            }
+                authorization: `Bearer ${this.$store.state.user.token}`,
+              },
+            },
           )
-          .then(response => {
-            this.$emit("update-verified-user", { id: id, verified: !verified });
+          .then((response) => {
+            this.$emit('update-verified-user', { id: id, verified: !verified })
             this.$notify({
-              type: "success",
-              title: `User correctly unverified`
-            });
-            console.log(response);
+              type: 'success',
+              title: `User correctly unverified`,
+            })
+            console.log(response)
           })
-          .catch(e => {
-            console.log(e);
-          });
+          .catch((e) => {
+            console.log(e)
+          })
       } else if (!verified == true) {
         this.$axios
           .post(
-            "user/removeverification",
+            'user/removeverification',
             {
-              Id: id.toString()
+              Id: id.toString(),
             },
             {
               headers: {
-                authorization: `Bearer ${this.$store.state.user.token}`
-              }
-            }
+                authorization: `Bearer ${this.$store.state.user.token}`,
+              },
+            },
           )
-          .then(response => {
-            this.$emit("update-verified-user", { id: id, verified: !verified });
+          .then((response) => {
+            this.$emit('update-verified-user', { id: id, verified: !verified })
             this.$notify({
-              type: "success",
-              title: `User correctly unverified`
-            });
-            console.log(response);
+              type: 'success',
+              title: `User correctly unverified`,
+            })
+            console.log(response)
           })
-          .catch(e => {
-            console.log(e);
-          });
+          .catch((e) => {
+            console.log(e)
+          })
       }
     },
     toUserServers(id) {
-      this.$router.push(`/admin/user/${id}/servers`);
+      this.$router.push(`/admin/user/${id}/servers`)
     },
     updateActivateUser(value, id) {
       this.$axios
         .post(
-          `/user/${value === false ? "deactivate" : "activate"}`,
+          `/user/${value === false ? 'deactivate' : 'activate'}`,
           {
-            Id: id
+            Id: id,
           },
           {
             headers: {
-              authorization: `Bearer ${this.$store.state.user.token}`
-            }
-          }
+              authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          },
         )
-        .then(response => {
-          this.$emit("update-activate-user", { id: id, activate: value });
+        .then((response) => {
+          this.$emit('update-activate-user', { id: id, activate: value })
           this.$notify({
-            type: "success",
+            type: 'success',
             title: `User correctly ${
-              value === false ? "deactivated" : "activated"
-            }`
-          });
+              value === false ? 'deactivated' : 'activated'
+            }`,
+          })
         })
-        .catch(e => {
-          console.log(e);
-        });
+        .catch((e) => {
+          console.log(e)
+        })
     },
     updateUser(id, role) {
       this.$axios
         .post(
-          "/user/update",
+          '/user/update',
           {
             Id: id,
-            Role: role
+            Role: role,
           },
           {
             headers: {
-              authorization: `Bearer ${this.$store.state.user.token}`
-            }
-          }
+              authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          },
         )
         .then(() => {
-          this.$emit("update-user", { id: id, role: role });
+          this.$emit('update-user', { id: id, role: role })
           this.$notify({
-            type: "success",
-            title: "User role updated"
-          });
+            type: 'success',
+            title: 'User role updated',
+          })
         })
-        .catch(e => {
+        .catch((e) => {
           this.$notify({
-            type: "danger",
-            title: e
-          });
-        });
-    }
+            type: 'danger',
+            title: e,
+          })
+        })
+    },
   },
   watch: {
     users() {
-      this.usersLocal = this.users;
+      this.usersLocal = this.users
     },
     searchInput() {
-      if (this.searchInput == "") {
-        this.usersLocal = this.users;
-        return;
+      if (this.searchInput == '') {
+        this.usersLocal = this.users
+        return
       } else {
-        this.usersLocal = this.users.filter(v => {
-          return v.email.includes(this.searchInput);
-        });
+        this.usersLocal = this.users.filter((v) => {
+          return v.email.includes(this.searchInput)
+        })
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style lang="scss">

@@ -6,28 +6,28 @@
           :link="{
             name: 'Home',
             icon: 'ni ni-app text-primary',
-            path: '/admin'
+            path: '/admin',
           }"
         />
         <sidebar-item
           :link="{
             name: 'Servers',
             icon: 'ni ni-controller text-primary',
-            path: '/admin/servers'
+            path: '/admin/servers',
           }"
         />
         <sidebar-item
           :link="{
             name: 'Users',
             icon: 'fas fa-users text-primary',
-            path: '/admin/users'
+            path: '/admin/users',
           }"
         />
         <sidebar-item
           :link="{
             name: 'Offers',
             icon: 'ni ni-cart text-primary',
-            path: '/admin/offers'
+            path: '/admin/offers',
           }"
         />
       </template>
@@ -53,19 +53,19 @@
 </template>
 
 <script>
-import DashboardNavbar from "./DashboardNavbar.vue";
-import { FadeTransition } from "vue2-transitions";
+import DashboardNavbar from './DashboardNavbar.vue'
+import { FadeTransition } from 'vue2-transitions'
 
 export default {
-  name: "AdminLayout",
+  name: 'AdminLayout',
   components: {
     DashboardNavbar,
-    FadeTransition
+    FadeTransition,
   },
   data() {
     return {
-      sidebarBackground: "vue" //vue|blue|orange|green|red|primary
-    };
-  }
-};
+      sidebarBackground: 'vue', //vue|blue|orange|green|red|primary
+    }
+  },
+}
 </script>

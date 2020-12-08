@@ -6,11 +6,11 @@
     ></base-header>
 
     <div class="container-fluid mt--7">
-      <div class="row mb-3" style="align-items:center">
+      <div class="row mb-3" style="align-items: center">
         <div class="col">
           <router-link
             to="/"
-            style="color: white; align-items:center; display:flex"
+            style="color: white; align-items: center; display: flex"
           >
             <i class="ni ni-bold-left mr-1"></i>
             Dashboard
@@ -84,68 +84,68 @@
 </template>
 
 <script>
-import { HalfCircleSpinner } from "epic-spinners";
-import { loadStripe } from "@stripe/stripe-js";
+import { HalfCircleSpinner } from 'epic-spinners'
+import { loadStripe } from '@stripe/stripe-js'
 const stripePromise = loadStripe(
-  "pk_test_51HT2XlJMhPRLHhSBEPU2UITcS3hdbima1IEwq1SMqOB9ebJlpuF48kXHnozPzCf7jttmTBo7Te3lCsK42xJoI5gK00mZykg31c"
-);
+  'pk_test_51HT2XlJMhPRLHhSBEPU2UITcS3hdbima1IEwq1SMqOB9ebJlpuF48kXHnozPzCf7jttmTBo7Te3lCsK42xJoI5gK00mZykg31c',
+)
 
 export default {
   components: {
-    HalfCircleSpinner
+    HalfCircleSpinner,
   },
   data() {
     return {
       allFieldsCompleted: false,
-      serverName: "",
-      isLoading: false
-    };
+      serverName: '',
+      isLoading: false,
+    }
   },
   watch: {
     serverName() {
-      if (this.serverName != "") this.allFieldsCompleted = true;
-      else this.allFieldsCompleted = false;
-    }
+      if (this.serverName != '') this.allFieldsCompleted = true
+      else this.allFieldsCompleted = false
+    },
   },
   methods: {
     async checkoutOrder() {
       if (this.allFieldsCompleted) {
-        if (this.$store.state.user.Role == "admin") {
-          this.isLoading = true;
-          this.createServer();
+        if (this.$store.state.user.Role == 'admin') {
+          this.isLoading = true
+          this.createServer()
         } else {
-          this.isLoading = true;
-          const stripe = await stripePromise;
-          this.$store.commit("setServerCreateInfo", {
-            name: this.serverName
-          });
+          this.isLoading = true
+          const stripe = await stripePromise
+          this.$store.commit('setServerCreateInfo', {
+            name: this.serverName,
+          })
           try {
             const resp = await this.$axios.post(
-              "/payment/new",
+              '/payment/new',
               {},
               {
                 headers: {
-                  Authorization: `Bearer ${this.$store.state.user.token}`
-                }
-              }
-            );
+                  Authorization: `Bearer ${this.$store.state.user.token}`,
+                },
+              },
+            )
 
             const result = await stripe.redirectToCheckout({
-              sessionId: resp.data.id
-            });
-            console.log(result);
+              sessionId: resp.data.id,
+            })
+            console.log(result)
             if (result.error) {
-              console.log("ERROR =>", result);
-              this.$store.commit("setServerCreateInfo", null);
+              console.log('ERROR =>', result)
+              this.$store.commit('setServerCreateInfo', null)
             } else {
-              this.$store.commit("setServerCreateInfo", {
-                name: this.serverName
-              });
-              console.log("SUCCESS =>", result);
+              this.$store.commit('setServerCreateInfo', {
+                name: this.serverName,
+              })
+              console.log('SUCCESS =>', result)
             }
           } catch (err) {
             // Handle Error Here
-            console.error("error", err);
+            console.error('error', err)
           }
         }
       }
@@ -154,27 +154,27 @@ export default {
       if (this.allFieldsCompleted) {
         this.$store.state.client.Docker.create(
           this.$store.state.user.ID.toString(),
-          "minecraft",
-          this.serverName
+          'minecraft',
+          this.serverName,
         )
-          .then(response => {
-            this.isLoading = false;
-            this.$router.push({ path: "/dashboard" });
+          .then((response) => {
+            this.isLoading = false
+            this.$router.push({ path: '/dashboard' })
             this.$notify({
-              type: "success",
-              title: `Server ${this.serverName} correctly created`
-            });
+              type: 'success',
+              title: `Server ${this.serverName} correctly created`,
+            })
           })
-          .catch(e => {
-            this.isLoading = false;
+          .catch((e) => {
+            this.isLoading = false
             this.$notify({
-              type: "danger",
-              title: `Something went wrong: ${e._message.message}`
-            });
-          });
+              type: 'danger',
+              title: `Something went wrong: ${e._message.message}`,
+            })
+          })
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 <style></style>

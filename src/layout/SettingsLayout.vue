@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "SettingsLayout"
-};
+  name: 'SettingsLayout',
+}
 </script>

@@ -53,7 +53,7 @@
                   <div class="media align-items-center">
                     <div class="media-body">
                       <span class="name mb-0 text-sm">{{
-                        row.automated_backups === true ? "Yes" : "No"
+                        row.automated_backups === true ? 'Yes' : 'No'
                       }}</span>
                     </div>
                   </div>
@@ -63,7 +63,7 @@
                   <div class="media align-items-center">
                     <div class="media-body">
                       <span class="name mb-0 text-sm">{{
-                        row.custom_domain_address === true ? "Yes" : "No"
+                        row.custom_domain_address === true ? 'Yes' : 'No'
                       }}</span>
                     </div>
                   </div>
@@ -91,7 +91,7 @@
 
                 <td scope="row">
                   <base-button
-                    type="dark" 
+                    type="dark"
                     size="sm"
                     @click.prevent="openModal(row)"
                   >
@@ -110,13 +110,16 @@
     </div>
 
     <!-- Modal Info -->
-    <modal :show.sync="isModalOpen" v-if="modalData"
-      modal-classes="modal-dialog-centered">
+    <modal
+      :show.sync="isModalOpen"
+      v-if="modalData"
+      modal-classes="modal-dialog-centered"
+    >
       <template slot="header">
         <h5 class="modal-title" id="exampleModalLabel">{{ modalData.name }}</h5>
       </template>
       <div class="">
-        <pre>{{JSON.stringify(modalData, undefined, 2)}}</pre>
+        <pre>{{ JSON.stringify(modalData, undefined, 2) }}</pre>
       </div>
     </modal>
   </div>
@@ -126,11 +129,11 @@
 import Offers from '../../../offers-beta'
 
 export default {
-  name: "AdminOffers",
+  name: 'AdminOffers',
   props: {
     type: {
-      type: String
-    }
+      type: String,
+    },
   },
 
   data() {
@@ -138,9 +141,9 @@ export default {
       offersList: Offers.Offers,
       modalData: null,
       isModalOpen: false,
-    };
+    }
   },
-  
+
   created() {
     // this.getOffersList();
     console.log(this.offersList)
@@ -151,23 +154,23 @@ export default {
       this.isModalOpen = !this.isModalOpen
     },
 
-    openModal(row) {
+    openModal(row) {
       this.isModalOpen = true
       this.modalData = row
     },
 
     getOffersList() {
       this.$axios
-        .get("/offers/list")
-        .then(response => {
-          this.offersList = response.data.result;
-          console.log(response);
-          console.log(this.offersList[0].offer_types);
+        .get('/offers/list')
+        .then((response) => {
+          this.offersList = response.data.result
+          console.log(response)
+          console.log(this.offersList[0].offer_types)
         })
-        .catch(e => {
-          console.log(e);
-        });
-    }
-  }
-};
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+  },
+}
 </script>

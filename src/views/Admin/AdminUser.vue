@@ -12,80 +12,80 @@
 </template>
 
 <script>
-import TableUsersList from "@/components/Table/TableUsersList";
+import TableUsersList from '@/components/Table/TableUsersList'
 
 export default {
-  name: "AdminUser",
+  name: 'AdminUser',
   components: {
-    TableUsersList
+    TableUsersList,
   },
   data() {
     return {
       users: [],
-      totalServers: 0
-    };
+      totalServers: 0,
+    }
   },
   created() {
-    this.getUsersFromApi();
-    this.getTotalServers();
+    this.getUsersFromApi()
+    this.getTotalServers()
   },
   computed: {
     getUsers() {
-      return this.users;
-    }
+      return this.users
+    },
   },
   methods: {
     updateVerifiedUser(event) {
-      this.users.forEach(elem => {
+      this.users.forEach((elem) => {
         if (elem.ID == event.id) {
-          elem.Verified = !event.verified;
+          elem.Verified = !event.verified
         }
-      });
+      })
     },
     getTotalServers() {
       this.$axios
-        .get("/docker/total", {
+        .get('/docker/total', {
           headers: {
-            authorization: `Bearer ${this.$store.state.user.token}`
-          }
+            authorization: `Bearer ${this.$store.state.user.token}`,
+          },
         })
-        .then(response => {
-          this.totalServers = response.data.total;
+        .then((response) => {
+          this.totalServers = response.data.total
         })
-        .catch(e => {
-          console.log(e);
-        });
+        .catch((e) => {
+          console.log(e)
+        })
     },
     setUserNewRole(event) {
-      this.users.forEach(elem => {
+      this.users.forEach((elem) => {
         if (elem.ID == event.id) {
-          elem.Role = event.role;
+          elem.Role = event.role
         }
-      });
+      })
     },
     updateActivatedUser(event) {
-      this.users.forEach(elem => {
+      this.users.forEach((elem) => {
         if (elem.ID == event.id) {
-          elem.Activate = event.activate;
+          elem.Activate = event.activate
         }
-      });
+      })
     },
     getUsersFromApi() {
       this.$axios
-        .get("/user/", {
+        .get('/user/', {
           headers: {
-            authorization: `Bearer ${this.$store.state.user.token}`
-          }
+            authorization: `Bearer ${this.$store.state.user.token}`,
+          },
         })
-        .then(response => {
-          this.users = response.data.res.Value;
+        .then((response) => {
+          this.users = response.data.res.Value
         })
-        .catch(e => {
-          console.log(e);
-        });
-    }
-  }
-};
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
