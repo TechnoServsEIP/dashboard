@@ -117,117 +117,117 @@
 
 <script>
 // import TableServerList from "../../../components/Technoservs/Tables/TableServerList";
-import { HalfCircleSpinner } from "epic-spinners";
+import { HalfCircleSpinner } from 'epic-spinners'
 
 export default {
-  name: "AdminUserServers",
+  name: 'AdminUserServers',
   components: {
     // TableServerList,
-    HalfCircleSpinner
+    HalfCircleSpinner,
   },
   props: {
-    type: String
+    type: String,
   },
   data() {
     return {
       userServers: [],
       isEditActionLoading: false,
-      badgeTypeLoading: null
-    };
+      badgeTypeLoading: null,
+    }
   },
   computed: {
     userId() {
-      return this.$route.params.id;
-    }
+      return this.$route.params.id
+    },
   },
   created() {
-    this.getUserServers();
+    this.getUserServers()
   },
   methods: {
     getBadgeType(type) {
       switch (type) {
-        case "Started":
-          return "success";
-        case "Stopped":
-          return "danger";
-        case "Starting":
-          return "warning";
-        case "Stopping":
-          return "warning";
+        case 'Started':
+          return 'success'
+        case 'Stopped':
+          return 'danger'
+        case 'Starting':
+          return 'warning'
+        case 'Stopping':
+          return 'warning'
       }
     },
     updateTypeServer(type, id_docker) {
-      this.userServers.forEach(e => {
+      this.userServers.forEach((e) => {
         if (e.id_docker == id_docker) {
-          e.server_status = type;
+          e.server_status = type
         }
-      });
+      })
     },
     getUserServers() {
       this.$store.state.client.Docker.list(this.userId.toString())
-        .then(response => {
-          console.log("response =>", response);
-          this.userServers = response.list;
+        .then((response) => {
+          console.log('response =>', response)
+          this.userServers = response.list
           for (var i = 0; i < this.userServers.length; i++) {
-            console.log(this.userServers[i].server_status);
-            if (this.userServers[i].server_status == "Stopped") {
-              this.userServers[i].statusType = "danger";
-            } else if (this.userServers[i].server_status == "Started") {
-              this.userServers[i].statusType = "success";
+            console.log(this.userServers[i].server_status)
+            if (this.userServers[i].server_status == 'Stopped') {
+              this.userServers[i].statusType = 'danger'
+            } else if (this.userServers[i].server_status == 'Started') {
+              this.userServers[i].statusType = 'success'
             }
           }
         })
-        .catch(e => {
-          console.log(e._message);
-        });
+        .catch((e) => {
+          console.log(e._message)
+        })
     },
     startServer(id_docker) {
-      this.isEditActionLoading = true;
-      this.updateTypeServer("Starting", id_docker);
+      this.isEditActionLoading = true
+      this.updateTypeServer('Starting', id_docker)
       this.$store.state.client.Docker.start(
         this.$store.state.user.ID.toString(),
-        id_docker
+        id_docker,
       )
-        .then(response => {
-          this.isEditActionLoading = false;
-          this.updateTypeServer("Started", id_docker);
+        .then((response) => {
+          this.isEditActionLoading = false
+          this.updateTypeServer('Started', id_docker)
           this.$notify({
-            type: "success",
-            title: "Server correctly started"
-          });
+            type: 'success',
+            title: 'Server correctly started',
+          })
         })
-        .catch(e => {
-          this.isEditActionLoading = false;
+        .catch((e) => {
+          this.isEditActionLoading = false
           this.$notify({
-            type: "danger",
-            title: "An error occured while starting server"
-          });
-          console.log(e._message);
-        });
+            type: 'danger',
+            title: 'An error occured while starting server',
+          })
+          console.log(e._message)
+        })
     },
     stopServer(id_docker) {
-      this.isEditActionLoading = true;
-      this.updateTypeServer("Stopping", id_docker);
+      this.isEditActionLoading = true
+      this.updateTypeServer('Stopping', id_docker)
       this.$store.state.client.Docker.stop(
         this.$route.params.id.toString(),
-        id_docker
+        id_docker,
       )
-        .then(response => {
-          this.isEditActionLoading = false;
-          this.updateTypeServer("Stopped", id_docker);
+        .then((response) => {
+          this.isEditActionLoading = false
+          this.updateTypeServer('Stopped', id_docker)
           this.$notify({
-            type: "success",
-            title: "Server correctly stoped"
-          });
+            type: 'success',
+            title: 'Server correctly stoped',
+          })
         })
-        .catch(e => {
-          this.isEditActionLoading = false;
+        .catch((e) => {
+          this.isEditActionLoading = false
           this.$notify({
-            type: "danger",
-            title: "An error occured while stoping server"
-          });
-          console.log(e._message);
-        });
+            type: 'danger',
+            title: 'An error occured while stoping server',
+          })
+          console.log(e._message)
+        })
       // this.$store.state.client.Docker.stop(
       //   this.$store.state.user.ID.toString(),
       //   this.serverInfos[0].id_docker
@@ -249,62 +249,62 @@ export default {
       //   });
     },
     restartServer(row) {
-      this.isEditActionLoading = true;
-      this.updateTypeServer("Stopping", row.id_docker);
+      this.isEditActionLoading = true
+      this.updateTypeServer('Stopping', row.id_docker)
       this.$store.state.client.Docker.stop(
         this.$store.state.user.ID.toString(),
-        row.id_docker
+        row.id_docker,
       )
         .then(() => {
-          this.updateTypeServer("Starting", row.id_docker);
+          this.updateTypeServer('Starting', row.id_docker)
           this.$store.state.client.Docker.start(
             this.$store.state.user.ID.toString(),
-            row.id_docker
+            row.id_docker,
           )
-            .then(response => {
-              this.updateTypeServer("Started", row.id_docker);
-              this.isEditActionLoading = false;
+            .then((response) => {
+              this.updateTypeServer('Started', row.id_docker)
+              this.isEditActionLoading = false
             })
-            .catch(e => {
-              console.log(e._message);
-            });
+            .catch((e) => {
+              console.log(e._message)
+            })
           this.$notify({
-            type: "success",
-            title: "Server correctly restared"
-          });
+            type: 'success',
+            title: 'Server correctly restared',
+          })
         })
-        .catch(e => {
-          console.log(e);
+        .catch((e) => {
+          console.log(e)
           this.$notify({
-            type: "danger",
-            title: "An error occured while restarting server"
-          });
-        });
+            type: 'danger',
+            title: 'An error occured while restarting server',
+          })
+        })
     },
     deleteServer(row) {
-      console.log("Delete", row);
+      console.log('Delete', row)
       this.$store.state.client.Docker.delete(
         this.$store.state.user.ID.toString(),
-        row.id_docker
+        row.id_docker,
       )
-        .then(response => {
-          this.userServers = this.userServers.filter(function(el) {
-            return el.id_docker != row.id_docker;
-          });
+        .then((response) => {
+          this.userServers = this.userServers.filter(function (el) {
+            return el.id_docker != row.id_docker
+          })
           this.$notify({
-            type: "success",
-            title: "Server correctly deleted"
-          });
+            type: 'success',
+            title: 'Server correctly deleted',
+          })
         })
-        .catch(e => {
+        .catch((e) => {
           this.$notify({
-            type: "danger",
-            title: "An error occured while deleting server"
-          });
-        });
-    }
-  }
-};
+            type: 'danger',
+            title: 'An error occured while deleting server',
+          })
+        })
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

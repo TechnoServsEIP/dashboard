@@ -5,7 +5,7 @@
     :class="[
       `badge-${type}`,
       rounded ? `badge-pill` : '',
-      circle && 'badge-circle'
+      circle && 'badge-circle',
     ]"
   >
     <slot>
@@ -15,34 +15,34 @@
 </template>
 <script>
 export default {
-  name: "badge",
+  name: 'badge',
   props: {
     tag: {
       type: String,
-      default: "span",
-      description: "Html tag to use for the badge."
+      default: 'span',
+      description: 'Html tag to use for the badge.',
     },
     rounded: {
       type: Boolean,
       default: false,
-      description: "Whether badge is of pill type"
+      description: 'Whether badge is of pill type',
     },
     circle: {
       type: Boolean,
       default: false,
-      description: "Whether badge is circle"
+      description: 'Whether badge is circle',
     },
     icon: {
       type: String,
-      default: "",
-      description: "Icon name. Will be overwritten by slot if slot is used"
+      default: '',
+      description: 'Icon name. Will be overwritten by slot if slot is used',
     },
     type: {
       type: String,
-      default: "default",
-      description: "Badge type (primary|info|danger|default|warning|success)"
-    }
-  }
-};
+      default: 'default',
+      description: 'Badge type (primary|info|danger|default|warning|success)',
+    },
+  },
+}
 </script>
 <style></style>

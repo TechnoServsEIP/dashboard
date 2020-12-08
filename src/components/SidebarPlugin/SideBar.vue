@@ -63,43 +63,43 @@
   </nav>
 </template>
 <script>
-import NavbarToggleButton from "@/components/NavbarToggleButton";
+import NavbarToggleButton from '@/components/NavbarToggleButton'
 
 export default {
-  name: "sidebar",
+  name: 'sidebar',
   components: {
-    NavbarToggleButton
+    NavbarToggleButton,
   },
   data() {
     return {
-      logo: require("../../assets/ts-logo-full.svg")
-    };
+      logo: require('../../assets/ts-logo-full.svg'),
+    }
   },
   props: {
     autoClose: {
       type: Boolean,
       default: true,
       description:
-        "Whether sidebar should autoclose on mobile when clicking an item"
-    }
+        'Whether sidebar should autoclose on mobile when clicking an item',
+    },
   },
   provide() {
     return {
-      autoClose: this.autoClose
-    };
+      autoClose: this.autoClose,
+    }
   },
   methods: {
     closeSidebar() {
-      this.$sidebar.displaySidebar(false);
+      this.$sidebar.displaySidebar(false)
     },
     showSidebar() {
-      this.$sidebar.displaySidebar(true);
-    }
+      this.$sidebar.displaySidebar(true)
+    },
   },
   beforeDestroy() {
     if (this.$sidebar.showSidebar) {
-      this.$sidebar.showSidebar = false;
+      this.$sidebar.showSidebar = false
     }
-  }
-};
+  },
+}
 </script>

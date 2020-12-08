@@ -47,11 +47,12 @@
     <!-- </base-nav> -->
     <!-- Header -->
     <div class="container pt-4">
-      <base-alert v-if="serverDown" type="danger">The server is currently out of service. Please try later.</base-alert>
+      <base-alert v-if="serverDown" type="danger"
+        >The server is currently out of service. Please try later.</base-alert
+      >
     </div>
     <div class="header py-7 py-lg-7">
       <div class="container">
-       
         <div class="header-body text-center mb-7">
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
@@ -91,31 +92,29 @@
   </div>
 </template>
 <script>
-import { SlideYUpTransition } from "vue2-transitions";
+import { SlideYUpTransition } from 'vue2-transitions'
 
 export default {
-  name: "auth-layout",
+  name: 'auth-layout',
   components: {
-    SlideYUpTransition
+    SlideYUpTransition,
   },
   data() {
     return {
       showMenu: false,
-      serverDown: false
-    };
+      serverDown: false,
+    }
   },
   created() {
-    this.$axios
-      .get("/")
-      .catch(e => {
-        this.serverDown = true;
-      });
-  }
-};
+    this.$axios.get('/').catch((e) => {
+      this.serverDown = true
+    })
+  },
+}
 </script>
 <style lang="scss">
 .bg-gradient-custom-auth {
   background-color: #172b4d;
-  background-image: url("../assets/circuit-board.svg");
+  background-image: url('../assets/circuit-board.svg');
 }
 </style>

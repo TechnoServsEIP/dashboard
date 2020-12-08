@@ -1,30 +1,30 @@
-import { Doughnut, mixins } from "vue-chartjs";
-import globalOptionsMixin from "@/components/Charts/globalOptionsMixin";
+import { Doughnut, mixins } from 'vue-chartjs'
+import globalOptionsMixin from '@/components/Charts/globalOptionsMixin'
 
 export default {
-  name: "doughnut-chart",
+  name: 'doughnut-chart',
   extends: Doughnut,
   mixins: [mixins.reactiveProp, globalOptionsMixin],
   props: {
     extraOptions: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   data() {
     return {
-      ctx: null
-    };
+      ctx: null,
+    }
   },
   mounted() {
     this.$watch(
-      "chartData",
+      'chartData',
       (newVal, oldVal) => {
         if (!oldVal) {
-          this.renderChart(this.chartData, this.extraOptions);
+          this.renderChart(this.chartData, this.extraOptions)
         }
       },
-      { immediate: true }
-    );
-  }
-};
+      { immediate: true },
+    )
+  },
+}

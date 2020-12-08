@@ -24,9 +24,11 @@
       </div>
     </div>
 
-    <div v-if="isLoading"
+    <div
+      v-if="isLoading"
       class="mt-4"
-      style="display: flex; justify-content: center; align-items: center">
+      style="display: flex; justify-content: center; align-items: center"
+    >
       <half-circle-spinner
         :animation-duration="1000"
         :size="20"
@@ -37,14 +39,18 @@
     <div v-else class="mt-4">
       <tabs :fill="false" circle>
         <tab-pane>
-          <span slot="title" class="nav-link-icon d-block"><i class="ni ni-laptop"></i></span>
+          <span slot="title" class="nav-link-icon d-block"
+            ><i class="ni ni-laptop"></i
+          ></span>
           <table-servers-list
             :servers="getServers"
             @update-server="updateServer"
           ></table-servers-list>
         </tab-pane>
         <tab-pane>
-          <span slot="title" class="nav-link-icon d-block"><i class="fas fa-users"></i></span>
+          <span slot="title" class="nav-link-icon d-block"
+            ><i class="fas fa-users"></i
+          ></span>
           <table-users-list
             :users="getUsers"
             @update-user="setUserNewRole"
@@ -54,53 +60,51 @@
         </tab-pane>
       </tabs>
     </div>
-
   </div>
 </template>
 
 <script>
-import StatsCard from "@/components/StatsCard";
-import TableUsersList from "@/components/Table/TableUsersList";
-import TableServersList from "@/components/Table/TableServersList";
-import { HalfCircleSpinner } from "epic-spinners";
+import StatsCard from '@/components/StatsCard'
+import TableUsersList from '@/components/Table/TableUsersList'
+import TableServersList from '@/components/Table/TableServersList'
+import { HalfCircleSpinner } from 'epic-spinners'
 
 export default {
-  name: "AdminHome",
+  name: 'AdminHome',
   components: {
     StatsCard,
     TableUsersList,
     TableServersList,
-    HalfCircleSpinner
+    HalfCircleSpinner,
   },
   data() {
     return {
       users: [],
       servers: [],
       totalServers: 0,
-      isLoading: false
-    };
+      isLoading: false,
+    }
   },
   created() {
-    this.getUsersFromApi();
-    this.getTotalServers();
+    this.getUsersFromApi()
+    this.getTotalServers()
   },
   computed: {
     getUsers() {
-      return this.users;
+      return this.users
     },
     getServers() {
-      return this.servers;
-    }
+      return this.servers
+    },
   },
   methods: {
-
     async getUserServers(user) {
       await this.$store.state.client.Docker.list(user.ID.toString())
-        .then(response => {
-          const servers = JSON.parse(JSON.stringify(response.list));
+        .then((response) => {
+          const servers = JSON.parse(JSON.stringify(response.list))
           if (servers && servers.length > 0) {
             for (let index = 0; index < servers.length; index++) {
-              const server = JSON.parse(JSON.stringify(servers[index]));
+              const server = JSON.parse(JSON.stringify(servers[index]))
               const element = { user, server }
               this.servers.push(element)
             }
@@ -114,9 +118,9 @@ export default {
           //   }
           // }
         })
-        .catch(e => {
-          console.log(e._message);
-        });
+        .catch((e) => {
+          console.log(e._message)
+        })
     },
 
     updateServer(event) {
@@ -129,63 +133,63 @@ export default {
     },
 
     updateVerifiedUser(event) {
-      this.users.forEach(elem => {
+      this.users.forEach((elem) => {
         if (elem.ID == event.id) {
-          elem.Verified = !event.verified;
+          elem.Verified = !event.verified
         }
-      });
+      })
     },
     getTotalServers() {
       this.$axios
-        .get("/docker/total", {
+        .get('/docker/total', {
           headers: {
-            authorization: `Bearer ${this.$store.state.user.token}`
-          }
+            authorization: `Bearer ${this.$store.state.user.token}`,
+          },
         })
-        .then(response => {
-          this.totalServers = response.data.total;
+        .then((response) => {
+          this.totalServers = response.data.total
         })
-        .catch(e => {
-          console.log(e);
-        });
+        .catch((e) => {
+          console.log(e)
+        })
     },
     setUserNewRole(event) {
-      this.users.forEach(elem => {
+      this.users.forEach((elem) => {
         if (elem.ID == event.id) {
-          elem.Role = event.role;
+          elem.Role = event.role
         }
-      });
+      })
     },
     updateActivatedUser(event) {
-      this.users.forEach(elem => {
+      this.users.forEach((elem) => {
         if (elem.ID == event.id) {
-          elem.Activate = event.activate;
+          elem.Activate = event.activate
         }
-      });
+      })
     },
     async getUsersFromApi() {
       this.isLoading = true
       await this.$axios
-        .get("/user/", {
+        .get('/user/', {
           headers: {
-            authorization: `Bearer ${this.$store.state.user.token}`
-          }
+            authorization: `Bearer ${this.$store.state.user.token}`,
+          },
         })
-        .then(async response => {
-          this.users = response.data.res.Value;
+        .then(async (response) => {
+          this.users = response.data.res.Value
           for (let index = 0; index < this.users.length; index++) {
-            const element = this.users[index];
+            const element = this.users[index]
             await this.getUserServers(element)
           }
           this.isLoading = false
         })
-        .catch(e => {
-          console.log(e);
+        .catch((e) => {
+          console.log(e)
           this.isLoading = false
-        });
-    }
-  }
-};
+        })
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

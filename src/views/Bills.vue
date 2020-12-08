@@ -7,7 +7,7 @@
     </div>
     <base-header
       class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
-      style="min-height: 200px;"
+      style="min-height: 200px"
     >
       <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
@@ -17,7 +17,7 @@
     <div class="container-fluid mt--7">
       <div class="row mb-3">
         <div class="col">
-          <router-link to="/" style="color: white;">
+          <router-link to="/" style="color: white">
             <i class="ni ni-bold-left"></i>
             Dashboard
           </router-link>
@@ -76,7 +76,7 @@
                       <div class="media align-items-center">
                         <div class="media-body">
                           <span class="name mb-0 text-sm">{{
-                            row.payed === true ? "✅" : "❌"
+                            row.payed === true ? '✅' : '❌'
                           }}</span>
                         </div>
                       </div>
@@ -113,51 +113,51 @@
 </template>
 
 <script>
-import DashboardNavbar from "../layout/DashboardNavbar";
+import DashboardNavbar from '../layout/DashboardNavbar'
 
 export default {
-  name: "Bills",
+  name: 'Bills',
   components: {
-    DashboardNavbar
+    DashboardNavbar,
   },
   props: {
     type: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
       bills: [
         {
-          id: "1",
-          number: "123982",
-          date: "23/06/2020",
+          id: '1',
+          number: '123982',
+          date: '23/06/2020',
           payed: true,
-          amount: 23
+          amount: 23,
         },
         {
-          id: "2",
-          number: "2938893",
-          date: "23/07/2020",
+          id: '2',
+          number: '2938893',
+          date: '23/07/2020',
           payed: true,
-          amount: 5.13
+          amount: 5.13,
         },
         {
-          id: "3",
-          number: "2233211",
-          date: "23/08/2020",
+          id: '3',
+          number: '2233211',
+          date: '23/08/2020',
           payed: true,
-          amount: 2
+          amount: 2,
         },
         {
-          id: "4",
-          number: "112987",
-          date: "23/09/2020",
+          id: '4',
+          number: '112987',
+          date: '23/09/2020',
           payed: false,
-          amount: 100
-        }
-      ]
-    };
-  }
-};
+          amount: 100,
+        },
+      ],
+    }
+  },
+}
 </script>

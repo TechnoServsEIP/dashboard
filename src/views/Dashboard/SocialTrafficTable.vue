@@ -44,43 +44,43 @@
 </template>
 <script>
 export default {
-  name: "social-traffic-table",
+  name: 'social-traffic-table',
   data() {
     return {
       tableData: [
         {
-          name: "Facebook",
-          visitors: "1,480",
+          name: 'Facebook',
+          visitors: '1,480',
           progress: 60,
-          progressType: "gradient-danger"
+          progressType: 'gradient-danger',
         },
         {
-          name: "LinkedIn",
-          visitors: "5,480",
+          name: 'LinkedIn',
+          visitors: '5,480',
           progress: 70,
-          progressType: "gradient-success"
+          progressType: 'gradient-success',
         },
         {
-          name: "Google",
-          visitors: "4,807",
+          name: 'Google',
+          visitors: '4,807',
           progress: 80,
-          progressType: "gradient-primary"
+          progressType: 'gradient-primary',
         },
         {
-          name: "Instagram",
-          visitors: "3,678",
+          name: 'Instagram',
+          visitors: '3,678',
           progress: 75,
-          progressType: "gradient-info"
+          progressType: 'gradient-info',
         },
         {
-          name: "Twitter",
-          visitors: "2,645",
+          name: 'Twitter',
+          visitors: '2,645',
           progress: 30,
-          progressType: "gradient-warning"
-        }
-      ]
-    };
-  }
-};
+          progressType: 'gradient-warning',
+        },
+      ],
+    }
+  },
+}
 </script>
 <style></style>

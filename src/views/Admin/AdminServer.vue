@@ -1,15 +1,16 @@
 <template>
   <div>
-    <div v-if="isLoading"
-      style="display: flex; justify-content: center; align-items: center">
+    <div
+      v-if="isLoading"
+      style="display: flex; justify-content: center; align-items: center"
+    >
       <half-circle-spinner
         :animation-duration="1000"
         :size="20"
         color="black"
       />
     </div>
-    <div v-else
-      class="mt-4">
+    <div v-else class="mt-4">
       <table-servers-list
         :servers="getServers"
         @update-server="updateServer"
@@ -19,31 +20,31 @@
 </template>
 
 <script>
-import TableServersList from "@/components/Table/TableServersList";
-import { HalfCircleSpinner } from "epic-spinners";
+import TableServersList from '@/components/Table/TableServersList'
+import { HalfCircleSpinner } from 'epic-spinners'
 
 export default {
-  name: "AdminServer",
+  name: 'AdminServer',
   components: {
     TableServersList,
-    HalfCircleSpinner
+    HalfCircleSpinner,
   },
   data() {
     return {
       servers: [],
       users: [],
       isLoading: true,
-    };
+    }
   },
   async created() {
-    await this.getServersFromApi();
+    await this.getServersFromApi()
     this.isLoading = false
   },
 
   computed: {
     getServers() {
-      return this.servers;
-    }
+      return this.servers
+    },
   },
   methods: {
     updateServer(event) {
@@ -56,59 +57,56 @@ export default {
     },
     getTotalServers() {
       this.$axios
-        .get("/docker/total", {
+        .get('/docker/total', {
           headers: {
-            authorization: `Bearer ${this.$store.state.user.token}`
-          }
+            authorization: `Bearer ${this.$store.state.user.token}`,
+          },
         })
-        .then(response => {
-          this.totalServers = response.data.total;
+        .then((response) => {
+          this.totalServers = response.data.total
         })
-        .catch(e => {
-          console.log(e);
-        });
+        .catch((e) => {
+          console.log(e)
+        })
     },
-    
+
     async getUserServers(user) {
       await this.$store.state.client.Docker.list(user.ID.toString())
-        .then(response => {
-          const servers = JSON.parse(JSON.stringify(response.list));
+        .then((response) => {
+          const servers = JSON.parse(JSON.stringify(response.list))
           if (servers && servers.length > 0) {
             for (let index = 0; index < servers.length; index++) {
-              const server = JSON.parse(JSON.stringify(servers[index]));
+              const server = JSON.parse(JSON.stringify(servers[index]))
               const element = { user, server }
               this.servers.push(element)
             }
           }
         })
-        .catch(e => {
-          console.log(e._message);
-        });
+        .catch((e) => {
+          console.log(e._message)
+        })
     },
     async getServersFromApi() {
       await this.$axios
-        .get("/user/", {
+        .get('/user/', {
           headers: {
-            authorization: `Bearer ${this.$store.state.user.token}`
-          }
+            authorization: `Bearer ${this.$store.state.user.token}`,
+          },
         })
-        .then(async response => {
-          this.users = JSON.parse(JSON.stringify(response.data.res.Value));
+        .then(async (response) => {
+          this.users = JSON.parse(JSON.stringify(response.data.res.Value))
           for (let index = 0; index < this.users.length; index++) {
-            const user = this.users[index];
+            const user = this.users[index]
             // console.log(user)
             await this.getUserServers(user)
           }
         })
-        .catch(e => {
-          console.log(e);
-        }
-      );
-    }
-
-    
-  }
-};
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

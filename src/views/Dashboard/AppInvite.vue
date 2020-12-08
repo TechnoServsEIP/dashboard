@@ -65,98 +65,98 @@
 </template>
 
 <script>
-import { HalfCircleSpinner } from "epic-spinners";
+import { HalfCircleSpinner } from 'epic-spinners'
 
 export default {
-  name: "AppInvite",
+  name: 'AppInvite',
   props: {
-    type: String
+    type: String,
   },
   components: {
-    HalfCircleSpinner
+    HalfCircleSpinner,
   },
   data() {
     return {
       containerId: null,
       inviteList: [],
       inviteCurrentList: [],
-      inviteEmail: "",
-      firstEmail: "",
-      submitLoading: false
-    };
+      inviteEmail: '',
+      firstEmail: '',
+      submitLoading: false,
+    }
   },
   created() {
     this.$store.state.client.Docker.list(this.$store.state.user.ID.toString())
-      .then(response => {
-        this.containerId = response.list.filter(v => {
-          return v.ID == this.$route.params.id;
-        })[0].id_docker;
+      .then((response) => {
+        this.containerId = response.list.filter((v) => {
+          return v.ID == this.$route.params.id
+        })[0].id_docker
         if (this.containerId != null) {
-          this.getGameServerProperties();
+          this.getGameServerProperties()
         } else {
-          throw "Error => no such container id";
+          throw 'Error => no such container id'
         }
       })
-      .catch(e => {
-        console.log(e);
-      });
+      .catch((e) => {
+        console.log(e)
+      })
   },
   methods: {
     addToListFirstEmail() {
       this.inviteList.push({
         id: this.inviteList.length + 1,
-        email: this.firstEmail
-      });
+        email: this.firstEmail,
+      })
       this.inviteCurrentList.push({
         id: this.inviteCurrentList.length + 1,
-        email: ""
-      });
+        email: '',
+      })
     },
     addToCurrentList() {
       this.inviteCurrentList.push({
         id: this.inviteCurrentList.length + 1,
-        email: this.inviteEmail
-      });
-      this.inviteEmail = "";
+        email: this.inviteEmail,
+      })
+      this.inviteEmail = ''
     },
     sendEmails() {
-      this.submitLoading = true;
-      let obj = [...this.inviteCurrentList, ...this.inviteList];
-      obj = obj.filter(v => {
-        return v.email != "";
-      });
+      this.submitLoading = true
+      let obj = [...this.inviteCurrentList, ...this.inviteList]
+      obj = obj.filter((v) => {
+        return v.email != ''
+      })
 
       this.$axios
         .post(
-          "/invitation",
+          '/invitation',
           {
             user_id: this.$store.state.user.ID.toString(),
             container_id: this.containerId,
-            recipient: obj[0].email
+            recipient: obj[0].email,
           },
           {
             headers: {
-              authorization: `Bearer ${this.$store.state.user.token}`
-            }
-          }
+              authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          },
         )
-        .then(response => {
-          this.submitLoading = false;
+        .then((response) => {
+          this.submitLoading = false
           this.$notify({
-            title: "Invitations sent !",
-            type: "success"
-          });
-          console.log(response);
+            title: 'Invitations sent !',
+            type: 'success',
+          })
+          console.log(response)
         })
-        .catch(e => {
-          this.submitLoading = false;
+        .catch((e) => {
+          this.submitLoading = false
           this.$notify({
-            title: "Invitations failed !",
-            type: "danger"
-          });
-          console.log(e);
-        });
-    }
-  }
-};
+            title: 'Invitations failed !',
+            type: 'danger',
+          })
+          console.log(e)
+        })
+    },
+  },
+}
 </script>
