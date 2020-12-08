@@ -54,31 +54,15 @@
             </div>
 
             <div class="row mb-4">
-              <div class="col-md-6 d-flex align-items-center">
-                <strong class="mr-2">Plan:</strong>
-                <el-select
-                  v-model="selectedOffer"
-                  placeholder="Select an offer"
-                  :disabled="isOffersLoading"
-                >
-                  <el-option
-                    v-for="item in offersOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  >
-                  </el-option>
-                </el-select>
-                <!-- <strong>Plan:</strong> Standard - <strong>0€/month</strong> -->
+              <div class="col-md-6">
+                <strong>Plan:</strong> Standard - <strong>0€/month</strong>
               </div>
             </div>
 
             <div class="row mb-4">
               <div class="col-md-6">
                 <base-button
-                  :disabled="
-                    !allFieldsCompleted || isLoading || selectedOffer === null
-                  "
+                  :disabled="!allFieldsCompleted || isLoading"
                   type="success"
                   @click.prevent="checkoutOrder"
                 >
@@ -102,10 +86,8 @@
 <script>
 import { HalfCircleSpinner } from 'epic-spinners'
 import { loadStripe } from '@stripe/stripe-js'
-import offers from '../../offers-beta'
-
 const stripePromise = loadStripe(
-  'pk_live_51HT2XlJMhPRLHhSBiVsT2s16vcTEeTAMIXSzMlGElmUJ9NNJ3vxEv0GArjkdp5WUUxwvvvGYyJq2DfOmKl41yfUD00cgP2BVwN',
+  'pk_test_51HT2XlJMhPRLHhSBEPU2UITcS3hdbima1IEwq1SMqOB9ebJlpuF48kXHnozPzCf7jttmTBo7Te3lCsK42xJoI5gK00mZykg31c',
 )
 
 export default {
@@ -117,13 +99,7 @@ export default {
       allFieldsCompleted: false,
       serverName: '',
       isLoading: false,
-      offersOptions: [],
-      selectedOffer: null,
-      isOffersLoading: false,
     }
-  },
-  created() {
-    this.getOffers()
   },
   watch: {
     serverName() {
@@ -132,11 +108,6 @@ export default {
     },
   },
   methods: {
-    getOffers() {
-      offers.Offers[0].offer_types.forEach((elem) => {
-        this.offersOptions.push({ value: 'minecraft', label: elem.name })
-      })
-    },
     async checkoutOrder() {
       if (this.allFieldsCompleted) {
         if (this.$store.state.user.Role == 'admin') {
@@ -151,34 +122,29 @@ export default {
           try {
             const resp = await this.$axios.post(
               '/payment/new',
-              {
-                email: this.$store.state.user.email,
-                product: this.selectedOffer,
-              },
+              {},
               {
                 headers: {
                   Authorization: `Bearer ${this.$store.state.user.token}`,
                 },
               },
             )
-            if (resp.data == '') throw 'Error'
             const result = await stripe.redirectToCheckout({
               sessionId: resp.data.id,
             })
             console.log(result)
             if (result.error) {
+              console.log('ERROR =>', result)
               this.$store.commit('setServerCreateInfo', null)
             } else {
               this.$store.commit('setServerCreateInfo', {
                 name: this.serverName,
               })
+              console.log('SUCCESS =>', result)
             }
           } catch (err) {
-            this.$notify({
-              type: 'danger',
-              title: `Something went wrong. Please try again later.`,
-            })
-            this.isLoading = false
+            // Handle Error Here
+            console.error('error', err)
           }
         }
       }
