@@ -24,13 +24,6 @@
               <div class="col">
                 <h3 class="mb-0">Create a server</h3>
               </div>
-              <!-- <div class="col-md-auto">
-                <router-link to="/dashboard">
-                  <base-button type="primary" size="sm"
-                    >Return to dashboard</base-button
-                  >
-                </router-link>
-              </div> -->
             </div>
           </div>
 
