@@ -7,10 +7,10 @@
 
     <div class="container-fluid mt--7">
       <div v-if="isServers" class="mt-5 row justify-content-center">
-        <div class="col-xl-3 col-lg-4">
+        <div class="col-xl-6">
           <stats-card
             v-loading="isUserConsomationLoading"
-            title="Total uptime"
+            title="Monthly uptime"
             type="gradient-red"
             :sub-title="getTotalUptime.toFixed(2) + ' hours'"
             icon="ni ni-button-power"
@@ -19,7 +19,7 @@
           </stats-card>
         </div>
 
-        <div class="col-xl-3 col-lg-4">
+        <div class="col-6">
           <stats-card
             v-loading="isUserConsomationLoading"
             title="Monthly price"
