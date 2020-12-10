@@ -15,100 +15,147 @@
     </base-header>
 
     <div class="container-fluid mt--7">
-      <div class="row mb-3">
-        <div class="col">
+      <div class="row mb-3 justify-content-center">
+        <div class="col-8">
           <router-link to="/" style="color: white">
             <i class="ni ni-bold-left"></i>
             Dashboard
           </router-link>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
+      <div class="row justify-content-center">
+        <div class="col-8">
           <card shadow type="secondary">
             <div slot="header" class="bg-white border-0">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">My bills</h3>
+                  <h2 class="mb-0">My bills history</h2>
                 </div>
               </div>
-            </div>
 
-            <template>
-              <div>
-                <base-table
-                  v-if="bills.length > 0"
-                  class="table align-items-center table-flush"
-                  :class="type === 'dark' ? 'table-dark' : ''"
-                  :thead-classes="
-                    type === 'dark' ? 'thead-dark' : 'thead-light'
-                  "
-                  tbody-classes="list"
+              <template>
+                <el-table
                   :data="bills"
+                  empty-text="No bills"
+                  v-loading="isBillsLoading"
                 >
-                  <template slot="columns">
-                    <th>#</th>
-                    <th>Date</th>
-                    <th>Payed</th>
-                    <th>Amount</th>
-                    <th></th>
-                  </template>
-                  <template slot-scope="{ row }">
-                    <th scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <span class="name mb-0 text-sm">{{
-                            row.number
-                          }}</span>
-                        </div>
+                  <el-table-column
+                    prop="ID"
+                    label="#"
+                    width="40"
+                  ></el-table-column>
+                  <el-table-column label="Type">
+                    <template slot-scope="scope">
+                      <div>
+                        {{
+                          scope.row.product ===
+                          'minecraft first time subscription'
+                            ? 'Server creation'
+                            : 'Standard plan'
+                        }}
                       </div>
-                    </th>
-
-                    <td scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <span class="name mb-0 text-sm">{{ row.date }}</span>
-                        </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="From">
+                    <template slot-scope="scope">
+                      <div>
+                        {{
+                          new Date(
+                            scope.row.start_subscription_date,
+                          ).toDateString()
+                        }}
                       </div>
-                    </td>
-
-                    <td scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <span class="name mb-0 text-sm">{{
-                            row.payed === true ? '✅' : '❌'
-                          }}</span>
-                        </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="To">
+                    <template slot-scope="scope">
+                      <div>
+                        {{
+                          new Date(
+                            scope.row.end_subscription_date,
+                          ).toDateString()
+                        }}
                       </div>
-                    </td>
-
-                    <td scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <span class="name mb-0 text-sm"
-                            >{{ row.amount }}€</span
-                          >
-                        </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="Price">
+                    <template slot-scope="scope">
+                      <div>{{ scope.row.price / 100 }}€</div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column width="100" label="Actions">
+                    <template slot-scope="scope">
+                      <div>
+                        <base-button
+                          type="primary"
+                          outline
+                          size="sm"
+                          @click="openModal(scope.row)"
+                        >
+                          View
+                        </base-button>
                       </div>
-                    </td>
-
-                    <td>
-                      <base-button type="primary" size="sm"
-                        >Take a look !</base-button
-                      >
-                    </td>
-                  </template>
-                </base-table>
-
-                <div v-else class="text-center mt-3">
-                  <h4>No bills</h4>
-                </div>
-              </div>
-            </template>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </template>
+            </div>
           </card>
         </div>
       </div>
     </div>
+
+    <modal
+      :show.sync="billModal"
+      modal-classes="modal-dialog-centered"
+      v-if="selectedBillModal !== null"
+    >
+      <template slot="header">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="modal-title" id="exampleModalLabel">
+              Bill #{{ selectedBillModal.ID }}
+            </h2>
+          </div>
+        </div>
+      </template>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex">
+              <h4 class="mr-2">Subscription:</h4>
+
+              <span>
+                <span style="font-weight: bold">From</span>
+                {{
+                  new Date(
+                    selectedBillModal.start_subscription_date,
+                  ).toDateString()
+                }}
+                <span style="font-weight: bold">to</span>
+                {{
+                  new Date(
+                    selectedBillModal.end_subscription_date,
+                  ).toDateString()
+                }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex">
+              <h4 class="mr-2">Price:</h4>
+              <span style="font-weight: bold"
+                >{{ selectedBillModal.price / 100 }}€</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -127,37 +174,49 @@ export default {
   },
   data() {
     return {
-      bills: [
-        {
-          id: '1',
-          number: '123982',
-          date: '23/06/2020',
-          payed: true,
-          amount: 23,
-        },
-        {
-          id: '2',
-          number: '2938893',
-          date: '23/07/2020',
-          payed: true,
-          amount: 5.13,
-        },
-        {
-          id: '3',
-          number: '2233211',
-          date: '23/08/2020',
-          payed: true,
-          amount: 2,
-        },
-        {
-          id: '4',
-          number: '112987',
-          date: '23/09/2020',
-          payed: false,
-          amount: 100,
-        },
-      ],
+      bills: [],
+      currentPage: 1,
+      billModal: false,
+      selectedBillModal: null,
+      isBillsLoading: false,
     }
+  },
+  created() {
+    this.getBills()
+  },
+  methods: {
+    openModal(elem) {
+      this.billModal = true
+      this.selectedBillModal = elem
+    },
+    updateModal() {
+      this.billModal = false
+      this.selectedBillModal = null
+    },
+    getBills() {
+      this.isBillsLoading = true
+      this.$axios
+        .post(
+          '/user/getbills',
+          {},
+          {
+            headers: {
+              authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          },
+        )
+        .then((response) => {
+          this.bills = response.data.payments
+          this.isBillsLoading = false
+        })
+        .catch((e) => {
+          this.$notify({
+            type: 'danger',
+            title: 'An error occured while fetching the bills',
+          })
+          this.isBillsLoading = false
+        })
+    },
   },
 }
 </script>
