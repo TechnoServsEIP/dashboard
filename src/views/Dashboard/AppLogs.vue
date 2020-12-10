@@ -6,12 +6,8 @@
           v-if="serverInfos.length > 0"
           class="card shadow"
           style="width: 100%"
-          :class="type === 'dark' ? 'bg-default' : ''"
         >
-          <div
-            class="card-header"
-            :class="type === 'dark' ? 'bg-transparent' : ''"
-          >
+          <div class="card-header">
             <div class="row">
               <div class="col">
                 <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
@@ -21,10 +17,20 @@
             </div>
           </div>
 
-          <div class="card-body">
+          <div
+            class="d-flex py-4 align-items-center justify-content-center"
+            v-if="isLogsLoading"
+          >
+            <half-circle-spinner
+              :animation-duration="1000"
+              :size="50"
+              color="black"
+            />
+          </div>
+          <div v-else>
             <code>
-              <pre>
-                <div v-for="(log, index) in serverLogs" :key="index">{{ log }}</div>
+              <pre class="ts-pre" id="server-logs">
+                <div v-for="(log, index) in serverLogs" :key="index">{{log}}</div>
               </pre>
             </code>
           </div>
@@ -33,9 +39,15 @@
     </div>
   </div>
 </template>
+
 <script>
+import { HalfCircleSpinner } from 'epic-spinners'
+
 export default {
-  components: {},
+  name: 'Logs',
+  components: {
+    HalfCircleSpinner,
+  },
   data() {
     return {
       serverInfos: [],
@@ -43,7 +55,13 @@ export default {
       filterLogs: true,
       countLog: 0,
       type: '',
+      isLogsLoading: false,
+      commandInput: '',
     }
+  },
+  created() {
+    this.isLogsLoading = true
+    this.getServerInfos()
   },
   methods: {
     refreshServerLogs() {
@@ -115,6 +133,9 @@ export default {
 </script>
 
 <style lang="scss">
+.ts-pre {
+  max-height: 70vh;
+}
 code {
   pre {
     max-height: calc(100vh - 240px);

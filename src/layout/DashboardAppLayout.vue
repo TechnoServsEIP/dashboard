@@ -5,15 +5,8 @@
         <sidebar-item
           :link="{
             name: 'Overview',
-            icon: 'ni ni-tv-2 text-primary',
+            icon: 'ni ni-app text-primary',
             path: `/dashboard/${$route.params.id}/`,
-          }"
-        />
-        <sidebar-item
-          :link="{
-            name: 'Deployments',
-            icon: 'ni ni-chart-bar-32 text-primary',
-            path: `/dashboard/${$route.params.id}/logs`,
           }"
         />
         <sidebar-item
@@ -21,6 +14,20 @@
             name: 'Environment',
             icon: 'ni ni-tv-2 text-primary',
             path: `/dashboard/${$route.params.id}/environment`,
+          }"
+        />
+        <sidebar-item
+          :link="{
+            name: 'Commands',
+            icon: 'ni ni-laptop text-primary',
+            path: `/dashboard/${$route.params.id}/commands`,
+          }"
+        />
+        <sidebar-item
+          :link="{
+            name: 'Logs',
+            icon: 'ni ni-chart-bar-32 text-primary',
+            path: `/dashboard/${$route.params.id}/logs`,
           }"
         />
         <sidebar-item

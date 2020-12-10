@@ -20,6 +20,16 @@ const store = new Vuex.Store({
     setServerCreateInfo(state, obj) {
       state.serverCreateInfo = obj
     },
+    updateTokens(state, tokens) {
+      state.user.token = tokens.token
+      state.user.refresh_token = tokens.refresh_token
+      client._token = tokens.token
+    },
+  },
+  getters: {
+    getToken(state) {
+      return state.user.token
+    },
   },
   plugins: [createPersistedState()],
 })
