@@ -29,82 +29,16 @@
             <div slot="header" class="bg-white border-0">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">My bills</h3>
+                  <h2 class="mb-0">My bills</h2>
                 </div>
               </div>
+
+              <template>
+                <el-table :data="bills" empty-text="No bills">
+                  <el-table-column prop="ID" label="#"></el-table-column>
+                </el-table>
+              </template>
             </div>
-
-            <template>
-              <div>
-                <base-table
-                  v-if="bills.length > 0"
-                  class="table align-items-center table-flush"
-                  :class="type === 'dark' ? 'table-dark' : ''"
-                  :thead-classes="
-                    type === 'dark' ? 'thead-dark' : 'thead-light'
-                  "
-                  tbody-classes="list"
-                  :data="bills"
-                >
-                  <template slot="columns">
-                    <th>#</th>
-                    <th>Date</th>
-                    <th>Payed</th>
-                    <th>Amount</th>
-                    <th></th>
-                  </template>
-                  <template slot-scope="{ row }">
-                    <th scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <span class="name mb-0 text-sm">{{
-                            row.number
-                          }}</span>
-                        </div>
-                      </div>
-                    </th>
-
-                    <td scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <span class="name mb-0 text-sm">{{ row.date }}</span>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <span class="name mb-0 text-sm">{{
-                            row.payed === true ? '✅' : '❌'
-                          }}</span>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <span class="name mb-0 text-sm"
-                            >{{ row.amount }}€</span
-                          >
-                        </div>
-                      </div>
-                    </td>
-
-                    <td>
-                      <base-button type="primary" size="sm"
-                        >Take a look !</base-button
-                      >
-                    </td>
-                  </template>
-                </base-table>
-
-                <div v-else class="text-center mt-3">
-                  <h4>No bills</h4>
-                </div>
-              </div>
-            </template>
           </card>
         </div>
       </div>
@@ -127,37 +61,34 @@ export default {
   },
   data() {
     return {
-      bills: [
-        {
-          id: '1',
-          number: '123982',
-          date: '23/06/2020',
-          payed: true,
-          amount: 23,
-        },
-        {
-          id: '2',
-          number: '2938893',
-          date: '23/07/2020',
-          payed: true,
-          amount: 5.13,
-        },
-        {
-          id: '3',
-          number: '2233211',
-          date: '23/08/2020',
-          payed: true,
-          amount: 2,
-        },
-        {
-          id: '4',
-          number: '112987',
-          date: '23/09/2020',
-          payed: false,
-          amount: 100,
-        },
-      ],
+      bills: [],
     }
+  },
+  created() {
+    this.getBills()
+  },
+  methods: {
+    getBills() {
+      this.$axios
+        .post(
+          '/user/getbills',
+          {},
+          {
+            headers: {
+              authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          },
+        )
+        .then((response) => {
+          this.bills = response.data.payments
+        })
+        .catch((e) => {
+          this.$notify({
+            type: 'danger',
+            title: 'An error occured while fetching the bills',
+          })
+        })
+    },
   },
 }
 </script>
