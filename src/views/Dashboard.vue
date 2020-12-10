@@ -24,7 +24,7 @@
             v-loading="isUserConsomationLoading"
             title="Monthly price"
             type="gradient-red"
-            :sub-title="(getTotalUptime * 0.65).toFixed(2) + '€'"
+            :sub-title="(getTotalUptime * 0.0035).toFixed(2) + '€'"
             icon="ni ni-money-coins"
             class="mb-4 mb-xl-0"
           >
