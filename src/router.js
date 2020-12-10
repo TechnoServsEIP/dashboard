@@ -269,7 +269,6 @@ router.beforeEach(async (to, from, next) => {
           },
         },
       )
-      console.log('token refreshed', response.data)
       store.state.user.refresh_token = response.data.refresh_token
       store.state.client._token = response.data.access_token
       store.state.user.token = response.data.access_token
