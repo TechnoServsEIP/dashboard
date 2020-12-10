@@ -59,7 +59,9 @@
             <div class="media align-items-center">
               <div class="media-body">
                 <span class="name mb-0 text-sm">{{
-                  getOnlinePlayersFormatted(row.id_docker) || 'Loading...'
+                  row.statusType == 'success'
+                    ? getOnlinePlayersFormatted(row.id_docker) || 'Loading ...'
+                    : 'Server down'
                 }}</span>
               </div>
             </div>
@@ -136,11 +138,10 @@ export default {
         this.tableData = response.list
         for (var i = 0; i < this.tableData.length; i++) {
           this.getPlayersOnlinePerServer(this.tableData[i].id_docker)
-          if (this.tableData[i].server_status == 'Stopped') {
+          if (this.tableData[i].settings.State.Health.Status === 'unhealthy')
             this.tableData[i].statusType = 'danger'
-          } else if (this.tableData[i].server_status == 'Started') {
+          else if (this.tableData[i].settings.State.Health.Status === 'healthy')
             this.tableData[i].statusType = 'success'
-          }
         }
         this.$emit('change', response.list)
         this.isLoading = false
