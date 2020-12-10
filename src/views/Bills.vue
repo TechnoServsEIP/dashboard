@@ -29,12 +29,16 @@
             <div slot="header" class="bg-white border-0">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h2 class="mb-0">My bills</h2>
+                  <h2 class="mb-0">My bills history</h2>
                 </div>
               </div>
 
               <template>
-                <el-table :data="bills" empty-text="No bills">
+                <el-table
+                  :data="bills"
+                  empty-text="No bills"
+                  v-loading="isBillsLoading"
+                >
                   <el-table-column
                     prop="ID"
                     label="#"
@@ -144,9 +148,9 @@
           <div class="col-12">
             <div class="d-flex">
               <h4 class="mr-2">Price:</h4>
-              <span style="font-weight: bold">{{
-                selectedBillModal.price / 100
-              }}</span>
+              <span style="font-weight: bold"
+                >{{ selectedBillModal.price / 100 }}€</span
+              >
             </div>
           </div>
         </div>
@@ -174,6 +178,7 @@ export default {
       currentPage: 1,
       billModal: false,
       selectedBillModal: null,
+      isBillsLoading: false,
     }
   },
   created() {
@@ -189,6 +194,7 @@ export default {
       this.selectedBillModal = null
     },
     getBills() {
+      this.isBillsLoading = true
       this.$axios
         .post(
           '/user/getbills',
@@ -201,13 +207,14 @@ export default {
         )
         .then((response) => {
           this.bills = response.data.payments
-          console.log(this.bills)
+          this.isBillsLoading = false
         })
         .catch((e) => {
           this.$notify({
             type: 'danger',
             title: 'An error occured while fetching the bills',
           })
+          this.isBillsLoading = false
         })
     },
   },
