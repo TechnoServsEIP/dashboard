@@ -18,21 +18,14 @@
                   Logs
                 </h3>
               </div>
-              <div class="col-md-auto">
-                <base-button
-                  type="success"
-                  outline
-                  size="sm"
-                  @click.prevent="refreshServerLogs"
-                  >Refresh</base-button
-                >
-              </div>
             </div>
           </div>
 
           <div class="card-body">
-            <code class="ts-code">
-              <pre>{{ serverLogs }}</pre>
+            <code>
+              <pre>
+                <div v-for="(log, index) in serverLogs" :key="index">{{ log }}</div>
+              </pre>
             </code>
           </div>
         </div>
@@ -46,7 +39,7 @@ export default {
   data() {
     return {
       serverInfos: [],
-      serverLogs: null,
+      serverLogs: [],
       filterLogs: true,
       countLog: 0,
       type: '',
@@ -56,65 +49,50 @@ export default {
     refreshServerLogs() {
       this.getServerLogs()
     },
-    getServerLogs() {
-      this.$store.state.client.Docker.logs(
-        this.$store.state.user.ID.toString(),
-        this.serverInfos[0].id_docker,
-      )
-        .then((response) => {
-          let splited = null
-          var serverLogsArray = response.logs.split('\n')
-          var regex1 = /Downloading minecraft_server/,
-            regex2 = /Setting difficulty/,
-            regex3 = /Starting minecraft server/,
-            regex4 = /Preparing spawn area:/,
-            regex5 = /Time elapsed:/,
-            regex6 = /RCON running/
-          if (this.filterLogs == false) this.serverLogs = response.logs
-          else {
-            this.serverLogsArray.forEach((element) => {
-              console.log(element)
-            })
-            switch (serverLogsArray[i]) {
-              case regex1.test(serverLogsArray[i]):
-                this.serverLogs += 'Downloading the Minecraft Server.\n'
-                break
-              case regex2.test(serverLogsArray[i]):
-                this.serverLogs = 'Setting the difficulty.'
-                break
-              case regex3.test(serverLogsArray[i]):
-                splited = serverLogsArray[i].split(' ')
-                this.serverLogs +=
-                  'Starting the Server with ' +
-                  version[version.length - 1] +
-                  ' version.\n'
-                break
-              case regex4.test(serverLogsArray[i]):
-                splited = serverLogsArray[i].split(' ')
-                this.serverLogs +=
-                  'Generating the spawn area: ' +
-                  splited[version.length - 1] +
-                  '.\n'
-              case regex5.test(serverLogsArray[i]):
-                splited = serverLogsArray[i].split(' ')
-                this.serverLogs +=
-                  splited[version.length - 4] +
-                  ' ' +
-                  splited[version.length - 3] +
-                  ' ' +
-                  splited[version.length - 2] +
-                  ' ' +
-                  splited[version.length - 1] +
-                  '.\n'
-                break
-              case regex6.test(serverLogsArray[i]):
-                this.filterLogs = false
-                break
-            }
+    formatLogs(logs) {
+      const newLogs = []
+      const regexInit = new RegExp('\\[init')
+      const regexServerThread = new RegExp('\\[Server thread/INFO')
+
+      logs.split('\n').forEach((value) => {
+        const sliced = value.split(' ').slice(1)
+        const tmp = sliced.join(' ')
+        if (tmp.length > 0) {
+          if (
+            !regexInit.test(tmp) &&
+            !regexServerThread.test(tmp) &&
+            !new RegExp('\\[main/INFO').test(tmp) &&
+            !new RegExp('\\[main/WARN').test(tmp)
+          ) {
+            let timer = tmp.split(' ')[0]
+            let rest = tmp.split(' ').slice(2)
+            newLogs.push(`${timer}: ${rest.join(' ')}`)
           }
+        }
+      })
+      return newLogs
+    },
+    getServerLogs() {
+      this.$axios
+        .post(
+          '/docker/logs',
+          {
+            user_id: this.$store.state.user.ID.toString(),
+            container_id: this.serverInfos[0].id_docker,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          },
+        )
+        .then((response) => {
+          this.serverLogs = this.formatLogs(response.data.logs)
+          this.isLogsLoading = false
         })
         .catch((e) => {
           console.log(e)
+          this.isLogsLoading = false
         })
     },
     getServerInfos() {
@@ -139,6 +117,7 @@ export default {
 <style lang="scss">
 code {
   pre {
+    max-height: calc(100vh - 240px);
     background-color: #191e4e;
     padding: 2em;
     color: white;
