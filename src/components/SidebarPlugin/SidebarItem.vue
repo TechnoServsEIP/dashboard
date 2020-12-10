@@ -8,7 +8,7 @@
       :href="link.path"
     >
       <template>
-        <i :class="link.icon"></i>
+        <i :class="[link.icon, 'nav-link-icon-ts']"></i>
         <span class="nav-link-text">{{ link.name }}</span>
       </template>
     </router-link>
@@ -55,3 +55,15 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.nav-link-text {
+  font-size: 16px;
+}
+.nav-link-icon-ts {
+  width: 16px !important;
+}
+.nav-link i.ni {
+  top: 0;
+}
+</style>
