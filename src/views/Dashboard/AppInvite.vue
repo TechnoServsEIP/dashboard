@@ -1,65 +1,52 @@
 <template>
-  <div>
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-2"></div>
-      <div class="col m-auto">
-        <div
-          class="card shadow mr-2 ml-2"
-          style="width: 80%"
-          :class="type === 'dark' ? 'bg-default' : ''"
-        >
+      <div class="col-12">
+        <div class="d-flex justify-content-center">
           <div
-            class="card-header"
-            :class="type === 'dark' ? 'bg-transparent' : ''"
+            class="card shadow mr-2 ml-2"
+            style="width: 80%"
+            :class="type === 'dark' ? 'bg-default' : ''"
           >
-            <h3>Invite your friends to join this server !</h3>
-            <small>After entering an email, press the enter key</small>
-          </div>
-
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <el-input
-                  v-model="firstEmail"
-                  placeholder="Enter an email"
-                  @keyup.enter.native="addToListFirstEmail"
-                ></el-input>
-              </div>
-            </div>
-            <!-- <div
-              class="row mt-2"
-              v-for="elem in inviteCurrentList"
-              :key="elem.id"
+            <div
+              class="card-header"
+              :class="type === 'dark' ? 'bg-transparent' : ''"
             >
-              <div class="col">
-                <el-input
-                  v-model="elem.email"
-                  placeholder="Enter an email"
-                  @keyup.enter.native="addToCurrentList"
-                ></el-input>
+              <h3>Invite your friends to join this server !</h3>
+              <small>After entering an email, press the enter key</small>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <el-input
+                    v-model="firstEmail"
+                    placeholder="Enter an email"
+                    @keyup.enter.native="addToListFirstEmail"
+                  ></el-input>
+                </div>
               </div>
-            </div> -->
-            <div class="row">
-              <div class="col-12 mt-3 text-center">
-                <base-button
-                  type="success"
-                  :disabled="inviteList.length == 0 || submitLoading"
-                  @click.prevent="sendEmails()"
-                >
-                  <half-circle-spinner
-                    v-if="submitLoading"
-                    :animation-duration="1000"
-                    :size="20"
-                    color="white"
-                  />
-                  <strong v-else>Submit</strong>
-                </base-button>
+              <div class="row">
+                <div class="col-12 mt-3 text-center">
+                  <base-button
+                    type="success"
+                    :disabled="inviteList.length == 0 || submitLoading"
+                    @click.prevent="sendEmails()"
+                  >
+                    <half-circle-spinner
+                      v-if="submitLoading"
+                      :animation-duration="1000"
+                      :size="20"
+                      color="white"
+                    />
+                    <strong v-else>Submit</strong>
+                  </base-button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-2"></div>
     </div>
   </div>
 </template>
