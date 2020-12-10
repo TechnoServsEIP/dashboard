@@ -84,11 +84,11 @@ function chartOptions(Chart) {
       },
       doughnut: {
         cutoutPercentage: 83,
-        legendCallback: function (chart) {
+        legendCallback: function(chart) {
           let data = chart.data
           let content = ''
 
-          data.labels.forEach(function (label, index) {
+          data.labels.forEach(function(label, index) {
             let bgColor = data.datasets[0].backgroundColor[index]
 
             content += '<span class="chart-legend-item">'
@@ -123,7 +123,7 @@ function chartOptions(Chart) {
     ticks: {
       beginAtZero: true,
       padding: 10,
-      callback: function (value) {
+      callback: function(value) {
         if (!(value % 10)) {
           return value
         }
@@ -167,7 +167,7 @@ export let blueChartOptions = {
           zeroLineColor: Charts.colors.gray[700],
         },
         ticks: {
-          callback: function (value) {
+          callback: function(value) {
             if (!(value % 10)) {
               return '$' + value + 'k'
             }

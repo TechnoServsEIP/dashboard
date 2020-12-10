@@ -113,7 +113,7 @@ export default {
     },
   },
   watch: {
-    path: function (newVal, oldVal) {
+    path: function(newVal, oldVal) {
       this.init()
     },
   },

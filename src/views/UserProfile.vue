@@ -180,16 +180,16 @@ export default {
     newPassword: {
       required,
       minLength: minLength(8),
-      containsUppercase: function (value) {
+      containsUppercase: function(value) {
         return /[A-Z]/.test(value)
       },
-      containsLowercase: function (value) {
+      containsLowercase: function(value) {
         return /[a-z]/.test(value)
       },
-      containsNumber: function (value) {
+      containsNumber: function(value) {
         return /[0-9]/.test(value)
       },
-      containsSpecial: function (value) {
+      containsSpecial: function(value) {
         return /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/.test(value)
       },
     },

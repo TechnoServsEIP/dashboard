@@ -49,7 +49,7 @@
                   <el-input
                     v-if="
                       scope.row.DataType == 'string' &&
-                      scope.row.Choices.length === 0
+                        scope.row.Choices.length === 0
                     "
                     v-model="scope.row.Value"
                   ></el-input>

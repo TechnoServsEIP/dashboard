@@ -45,7 +45,7 @@ export default {
     this.$notifications.settings.overlap = this.overlap
   },
   watch: {
-    overlap: function (newVal) {
+    overlap: function(newVal) {
       this.$notifications.settings.overlap = newVal
     },
   },

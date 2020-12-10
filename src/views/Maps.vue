@@ -162,7 +162,7 @@ export default {
       content: contentString,
     })
 
-    google.maps.event.addListener(marker, 'click', function () {
+    google.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map, marker)
     })
   },

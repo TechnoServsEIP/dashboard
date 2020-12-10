@@ -288,7 +288,7 @@ export default {
         row.id_docker,
       )
         .then((response) => {
-          this.userServers = this.userServers.filter(function (el) {
+          this.userServers = this.userServers.filter(function(el) {
             return el.id_docker != row.id_docker
           })
           this.$notify({

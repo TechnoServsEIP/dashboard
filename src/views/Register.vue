@@ -48,11 +48,11 @@
             <div
               v-if="
                 password &&
-                (!$v.password.minLength ||
-                  !$v.password.containsUppercase ||
-                  !$v.password.containsLowercase ||
-                  !$v.password.containsNumber ||
-                  !$v.password.containsSpecial)
+                  (!$v.password.minLength ||
+                    !$v.password.containsUppercase ||
+                    !$v.password.containsLowercase ||
+                    !$v.password.containsNumber ||
+                    !$v.password.containsSpecial)
               "
               class="list-group-heading mb-8"
             >
@@ -134,9 +134,9 @@
               <base-button
                 :disabled="
                   $v.email.$invalid ||
-                  $v.password.$invalid ||
-                  this.email !== this.confEmail ||
-                  this.password !== this.confPassword
+                    $v.password.$invalid ||
+                    this.email !== this.confEmail ||
+                    this.password !== this.confPassword
                 "
                 style="width: 100%"
                 type="primary"
@@ -219,16 +219,16 @@ export default {
     password: {
       required,
       minLength: minLength(8),
-      containsUppercase: function (value) {
+      containsUppercase: function(value) {
         return /[A-Z]/.test(value)
       },
-      containsLowercase: function (value) {
+      containsLowercase: function(value) {
         return /[a-z]/.test(value)
       },
-      containsNumber: function (value) {
+      containsNumber: function(value) {
         return /[0-9]/.test(value)
       },
-      containsSpecial: function (value) {
+      containsSpecial: function(value) {
         return /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/.test(value)
       },
     },

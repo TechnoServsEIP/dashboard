@@ -311,7 +311,7 @@ export default {
         server.id_docker,
       )
         .then((response) => {
-          const newServers = this.servers.filter(function (el) {
+          const newServers = this.servers.filter(function(el) {
             return el.server.id_docker != server.id_docker
           })
           this.$emit('update-server', newServers)

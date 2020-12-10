@@ -1,5 +1,5 @@
 export default {
   data() {},
-  created: function () {},
+  created: function() {},
   methods: {},
 }
