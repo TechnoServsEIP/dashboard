@@ -52,7 +52,6 @@ export default {
     formatLogs(logs) {
       const newLogs = []
       const regexInit = new RegExp('\\[init')
-      const regexServerThread = new RegExp('\\[Server thread/INFO')
 
       logs.split('\n').forEach((value) => {
         const sliced = value.split(' ').slice(1)
@@ -60,13 +59,14 @@ export default {
         if (tmp.length > 0) {
           if (
             !regexInit.test(tmp) &&
-            !regexServerThread.test(tmp) &&
             !new RegExp('\\[main/INFO').test(tmp) &&
-            !new RegExp('\\[main/WARN').test(tmp)
+            !new RegExp('\\[main/WARN').test(tmp) &&
+            !new RegExp('\\[RCON Client').test(tmp) &&
+            !new RegExp('\\[Worker-Main-4/INFO').test(tmp)
           ) {
             let timer = tmp.split(' ')[0]
-            let rest = tmp.split(' ').slice(2)
-            newLogs.push(`${timer}: ${rest.join(' ')}`)
+            let rest = tmp.split(' ').slice(1)
+            newLogs.push(`${timer} ${rest.join(' ')}`)
           }
         }
       })
