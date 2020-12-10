@@ -33,19 +33,6 @@
                 <div v-for="(log, index) in serverLogs" :key="index">{{log}}</div>
               </pre>
             </code>
-            <div class="row mr-3 ml-1 mb-3">
-              <el-input
-                class="col-9"
-                v-model="commandInput"
-                @keyup.enter.native="sendCommand"
-              ></el-input>
-              <el-button
-                class="col-3"
-                type="primary"
-                @click.prevent="sendCommand"
-                >Send</el-button
-              >
-            </div>
           </div>
         </div>
       </div>
@@ -76,40 +63,7 @@ export default {
     this.isLogsLoading = true
     this.getServerInfos()
   },
-  created() {
-    this.isLogsLoading = true
-    this.getServerInfos()
-  },
   methods: {
-    sendCommand() {
-      var command = this.commandInput.replace(/\s+/g, '')
-      if (command.length > 0) {
-        this.$axios
-          .post(
-            '/Command',
-            {
-              user_id: this.$store.state.user.ID,
-              docker_id: this.serverInfos[0].id_docker,
-              command: command,
-            },
-            {
-              headers: {
-                authorization: `Bearer ${this.$store.state.user.token}`,
-              },
-            },
-          )
-          .then((response) => {
-            console.log(response.data.message)
-            this.commandInput = ''
-          })
-          .catch((e) => {
-            this.$notify({
-              type: 'danger',
-              title: `Wrong command`,
-            })
-          })
-      }
-    },
     refreshServerLogs() {
       this.getServerLogs()
     },

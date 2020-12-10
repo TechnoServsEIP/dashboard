@@ -64,6 +64,14 @@ const router = new Router({
           },
         },
         {
+          path: 'commands',
+          name: 'Commands',
+          component: () => import('./views/Dashboard/AppCommands.vue'),
+          meta: {
+            title: 'TechnoServs - Commands',
+          },
+        },
+        {
           path: 'environment',
           name: 'environment',
           component: () => import('./views/Dashboard/AppEnvironment.vue'),
