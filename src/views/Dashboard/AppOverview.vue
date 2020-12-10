@@ -95,7 +95,7 @@
       </div>
     </div>
     <div class="mt-4">
-      <card header-classes="bg-transparent" shadow>
+      <card v-loading="isDataLoading" header-classes="bg-transparent" shadow>
         <div slot="header" class="row align-items-center">
           <div class="col">
             <h6 class="text-uppercase text-muted ls-1 mb-1">Usage overview</h6>
@@ -103,11 +103,7 @@
           </div>
         </div>
 
-        <bar-chart
-          :height="350"
-          ref="barChart"
-          :chart-data="redBarChart.chartData"
-        >
+        <bar-chart :height="350" ref="barChart" :chart-data="chartData">
         </bar-chart>
       </card>
     </div>
@@ -127,47 +123,36 @@ export default {
       serverInfos: [],
       type: '',
       isBtnLoading: false,
-      redBarChart: {
-        chartData: {
-          labels: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sept',
-            'Oct',
-            'Nov',
-            'Dec',
-          ],
-          datasets: [
-            {
-              label: 'Uptime',
-              data: [
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-              ],
-            },
-          ],
-        },
-      },
+      isDataLoading: false,
+      chartData: {},
+      currentData: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
     }
   },
+  mounted() {
+    this.fillData(this.currentData)
+  },
   methods: {
+    fillData(data) {
+      this.chartData = {
+        labels: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sept',
+          'Oct',
+          'Nov',
+          'Dec',
+        ],
+        datasets: [{ label: 'Uptime', data: data }],
+      }
+    },
     initChartData() {
+      this.isDataLoading = true
       this.$axios
         .post(
           '/user/getactivitybyuser',
@@ -183,23 +168,22 @@ export default {
           let data = chartDataDockers.filter((v) => {
             return v.id_docker == this.serverInfos[0].id_docker
           })
-          data.map((o) => {
-            const difference =
-              (Date.parse(o.activity_time_stop) < 0
+          data.forEach((elem) => {
+            const diff =
+              (Date.parse(elem.activity_time_stop) < 0
                 ? Date.now()
-                : Date.parse(o.activity_time_stop)) -
-              Date.parse(o.activity_time_start)
+                : Date.parse(elem.activity_time_stop)) -
+              Date.parse(elem.activity_time_start)
 
-            let month = new Date(o.activity_time_start).getMonth()
-            var hours = (difference / (1000 * 60 * 60)).toFixed(2)
-            this.redBarChart.chartData.datasets[0].data[
-              month
-            ] = this.redBarChart.chartData.datasets[0].data[month] += Number(
-              hours,
-            )
+            let month = new Date(elem.activity_time_start).getMonth()
+            var hours = (diff / (1000 * 60 * 60)).toFixed(2)
+            this.currentData[month] += Number(hours)
+            this.fillData(this.currentData)
           })
+          this.isDataLoading = false
         })
         .catch((e) => {
+          this.isDataLoading = false
           this.$notify({
             type: 'danger',
             title: 'An error occured while getting usage information.',
