@@ -19,7 +19,7 @@
           </stats-card>
         </div>
 
-        <div class="col-6">
+        <div class="col-xl-6">
           <stats-card
             v-loading="isUserConsomationLoading"
             title="Monthly price"
