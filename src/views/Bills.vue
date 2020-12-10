@@ -15,16 +15,16 @@
     </base-header>
 
     <div class="container-fluid mt--7">
-      <div class="row mb-3">
-        <div class="col">
+      <div class="row mb-3 justify-content-center">
+        <div class="col-8">
           <router-link to="/" style="color: white">
             <i class="ni ni-bold-left"></i>
             Dashboard
           </router-link>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
+      <div class="row justify-content-center">
+        <div class="col-8">
           <card shadow type="secondary">
             <div slot="header" class="bg-white border-0">
               <div class="row align-items-center">
@@ -35,7 +35,64 @@
 
               <template>
                 <el-table :data="bills" empty-text="No bills">
-                  <el-table-column prop="ID" label="#"></el-table-column>
+                  <el-table-column
+                    prop="ID"
+                    label="#"
+                    width="40"
+                  ></el-table-column>
+                  <el-table-column label="Type">
+                    <template slot-scope="scope">
+                      <div>
+                        {{
+                          scope.row.product ===
+                          'minecraft first time subscription'
+                            ? 'Server creation'
+                            : 'Standard plan'
+                        }}
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="From">
+                    <template slot-scope="scope">
+                      <div>
+                        {{
+                          new Date(
+                            scope.row.start_subscription_date,
+                          ).toDateString()
+                        }}
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="To">
+                    <template slot-scope="scope">
+                      <div>
+                        {{
+                          new Date(
+                            scope.row.end_subscription_date,
+                          ).toDateString()
+                        }}
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="Price">
+                    <template slot-scope="scope">
+                      <div>{{ scope.row.price / 100 }}€</div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column width="100" label="Actions">
+                    <template slot-scope="scope">
+                      <div>
+                        <base-button
+                          type="primary"
+                          outline
+                          size="sm"
+                          @click="openModal(scope.row)"
+                        >
+                          View
+                        </base-button>
+                      </div>
+                    </template>
+                  </el-table-column>
                 </el-table>
               </template>
             </div>
@@ -43,6 +100,58 @@
         </div>
       </div>
     </div>
+
+    <modal
+      :show.sync="billModal"
+      modal-classes="modal-dialog-centered"
+      v-if="selectedBillModal !== null"
+    >
+      <template slot="header">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="modal-title" id="exampleModalLabel">
+              Bill #{{ selectedBillModal.ID }}
+            </h2>
+          </div>
+        </div>
+      </template>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex">
+              <h4 class="mr-2">Subscription:</h4>
+
+              <span>
+                <span style="font-weight: bold">From</span>
+                {{
+                  new Date(
+                    selectedBillModal.start_subscription_date,
+                  ).toDateString()
+                }}
+                <span style="font-weight: bold">to</span>
+                {{
+                  new Date(
+                    selectedBillModal.end_subscription_date,
+                  ).toDateString()
+                }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex">
+              <h4 class="mr-2">Price:</h4>
+              <span style="font-weight: bold">{{
+                selectedBillModal.price / 100
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -62,12 +171,23 @@ export default {
   data() {
     return {
       bills: [],
+      currentPage: 1,
+      billModal: false,
+      selectedBillModal: null,
     }
   },
   created() {
     this.getBills()
   },
   methods: {
+    openModal(elem) {
+      this.billModal = true
+      this.selectedBillModal = elem
+    },
+    updateModal() {
+      this.billModal = false
+      this.selectedBillModal = null
+    },
     getBills() {
       this.$axios
         .post(
@@ -81,6 +201,7 @@ export default {
         )
         .then((response) => {
           this.bills = response.data.payments
+          console.log(this.bills)
         })
         .catch((e) => {
           this.$notify({
