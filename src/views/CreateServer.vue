@@ -98,7 +98,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import offers from '../../offers-beta'
 
 const stripePromise = loadStripe(
-  'pk_live_51HT2XlJMhPRLHhSBiVsT2s16vcTEeTAMIXSzMlGElmUJ9NNJ3vxEv0GArjkdp5WUUxwvvvGYyJq2DfOmKl41yfUD00cgP2BVwN',
+  'pk_test_51HT2XlJMhPRLHhSBEPU2UITcS3hdbima1IEwq1SMqOB9ebJlpuF48kXHnozPzCf7jttmTBo7Te3lCsK42xJoI5gK00mZykg31c',
 )
 
 export default {
