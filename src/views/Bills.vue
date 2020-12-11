@@ -252,7 +252,6 @@ export default {
         .then((response) => {
           this.bills = response.data.payments
           this.chunkedBills = this.chunkArray(this.bills)
-          console.log(this.chunkedBills)
           this.isBillsLoading = false
         })
         .catch((e) => {
