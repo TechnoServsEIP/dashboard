@@ -148,7 +148,7 @@ export default {
           'Nov',
           'Dec',
         ],
-        datasets: [{ label: 'Uptime', data: data }],
+        datasets: [{ label: 'Uptime (h)', data: data }],
       }
     },
     initChartData() {

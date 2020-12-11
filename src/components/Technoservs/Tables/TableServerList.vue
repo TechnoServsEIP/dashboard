@@ -76,7 +76,12 @@
 
           <td class="text-right">
             <router-link :to="{ path: `/dashboard/${row.ID.toString()}` }">
-              <base-button type="dark" size="sm">Edit</base-button>
+              <base-button
+                :disabled="row.server_status === 'Down'"
+                type="dark"
+                size="sm"
+                >Edit</base-button
+              >
             </router-link>
           </td>
         </template>
