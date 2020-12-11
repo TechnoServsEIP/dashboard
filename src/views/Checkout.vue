@@ -18,6 +18,28 @@ export default {
     }
   },
   methods: {
+    insertBill() {
+      this.$axios
+        .post(
+          '/user/insertbill',
+          {
+            email: this.$store.state.user.email,
+            product: 'minecraft',
+            price: '100',
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          },
+        )
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
     createServer() {
       this.$store.state.client.Docker.create(
         this.$store.state.user.ID.toString(),
@@ -28,6 +50,7 @@ export default {
           this.$store.commit('setCreateServerInfo', null)
           console.log(response)
           this.$router.push({ path: '/dashboard' })
+          this.insertBill()
           this.$notify({
             type: 'success',
             title: `Server ${this.serverName} correctly created`,

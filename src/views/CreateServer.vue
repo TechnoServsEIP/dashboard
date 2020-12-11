@@ -167,6 +167,7 @@ export default {
               })
             }
           } catch (err) {
+            console.log('error', err)
             this.$notify({
               type: 'danger',
               title: `Something went wrong. Please try again later.`,
