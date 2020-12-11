@@ -73,17 +73,10 @@
               Sign in using Github
             </base-button>
           </div>
-          <div class="row mt-3">
-            <div class="col-6">
-              <router-link to="/reset-password">
-                <small>Forgot password?</small>
-              </router-link>
-            </div>
-            <div class="col-6 text-right">
-              <router-link to="/register">
-                <small>No account yet ?</small>
-              </router-link>
-            </div>
+          <div class="d-flex mt-2 justify-content-center">
+            <router-link to="/register">
+              <small>No account yet ?</small>
+            </router-link>
           </div>
         </div>
       </div>

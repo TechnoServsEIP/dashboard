@@ -1,55 +1,14 @@
 <template>
   <div class="main-content bg-gradient-custom-auth" style="min-height: 100vh">
-    <!-- Navbar -->
-    <!-- <base-nav
-      class="navbar-top navbar-horizontal navbar-dark"
-      containerClasses="px-4 container"
-      expand
-    > -->
-    <!-- <template v-slot="{closeMenu}"> -->
-    <!-- Collapse header -->
-    <!-- <div class="navbar-collapse-header d-md-none">
-          <div class="row">
-            <div class="col-6 collapse-brand">
-              <router-link to="/">
-                <img src="img/brand/green.png" />
-              </router-link>
-            </div>
-            <div class="col-6 collapse-close">
-              <button
-                type="button"
-                @click="closeMenu"
-                class="navbar-toggler"
-                aria-label="Toggle sidenav"
-              >
-                <span></span>
-                <span></span>
-              </button>
-            </div>
-          </div>
-        </div> -->
-    <!-- Navbar items -->
-    <!-- <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/register">
-              <i class="ni ni-circle-08"></i>
-              <span class="nav-link-inner--text">Register</span>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/login">
-              <i class="ni ni-key-25"></i>
-              <span class="nav-link-inner--text">Login</span>
-            </router-link>
-          </li>
-        </ul> -->
-    <!-- </template> -->
-    <!-- </base-nav> -->
-    <!-- Header -->
     <div class="container pt-4">
-      <base-alert v-if="serverDown" type="danger"
-        >The server is currently out of service. Please try later.</base-alert
-      >
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6">
+          <base-alert v-if="serverDown" type="danger"
+            >The server is currently out of service. Please try
+            later.</base-alert
+          >
+        </div>
+      </div>
     </div>
     <div class="header py-7 py-lg-7">
       <div class="container">
