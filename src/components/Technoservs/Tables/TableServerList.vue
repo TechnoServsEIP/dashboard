@@ -142,6 +142,10 @@ export default {
             this.tableData[i].statusType = 'danger'
           else if (this.tableData[i].settings.State.Health.Status === 'healthy')
             this.tableData[i].statusType = 'success'
+          else {
+            this.tableData[i].statusType = 'warning'
+            this.tableData[i].server_status = 'Down'
+          }
         }
         this.$emit('change', response.list)
         this.isLoading = false

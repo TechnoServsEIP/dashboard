@@ -35,7 +35,7 @@
 
               <template>
                 <el-table
-                  :data="bills"
+                  :data="chunkedBills[currentPage - 1]"
                   empty-text="No bills"
                   v-loading="isBillsLoading"
                 >
@@ -56,7 +56,7 @@
                       </div>
                     </template>
                   </el-table-column>
-                  <el-table-column label="From">
+                  <el-table-column label="Date">
                     <template slot-scope="scope">
                       <div>
                         {{
@@ -67,23 +67,22 @@
                       </div>
                     </template>
                   </el-table-column>
-                  <el-table-column label="To">
-                    <template slot-scope="scope">
-                      <div>
-                        {{
-                          new Date(
-                            scope.row.end_subscription_date,
-                          ).toDateString()
-                        }}
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="Price">
+                  <el-table-column label="Price" width="100">
                     <template slot-scope="scope">
                       <div>{{ scope.row.price / 100 }}€</div>
                     </template>
                   </el-table-column>
-                  <el-table-column width="100" label="Actions">
+
+                  <el-table-column width="100" label="Status">
+                    <template>
+                      <badge class="badge" type="success">
+                        <i></i>
+                        <span class="status">Payed</span>
+                      </badge>
+                    </template>
+                  </el-table-column>
+
+                  <el-table-column width="100">
                     <template slot-scope="scope">
                       <div>
                         <base-button
@@ -100,6 +99,18 @@
                 </el-table>
               </template>
             </div>
+            <div class="container-fluid" style="width: 100%">
+              <div class="row justify-content-center">
+                <el-pagination
+                  background
+                  layout="prev, pager, next"
+                  :current-page.sync="currentPage"
+                  hide-on-single-page
+                  :total="bills.length"
+                  :page-size="4"
+                ></el-pagination>
+              </div>
+            </div>
           </card>
         </div>
       </div>
@@ -110,30 +121,53 @@
       modal-classes="modal-dialog-centered"
       v-if="selectedBillModal !== null"
     >
-      <template slot="header">
+      <template slot="header" class="container">
         <div class="row">
           <div class="col-12">
-            <h2 class="modal-title" id="exampleModalLabel">
-              Bill #{{ selectedBillModal.ID }}
-            </h2>
+            <div class="d-flex justify-content-center">
+              <h2 class="modal-title mr-4" id="exampleModalLabel">
+                Bill reference #{{ selectedBillModal.ID }}
+              </h2>
+              <badge class="badge" type="success">
+                <i></i>
+                <span class="status">Payed</span>
+              </badge>
+            </div>
           </div>
         </div>
       </template>
 
-      <div class="container">
+      <div>
         <div class="row">
           <div class="col-12">
             <div class="d-flex">
-              <h4 class="mr-2">Subscription:</h4>
+              <h3 class="mr-2">Type:</h3>
+              <span>Server creation</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex">
+              <h3 class="mr-2">Start:</h3>
 
               <span>
-                <span style="font-weight: bold">From</span>
                 {{
                   new Date(
                     selectedBillModal.start_subscription_date,
                   ).toDateString()
                 }}
-                <span style="font-weight: bold">to</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex">
+              <h3 class="mr-2">End:</h3>
+
+              <span>
                 {{
                   new Date(
                     selectedBillModal.end_subscription_date,
@@ -147,7 +181,7 @@
         <div class="row">
           <div class="col-12">
             <div class="d-flex">
-              <h4 class="mr-2">Price:</h4>
+              <h3 class="mr-2">Price:</h3>
               <span style="font-weight: bold"
                 >{{ selectedBillModal.price / 100 }}€</span
               >
@@ -175,16 +209,26 @@ export default {
   data() {
     return {
       bills: [],
-      currentPage: 1,
+      currentPage: 0,
       billModal: false,
       selectedBillModal: null,
       isBillsLoading: false,
+      chunkedBills: [],
     }
   },
   created() {
     this.getBills()
   },
   methods: {
+    chunkArray(myArray) {
+      let chunked = []
+      let billsTmp = [...this.bills]
+
+      while (billsTmp.length > 0) {
+        chunked.push(billsTmp.splice(0, 4))
+      }
+      return chunked
+    },
     openModal(elem) {
       this.billModal = true
       this.selectedBillModal = elem
@@ -207,6 +251,8 @@ export default {
         )
         .then((response) => {
           this.bills = response.data.payments
+          this.chunkedBills = this.chunkArray(this.bills)
+          console.log(this.chunkedBills)
           this.isBillsLoading = false
         })
         .catch((e) => {
