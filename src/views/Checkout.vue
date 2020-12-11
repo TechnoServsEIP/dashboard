@@ -19,26 +19,19 @@ export default {
   },
   methods: {
     insertBill() {
-      this.$axios
-        .post(
-          '/user/insertbill',
-          {
-            email: this.$store.state.user.email,
-            product: 'minecraft',
-            price: '100',
+      this.$axios.post(
+        '/user/insertbill',
+        {
+          email: this.$store.state.user.email,
+          product: 'minecraft',
+          price: '100',
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.$store.state.user.token}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${this.$store.state.user.token}`,
-            },
-          },
-        )
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+        },
+      )
     },
     createServer() {
       this.$store.state.client.Docker.create(

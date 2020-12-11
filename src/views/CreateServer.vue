@@ -154,18 +154,19 @@ export default {
                 },
               },
             )
-            if (resp.data == '') throw 'Error'
-            const result = await stripe.redirectToCheckout({
-              sessionId: resp.data.id,
-            })
-            console.log(result)
-            if (result.error) {
-              this.$store.commit('setServerCreateInfo', null)
-            } else {
-              this.$store.commit('setServerCreateInfo', {
-                name: this.serverName,
-              })
-            }
+            console.log(resp.data)
+            // if (resp.data == '') throw 'Error'
+            // const result = await stripe.redirectToCheckout({
+            //   sessionId: resp.data.id,
+            // })
+            // console.log(result)
+            // if (result.error) {
+            //   this.$store.commit('setServerCreateInfo', null)
+            // } else {
+            //   this.$store.commit('setServerCreateInfo', {
+            //     name: this.serverName,
+            //   })
+            // }
           } catch (err) {
             console.log('error', err)
             this.$notify({
