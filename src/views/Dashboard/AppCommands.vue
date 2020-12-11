@@ -47,7 +47,6 @@
 | `save-all` | Forces the server to write all pending changes to the world to disk.	 | Always succeeds. |
 | `save-off` | Disables the server writing to the world files. All changes will temporarily be queued.	 | Always succeeds.|
 | `save-on` | Enables the server writing to the world files. This is the default behavior.	  | Always succeeds.|
-| `stop` | Gracefully shuts down the server.	 | Always succeeds.|
 | `whitelist <add | remove> <playername>` | Adds or removes playername from the whitelist.	 | Always succeeds.|
 | `whitelist list` | Displays all players in the whitelist. | Always succeeds.|
 | `whitelist <on | off>` | Enables/disables the server's use of a whitelist. Note: Server ops will alwaysbe able to connect when the whitelist is active, even if their names do not appear in the whitelist. | Always succeeds.|

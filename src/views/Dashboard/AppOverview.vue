@@ -69,27 +69,18 @@
             <strong>{{ serverInfos[0].server_name }}</strong>
           </div>
         </div>
-        <div class="row mb-3">
+        <div class="row">
           <div class="col-3">
             <span>IP:</span>
           </div>
           <div class="col-9" style="left: -17%">
             <strong
-              >x2021alsablue1371139462001.northeurope.cloudapp.azure.com</strong
+              >x2021alsablue1371139462001.northeurope.cloudapp.azure.com:{{
+                serverInfos[0].settings.HostConfig['PortBindings'][
+                  '25565/tcp'
+                ][0]['HostPort']
+              }}</strong
             >
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-3">
-            <span>Port:</span>
-          </div>
-          <div class="col-9" style="left: -17%">
-            <strong>{{
-              serverInfos[0].settings.HostConfig['PortBindings'][
-                '25565/tcp'
-              ][0]['HostPort']
-            }}</strong>
           </div>
         </div>
       </div>
