@@ -109,14 +109,6 @@ export default {
               this.servers.push(element)
             }
           }
-          // for (var i = 0; i < this.userServers.length; i++) {
-          //   console.log(this.userServers[i].server_status);
-          //   if (this.userServers[i].server_status == "Stopped") {
-          //     this.userServers[i].statusType = "danger";
-          //   } else if (this.userServers[i].server_status == "Started") {
-          //     this.userServers[i].statusType = "success";
-          //   }
-          // }
         })
         .catch((e) => {
           console.log(e._message)
@@ -125,11 +117,6 @@ export default {
 
     updateServer(event) {
       this.servers = event
-      // this.users.forEach(elem => {
-      //   if (elem.ID == event.id) {
-      //     elem.Verified = !event.verified;
-      //   }
-      // });
     },
 
     updateVerifiedUser(event) {

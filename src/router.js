@@ -135,6 +135,11 @@ const router = new Router({
           },
         },
         {
+          path: 'minecraft',
+          name: 'Minecraft',
+          component: () => import('./views/Admin/AdminMinecraft.vue'),
+        },
+        {
           path: 'user/:id/servers',
           name: 'User Servers',
           component: () => import('./views/Admin/User/AdminUserServers.vue'),

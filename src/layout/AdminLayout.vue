@@ -30,6 +30,13 @@
             path: '/admin/offers',
           }"
         />
+        <sidebar-item
+          :link="{
+            name: 'Minecaft',
+            icon: 'ni ni-controller text-primary',
+            path: '/admin/minecraft',
+          }"
+        />
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">

@@ -82,6 +82,7 @@
                     type="dark"
                     size="sm"
                     :disabled="checkEditActionLoader(row.server)"
+                    @click="selectedServer = row"
                   >
                     <half-circle-spinner
                       v-if="checkEditActionLoader(row.server)"
@@ -111,11 +112,12 @@
                   <el-dropdown-item @click.native="deleteServer(row.server)"
                     >Delete</el-dropdown-item
                   >
+
+                  <el-dropdown-item @click.native="maxPlayerModal = true"
+                    >Edit max players</el-dropdown-item
+                  >
                 </el-dropdown-menu>
               </el-dropdown>
-              <!-- <router-link :to="{ path: `/dashboard/${row.ID.toString()}` }">
-                  <base-button type="dark" size="sm">Edit</base-button>
-                </router-link>-->
             </td>
           </template>
         </base-table>
@@ -125,6 +127,22 @@
         </div>
       </div>
     </div>
+
+    <modal
+      :show.sync="maxPlayerModal"
+      v-if="maxPlayerModal"
+      modal-classes="modal-dialog-centered"
+    >
+      <template slot="header">
+        <h3 class="modal-title" id="exampleModalLabel">
+          Set max player for this server
+        </h3>
+      </template>
+      <div class="d-flex">
+        <el-input class="mr-2" type="number" v-model="maxPlayer" />
+        <el-button @click.native="saveMaxPlayer">Save</el-button>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -149,17 +167,50 @@ export default {
       searchInput: '',
       serversLocal: [],
       editActionLoading: [],
+      maxPlayerModal: false,
+      maxPlayer: '',
+      selectedServer: null,
     }
   },
 
   created() {
     this.serversLocal = this.servers
     this.initEditActionLoading()
-
     // Set all loading button of servers to false
   },
 
   methods: {
+    saveMaxPlayer() {
+      this.selectedServers = null
+      this.$axios
+        .post(
+          'docker/limitnumberplayers',
+          {
+            user_id: this.$store.state.user.ID.toString(),
+            limit_player: Number(this.maxPlayer),
+            container_id: this.selectedServer.server.id_docker,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          },
+        )
+        .then((response) => {
+          this.$notify({
+            type: 'success',
+            title: 'Max player correctly updated',
+          })
+          this.maxPlayerModal = false
+        })
+        .catch((e) => {
+          this.$notify({
+            type: 'danger',
+            title: 'Error while updating max player',
+          })
+          this.maxPlayerModal = false
+        })
+    },
     initEditActionLoading() {
       let element
 
@@ -311,7 +362,7 @@ export default {
         server.id_docker,
       )
         .then((response) => {
-          const newServers = this.servers.filter(function (el) {
+          const newServers = this.servers.filter((el) => {
             return el.server.id_docker != server.id_docker
           })
           this.$emit('update-server', newServers)
