@@ -17,6 +17,7 @@
           </router-link>
         </div>
       </div>
+
       <div class="row">
         <div class="card shadow" style="width: 100%">
           <div class="card-header border-0">
@@ -27,7 +28,7 @@
             </div>
           </div>
 
-          <div class="table-responsive m-4">
+          <div class="m-4">
             <div class="row mb-4">
               <div class="col-md-6">
                 <input
@@ -56,13 +57,59 @@
                 >
                   <el-option
                     v-for="item in offersOptions"
-                    :key="item.value"
+                    :key="item.value.uuid"
                     :label="item.label"
                     :value="item.value"
                   >
                   </el-option>
                 </el-select>
-                <!-- <strong>Plan:</strong> Standard - <strong>0€/month</strong> -->
+              </div>
+            </div>
+
+            <div
+              v-if="selectedOffer"
+              class="card card-pricing bg-default card-background mb-4"
+            >
+              <div class="card-body text-white">
+                <h4 class="card-category text-white text-uppercase">
+                  {{ selectedOffer.name }}
+                </h4>
+                <h1 class="card-title text-white">
+                  <small class="text-white">$</small>
+                  {{ selectedOffer.monthly_price }}
+                  <small class="text-white">per month</small>
+                  or
+                  <small class="text-white">$</small>
+                  {{ selectedOffer.hourly_price }}
+                  <small class="text-white">per hour</small>
+                </h1>
+                <ul>
+                  <li>
+                    <b>{{ selectedOffer.players_slots }}</b>
+                    Players slots
+                  </li>
+                  <li>
+                    <b>{{ selectedOffer.plugins_limit }}</b>
+                    plugins limit
+                  </li>
+                  <li>
+                    <b>{{ selectedOffer.ram_memory }}</b>
+                    Mo RAM
+                  </li>
+                  <li v-if="selectedOffer.automated_backups">
+                    <b>Automated backups</b>
+                  </li>
+                  <li v-if="selectedOffer.planned_tasks">
+                    <b>Planned tasks</b>
+                  </li>
+                  <li v-if="selectedOffer.custom_domain_address">
+                    <b>Custom Domain available</b>
+                  </li>
+                  <li v-if="selectedOffer.modded_servers_allowed">
+                    <b>Modded server allowed</b>
+                  </li>
+                </ul>
+                <b class="mt-3"> For more details, contact us </b>
               </div>
             </div>
 
@@ -111,6 +158,7 @@ export default {
       serverName: '',
       isLoading: false,
       offersOptions: [],
+      offersDetails: [],
       selectedOffer: null,
       isOffersLoading: false,
     }
@@ -126,8 +174,13 @@ export default {
   },
   methods: {
     getOffers() {
-      offers.Offers[0].offer_types.forEach((elem) => {
-        this.offersOptions.push({ value: 'minecraft', label: elem.name })
+      // Offers[0] => Minecraft
+      // offer_types[0] => Starter
+      offers.Offers[0].offer_types[0].models.forEach((elem) => {
+        this.offersOptions.push({
+          value: elem,
+          label: elem.name,
+        })
       })
     },
     async checkoutOrder() {
@@ -146,7 +199,8 @@ export default {
               '/payment/new',
               {
                 email: this.$store.state.user.email,
-                product: this.selectedOffer,
+                // TODO: changer en dynamique
+                product: 'minecraft',
               },
               {
                 headers: {
