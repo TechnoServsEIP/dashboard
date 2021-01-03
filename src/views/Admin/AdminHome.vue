@@ -42,10 +42,10 @@
           <span slot="title" class="nav-link-icon d-block"
             ><i class="ni ni-laptop"></i
           ></span>
-          <table-servers-list
+          <admin-table-servers-list
             :servers="getServers"
             @update-server="updateServer"
-          ></table-servers-list>
+          ></admin-table-servers-list>
         </tab-pane>
         <tab-pane>
           <span slot="title" class="nav-link-icon d-block"
@@ -66,7 +66,7 @@
 <script>
 import StatsCard from '@/components/StatsCard'
 import TableUsersList from '@/components/Table/TableUsersList'
-import TableServersList from '@/components/Table/TableServersList'
+import AdminTableServersList from '@/components/Table/AdminTableServersList'
 import { HalfCircleSpinner } from 'epic-spinners'
 
 export default {
@@ -74,7 +74,7 @@ export default {
   components: {
     StatsCard,
     TableUsersList,
-    TableServersList,
+    AdminTableServersList,
     HalfCircleSpinner,
   },
   data() {

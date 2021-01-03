@@ -1,6 +1,9 @@
 <template>
   <div>
+    <div v-if="isLoading">Loading...</div>
+
     <div
+      v-else
       class="card shadow"
       style="width: 100%"
       :class="type === 'dark' ? 'bg-default' : ''"
@@ -35,6 +38,7 @@
           <template slot="columns">
             <th>Server ID</th>
             <th>Server name</th>
+            <th>Users connected</th>
             <th>User email</th>
             <th>Server Status</th>
             <th></th>
@@ -53,6 +57,18 @@
                 <div class="media-body">
                   <span class="name mb-0 text-sm">{{
                     row.server.server_name
+                  }}</span>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <span class="name mb-0 text-sm">{{
+                    row.server.server_status == 'Started'
+                      ? getOnlinePlayersFormatted(row.server) || 'Loading ...'
+                      : 'Server stopped'
                   }}</span>
                 </div>
               </div>
@@ -139,7 +155,14 @@
         </h3>
       </template>
       <div class="d-flex">
-        <el-input class="mr-2" type="number" v-model="maxPlayer" />
+        <el-input-number
+          @change="handleIncreaseCounter"
+          :min="0"
+          :max="100"
+          class="mr-2"
+          type="number"
+          :value="maxPlayer || selectedServer.server.limit_players"
+        />
         <el-button @click.native="saveMaxPlayer">Save</el-button>
       </div>
     </modal>
@@ -150,7 +173,7 @@
 import { HalfCircleSpinner } from 'epic-spinners'
 
 export default {
-  name: 'TableServersList',
+  name: 'AdminTableServersList',
   props: {
     servers: Array,
     type: {
@@ -163,6 +186,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       selectedServers: {},
       searchInput: '',
       serversLocal: [],
@@ -170,24 +194,68 @@ export default {
       maxPlayerModal: false,
       maxPlayer: '',
       selectedServer: null,
+      connectedPlayers: [],
     }
   },
 
-  created() {
+  async created() {
+    this.isLoading = true
     this.serversLocal = this.servers
-    this.initEditActionLoading()
+    await this.initEditActionLoading()
+    this.isLoading = false
     // Set all loading button of servers to false
   },
 
   methods: {
+    getOnlinePlayersFormatted(server) {
+      if (this.connectedPlayers.length > 0) {
+        const players = this.connectedPlayers.filter((v) => {
+          return v.id == server.id_docker
+        })
+        if (players[0] !== undefined && players[0].info) {
+          if (players[0].info.connectedPlayers !== undefined) {
+            return `${players[0].info.connectedPlayers}/${server.limit_players}`
+          } else {
+            return 'Loading...'
+          }
+        }
+      }
+      return false
+    },
+
+    handleIncreaseCounter(value) {
+      this.maxPlayer = value
+    },
+
+    getPlayersOnlinePerServer(id) {
+      this.$axios
+        .post(
+          '/docker/playersonline',
+          {
+            user_id: this.$store.state.user.ID.toString(),
+            container_id: id,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          },
+        )
+        .then((response) => {
+          this.connectedPlayers.push({ id, info: response.data.playersOnline })
+        })
+        .catch((e) => {
+          console.error(e)
+        })
+    },
+
     saveMaxPlayer() {
-      this.selectedServers = null
       this.$axios
         .post(
           'docker/limitnumberplayers',
           {
             user_id: this.$store.state.user.ID.toString(),
-            limit_player: Number(this.maxPlayer),
+            limit_players: this.maxPlayer,
             container_id: this.selectedServer.server.id_docker,
           },
           {
@@ -202,16 +270,20 @@ export default {
             title: 'Max player correctly updated',
           })
           this.maxPlayerModal = false
+          this.selectedServer.server.limit_players = this.maxPlayer
+          this.maxPlayer = ''
         })
         .catch((e) => {
+          console.error(e)
           this.$notify({
             type: 'danger',
             title: 'Error while updating max player',
           })
           this.maxPlayerModal = false
+          this.maxPlayer = ''
         })
     },
-    initEditActionLoading() {
+    async initEditActionLoading() {
       let element
 
       for (let index = 0; index < this.servers.length; index++) {
@@ -219,6 +291,9 @@ export default {
           id: this.servers[index].server.ID,
           loading: false,
         })
+        await this.getPlayersOnlinePerServer(
+          this.servers[index].server.id_docker,
+        )
       }
     },
 
@@ -278,6 +353,7 @@ export default {
           console.log(e._message)
         })
     },
+
     stopServer(server) {
       this.setEditActionLoader(server, true)
       this.updateTypeServer('Stopping', server.id_docker)
@@ -321,6 +397,7 @@ export default {
       //     console.log(e._message);
       //   });
     },
+
     restartServer(server) {
       this.setEditActionLoader(server, true)
       this.updateTypeServer('Stopping', server.id_docker)
@@ -355,6 +432,7 @@ export default {
           })
         })
     },
+
     deleteServer(server) {
       console.log('Delete', server)
       this.$store.state.client.Docker.delete(
