@@ -41,7 +41,7 @@ export default {
               prioritized_support: false,
               sla: 99.95,
               monthly_price: 23.52,
-              hourly_price: 0.0035,
+              hourly_price: 0.035,
             },
           ],
         },
