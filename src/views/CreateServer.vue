@@ -75,13 +75,15 @@
                   {{ selectedOffer.name }}
                 </h4>
                 <h1 class="card-title text-white">
-                  <small class="text-white">$</small>
-                  {{ selectedOffer.monthly_price }}
-                  <small class="text-white">per month</small>
-                  or
-                  <small class="text-white">$</small>
                   {{ selectedOffer.hourly_price }}
-                  <small class="text-white">per hour</small>
+                  <small class="text-white">€ per hour</small>
+                  (
+                  <small class="text-white">either</small>
+                  {{ selectedOffer.monthly_price }}
+                  <small class="text-white">
+                    € per month when all time active
+                  </small>
+                  )
                 </h1>
                 <ul>
                   <li>
@@ -109,7 +111,10 @@
                     <b>Modded server allowed</b>
                   </li>
                 </ul>
-                <b class="mt-3"> For more details, contact us </b>
+                <b class="mt-3">
+                  For more details,
+                  <router-link to="/feedback">contact us </router-link>
+                </b>
               </div>
             </div>
 
