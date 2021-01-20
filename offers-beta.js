@@ -12,8 +12,8 @@ export default {
             {
               uuid: 1,
               name: 'Starter-2048',
-              players_slots: 10,
-              plugins_limit: 10,
+              players_slots: 20,
+              plugins_limit: 20,
               ram_memory: 2048,
               disk_space: {
                 current_disk_space: 0,
@@ -40,8 +40,8 @@ export default {
               planned_tasks: true,
               prioritized_support: false,
               sla: 99.95,
-              monthly_price: 1.99,
-              hourly_price: 0.0035,
+              monthly_price: 23.52,
+              hourly_price: 0.035,
             },
           ],
         },
