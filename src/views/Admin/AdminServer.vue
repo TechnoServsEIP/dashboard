@@ -11,32 +11,33 @@
       />
     </div>
     <div v-else class="mt-4">
-      <table-servers-list
+      <admin-table-servers-list
         :servers="getServers"
         @update-server="updateServer"
-      ></table-servers-list>
+      ></admin-table-servers-list>
     </div>
   </div>
 </template>
 
 <script>
-import TableServersList from '@/components/Table/TableServersList'
+import AdminTableServersList from '@/components/Table/AdminTableServersList'
 import { HalfCircleSpinner } from 'epic-spinners'
 
 export default {
   name: 'AdminServer',
   components: {
-    TableServersList,
+    AdminTableServersList,
     HalfCircleSpinner,
   },
   data() {
     return {
       servers: [],
       users: [],
-      isLoading: true,
+      isLoading: false,
     }
   },
   async created() {
+    this.isLoading = true
     await this.getServersFromApi()
     this.isLoading = false
   },
@@ -55,6 +56,7 @@ export default {
       //   }
       // });
     },
+
     getTotalServers() {
       this.$axios
         .get('/docker/total', {
